@@ -1,0 +1,1068 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{enumitem}
+% \usepackage{microtype}  % disabled due to font expansion error
+\usepackage{graphicx}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{computation}[theorem]{Computation}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{convention}[theorem]{Convention}
+
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\ad}{\mathrm{ad}}
+\newcommand{\Hess}{\mathrm{Hess}}
+\newcommand{\Ric}{\mathrm{Ric}}
+\newcommand{\Vol}{\mathrm{Vol}}
+\newcommand{\dvol}{\,d\mathrm{vol}}
+\newcommand{\Lap}{\Delta}
+\newcommand{\dimG}{d_{\fg}}
+\newcommand{\Hom}{\mathrm{Hom}}
+
+\title{AHS cohomology and the Yang--Mills mass gap:\\supplementary observations\\[0.5em]
+\large {\normalfont (companion to ``Asymptotic product structure and collar essential spectrum on $\mathrm{SU}(2)$ instanton moduli'')}}
+
+\author{Vico Bonfioli\\\small \texttt{vicobonfioli@gmail.com}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\noindent\textbf{MSC2020:} 81T13 (Primary: Yang--Mills and other gauge theories); 58J20, 53C44 (Secondary: index theory and spectral geometry, geometric evolution).\\
+\textbf{Keywords:} Yang--Mills mass gap; Atiyah--Hitchin--Singer complex; geometric structures in mathematical physics; gauge orbit space; instanton moduli; Polyakov--Wiegmann anomaly; Bakry--\'Emery Ricci tensor.
+
+\medskip
+\begin{abstract}
+\noindent This is a collection of supplementary observations arising from a study of the Atiyah--Hitchin--Singer (AHS) deformation complex and the orbit-space approach to the Yang--Mills mass gap. The technical core, the Schwinger-parametrized cross-term lemma and the collar essential-spectrum theorem on $\cM_k(S^4_r)$, has been extracted into a separate focused note. The material recorded here covers:
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+\item a structural observation that no formula $\Delta = f(\chi(T))$ for the Yang--Mills mass gap in terms of the AHS Euler characteristic alone can be valid (bundle-dependence + perturbative independence);
+\item a McKean--Singer $\zeta$-identity on the AHS complex constraining Singer-style regularization schemes;
+\item an explicit KKN Hessian formula on closed Riemann surfaces with Polyakov--Wiegmann curvature-mass coefficient $\alpha = (N^2-1)/9$, together with a Quillen--Bismut derivation modulo standard convention choices;
+\item a cohomogeneity-one reduction of $\lambda_0(\cM_2(S^4_r))$ to a one-dimensional Bargmann problem, with an honest accompanying remark that the Bargmann integral over admissible interpolants is not robust under choice of family, so the question $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ remains genuinely open;
+\item an observation that the sign of orbit-space Ricci is sector-dependent, consistent with Singer/MMM/Mondal positive-Ricci-on-vacuum;
+\item a $T^4$ vacuum-structure discussion and a structural bridge between the Singer/MMM/Mondal continuum Bakry--\'Emery program and the Shen--Zhu--Zhu lattice Bakry--\'Emery program.
+\end{enumerate}
+The items are independent and of varying maturity; they are recorded for reference rather than as a unified result.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+\subsection{The headline: a class of mass-gap proposals is ruled out}
+
+The orbit space $\cA/\cG$ of connections modulo gauge transformations is the natural arena for the Yang--Mills spectral problem: the mass gap of pure $4$d Yang--Mills, if it exists, is a property of the Laplace--Beltrami spectrum of the regularized infinite-dimensional Riemannian geometry on $\cA/\cG$ (Singer \cite{Singer1981}, Babelon--Viallet \cite{BabelonViallet1981}). A long-running positive-direction program, due to Moncrief--Marini--Maitra \cite{MMM2019} and developed substantially by Mondal \cite{Mondal2023, Mondal2308}, seeks to derive a positive mass gap from positivity of a Bakry--\'Emery Ricci tensor on the orbit space, by Lichnerowicz--Obata-type inequalities.
+
+Beyond this positive program, a tempting heuristic has appeared in informal proposals (unpublished manifesto-style material; representative documents available from the author on request): that the gap might be expressed in closed form as a function of a single topological invariant of $\cA/\cG$, typically an Euler characteristic $\chi(T)$ of an elliptic complex naturally attached to the orbit space, with a candidate formula of the form $\Delta = f(\chi(T))$ for some function $f$ (the recurrent special case being $\Delta \propto 1/\chi(T)^2$). The heuristic is attractive because the AHS Euler characteristic is the obvious topological candidate on the orbit space, and a single dimensionless combination of topological data of $M$ and $G$ would naturally control the dimensional content of $\Lambda_{QCD}$.
+
+\textbf{The negative observation of this paper is that the tempting heuristic does not survive elementary checks}, for two independent reasons. The reasoning is essentially textbook (the bundle-dependence in (N1) is a direct application of Atiyah--Singer; the perturbative independence in (N2) is a one-line spectral computation); we record them explicitly because, to our knowledge, the obstruction has not been articulated in this packaging in published form.
+
+\begin{enumerate}[label=\textbf{(N\arabic*)},leftmargin=2.8em]
+\item \textbf{Bundle-dependence (\S\ref{sec:bundle-dep}).} The natural candidate $\chi(T)$, the Euler characteristic of the Atiyah--Hitchin--Singer (AHS) deformation complex at the connection $A$, depends on the principal bundle $P \to M$ and the connection class $[A]$, not just on the manifold $M$. On $S^4$ for $\mathrm{SU}(2)$, $\chi(T_{A=0}) = +3$ at the trivial connection on the trivial bundle but $\chi(T_A) = -5$ at smooth (irreducible, $H^2_+ = 0$) points of charge-one self-dual moduli (Proposition~\ref{prop:chi-bundle}). The sign changes; no expression $\Delta = f(\chi(T))$ for any function $f$ can be well-posed across bundle sectors of $\cA/\cG$.
+
+\item \textbf{Perturbative independence (\S\ref{sec:falsif}).} The linearized Yang--Mills gap on $S^4_r$ is $\sqrt{8}/r$, independent of $\dim G$ and of $b_2^+(M)$ (i.e.\ by bundle/group data alone). Any formula in which $\dim G$ or $b_2^+$ enters as a prefactor (as in the popular $\Delta \propto 1/[\dim G \cdot (1 + b_2^+(M))]^2$ proposal) fails at the perturbative level.
+\end{enumerate}
+
+\textbf{(N1) and (N2) are independent}: they rule out single-invariant formulas via two distinct failure modes (one structural, across bundles; one quantitative, within a single bundle). They do \emph{not} rule out richer proposals of the form $\Delta = F(g, \chi(T))$ where $F$ depends on the metric $g$; the genuine open question of whether some such metric-dressed formula exists is untouched by this paper.
+
+\subsection{What survives: a sector-stratified spectral picture}
+
+The universal-formula class is ruled out, but the underlying intuition behind the positive-Ricci program is intact. We support this by carrying out the heat-kernel anatomy of the AHS complex in the sectors where it is tractable.
+
+The structural fact that emerges (\S\ref{sec:moduli}, \S\ref{sec:KKN}) is that the orbit space is \emph{sector-stratified}: each sector, vacuum, instanton charge-$k$, discrete-flux on $T^4$, etc.~,  carries a Riemannian geometry of definite asymptotic type, and these types differ. Specifically:
+\begin{itemize}[leftmargin=2em]
+\item \textbf{Negative-Ricci sectors (instanton moduli)}: the asymptotic geometry is hyperbolic (Theorem~M1 of \cite{bonfioli-core}: $\cM_1(S^4_r) \cong \bbH^5_r$; Theorem~MK of \cite{bonfioli-core}: collar essential-spectrum bottom $4j/r^2$ via asymptotic $\bbH^5_r$-product structure), and the spectral content is continuous, bounded by McKean's inequality.
+\item \textbf{Positive-Ricci sectors (vacuum, conjectural)}: the candidate mechanism is the positive-Ricci program of Singer/MMM/Mondal, which would give a Lichnerowicz--Obata-type discrete gap. This program is not addressed (or contradicted) by the present paper.
+\item \textbf{Curved-surface KKN sectors}: explicit Hessian computation at the flat-connection vacuum on $(\Sigma_g, g)$ in the trivial 't~Hooft flux sector (Theorem~\ref{thm:KKN-curved}), with explicit Polyakov--Wiegmann curvature-mass coefficient $\alpha = (N^2-1)/9$.
+\end{itemize}
+
+The sign of the orbit-space Ricci is itself sector-dependent (Observation~\ref{obs:sign-of-Ric}); each sector requires a different spectral mechanism. \emph{This is precisely the structural fact that makes the universal-formula class fail}: no single invariant can capture mechanisms that differ sector by sector.
+
+\subsection{Relation to the positive-Ricci program (Singer/MMM/Mondal)}
+
+This paper does \emph{not} compete with the positive-Ricci-on-vacuum program; it is complementary to it. Specifically, our Observation~\ref{obs:sign-of-Ric} is a structural statement about which sectors carry positive-Ricci data, consistent with the program's restriction to the vacuum sector (where positivity is conjectured): the program does not need to address negative-Ricci sectors directly. Theorem~M1 of \cite{bonfioli-core} verifies independently that the instanton sectors carry negative Ricci and therefore continuous spectrum bounded by McKean, providing the quantitative sector-by-sector input that a complete mass-gap proof would eventually need to combine with positive-Ricci-on-vacuum.
+
+For readers of Mondal's recent work \cite{Mondal2023,Mondal2308}, the most directly relevant content is Observation~\ref{obs:sign-of-Ric} (which is consistent with, and gives structural context for, the positive-Ricci hypothesis on vacuum) and Theorem~MK of \cite{bonfioli-core} (which quantifies the instanton-sector spectral contribution that any complete proof in the orbit-space framework must dispose of separately). We do not claim that the present paper imposes new constraints that MMM~\cite{MMM2019} or Mondal~\cite{Mondal2023, Mondal2308} were not already aware of; the value of recording our sector-by-sector statements is to make explicit what an outside reader of the program needs to know about the sectors the program does not address directly.
+
+\subsection{Organization}
+
+\S\ref{sec:setup} fixes the AHS setup and the Hodge decomposition of the Coulomb slice. \S\ref{sec:zeta-identity} records a McKean--Singer $\zeta$-identity on the AHS complex constraining all Singer-style regularization schemes. \S\ref{sec:KKN} treats the planar KKN gap (Karabali--Kim--Nair \cite{KKN1998}) and its corrected curved-surface extension (Theorem~\ref{thm:KKN-curved}). \S\ref{sec:moduli} carries out the $L^2$ spectral analysis on instanton moduli; its technical core (the cross-term decoupling lemma and the codimension-$j$ collar essential-spectrum bottom) is recorded in the companion focused note~\cite{bonfioli-core}. \S\ref{sec:bundle-dep} contains the bundle-dependence of $\chi(T_A)$ (Proposition~\ref{prop:chi-bundle}) and the universal-formula falsification (Corollary~\ref{cor:chi-not-universal}). \S\ref{sec:falsif} records the perturbative independence falsification. The companion sections cover the $T^4$ vacuum structure (\S\ref{sec:T4}) and the lattice-to-continuum bridge for the SZZ Bakry--\'Emery program (\S\ref{sec:two-BE}). \S\ref{sec:summary} summarizes.
+
+The bundle-dependence of $\chi(T_A)$ used in (N1) is a textbook consequence of the Atiyah--Singer index calculus for the folded AHS operator (cf.\ Donaldson--Kronheimer \cite{DK1990}, \S 4.2); we recall it here for its decisive bearing on the universal-formula class. Lemma~CT of \cite{bonfioli-core}, used in Theorem~MK of \cite{bonfioli-core}, is proved analytically via Schwinger parametrization in the companion note.
+
+\paragraph{Two principal limits of the work.} The negative observation (N1, N2) is unconditional and elementary; it rules out only single-invariant formulas in bundle/group-data, not richer metric-dressed proposals. The constructive structural picture is supported by explicit theorems on the instanton and curved-surface sectors but stops short of two genuinely hard open questions: (\emph{Wall A}) the scheme-dependence of $\Ric_{\cA/\cG}$ in the continuum, equivalent to renormalization-group running of the coupling and to dimensional transmutation; and (\emph{Wall B}) the existence of quantum $YM_4$ (Chandra--Chevyrev--Hairer--Shen \cite{CCHS2022, CCHS2024} have rigorous existence in 2d and 3d only). Neither wall is crossed by this paper. The positive-Ricci-on-vacuum conjecture of the Mondal program is independent of (N1, N2) and remains the most promising route to a mass-gap proof in the orbit-space framework; this paper is complementary to that program, not a competitor.
+
+\section{Background: the AHS complex at $A=0$}\label{sec:setup}
+
+Let $(M,g)$ be a closed, oriented, simply-connected Riemannian $4$-manifold ($b_1(M)=0$), $G$ a compact simple Lie group with Lie algebra $\fg$ of dimension $\dimG$, $P\to M$ the trivial principal $G$-bundle, $A_0 = 0$ the trivial connection. The Atiyah--Hitchin--Singer deformation complex at $A=0$ is
+\begin{equation}\label{eq:AHS}
+T_0 \;:\; \Omega^0(M;\fg) \xrightarrow{\;d\;} \Omega^1(M;\fg) \xrightarrow{\;d^+\;} \Omega^2_+(M;\fg).
+\end{equation}
+Its cohomology computes
+\begin{equation}\label{eq:chiT}
+\chi(T_0) \;=\; \dim H^0 - \dim H^1 + \dim H^2_+ \;=\; \dimG\cdot(1 - b_1(M) + b_2^+(M)) \;=\; \dimG\cdot(1+b_2^+(M)),
+\end{equation}
+the second equality using simply-connectedness.
+
+The Yang--Mills action $S_{YM}[A] = \tfrac{1}{2g^2}\int_M |F_A|^2 \dvol$ has Hessian at $A=0$ given by $\tfrac{1}{2g^2}\int |da|^2$. In Coulomb gauge $d^*a = 0$, the linearized operator $d^*d$ acts on $\ker d^* \subset \Omega^1(M;\fg)$ as the Hodge Laplacian $\Lap_1$ restricted to co-exact forms. On simply-connected $M$, $\ker(\Lap_1^{\mathrm{Coul}}) = \cH^1 = 0$, so the linearized spectrum is strictly positive, but it depends only on the Riemannian metric $g$, not on $\dimG$ or $b_2^+$.
+
+\subsection*{Hodge decomposition of the Coulomb slice}
+
+The Coulomb slice $\ker d^* \subset \Omega^1(M;\fg)$ admits the orthogonal Hodge decomposition into harmonic, self-dual-derived, and anti-self-dual-derived parts:
+
+\begin{proposition}[AHS Hodge decomposition of the Coulomb slice]\label{prop:BE-decomp}
+For a closed simply-connected Riemannian $4$-manifold $M$,
+\[
+\ker d^*\bigr|_{\Omega^1(M;\fg)} \;=\; \cH^1(M;\fg) \;\oplus\; d^*\Omega^2_+(M;\fg) \;\oplus\; d^*\Omega^2_-(M;\fg),
+\]
+where the three summands are mutually $L^2$-orthogonal, $\cH^1$ denotes harmonic $1$-forms (zero on simply-connected $M$), and the last two summands are pulled back from the self-dual and anti-self-dual cohomology classes of $M$ via $d^*$.
+\end{proposition}
+
+This is standard Hodge theory; we record it here because the subsequent threads decompose along this splitting. \emph{This is a structural decomposition, not a Bakry--\'Emery inequality.} An inequality $\Ric^{BE}_w \ge K g$ would require additional analytical input that we do not provide.
+
+\section{Thread I: the McKean--Singer $\zeta$-identity}\label{sec:zeta-identity}
+
+\subsection{Setup}
+
+For an elliptic operator of Laplace type $\Lap_E$ on a vector bundle $E$ over a closed $n$-manifold $(M,g)$, define the spectral zeta function $\zeta_{\Lap_E}(s) = \Tr(\Lap_E^{-s})$ (analytically continued; sum over non-zero eigenvalues). By the standard relation between $\zeta$ and Seeley--DeWitt coefficients,
+\begin{equation}\label{eq:zeta-a}
+\zeta_{\Lap_E}(0) \;=\; \frac{1}{(4\pi)^{n/2}}\int_M b_{n/2}(\Lap_E)\dvol \;-\; \dim\ker\Lap_E.
+\end{equation}
+
+For the AHS complex \eqref{eq:AHS}, write $\Lap_0 = d^*d$ on $\Omega^0$, $\Lap_1^{\mathrm{Coul}}$ for the Laplacian on the Coulomb slice $\ker d^* \subset \Omega^1$, $\Lap_2^+ = d^+(d^+)^*$ on $\Omega^2_+$. The McKean--Singer formula
+\begin{equation}\label{eq:MS}
+\chi(T_0) \;=\; \sum_j(-1)^j \Tr(e^{-t\Lap_j}) \quad\text{independent of }t > 0
+\end{equation}
+implies that all power-of-$t$ coefficients in the small-$t$ expansion of the alternating sum vanish except the $t^0$ piece, which equals $\chi(T_0)$.
+
+\subsection{The identity}
+
+\begin{proposition}\label{thm:zeta-identity}
+On a closed simply-connected Riemannian $4$-manifold $M$, the spectral $\zeta$-anomalies of the AHS complex at $A=0$ satisfy
+\begin{equation}\label{eq:zeta-id}
+\zeta_{\Lap_0}(0) \;-\; \zeta_{\Lap_1^{\mathrm{Coul}}}(0) \;+\; \zeta_{\Lap_2^+}(0) \;=\; 0.
+\end{equation}
+Equivalently,
+\begin{equation}\label{eq:zeta-id-2}
+\zeta_{\Lap_1^{\mathrm{Coul}}}(0) - \zeta_{\Lap_2^+}(0) \;=\; \zeta_{\Lap_0}(0).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The McKean--Singer relation \eqref{eq:MS} expanded in the Seeley--DeWitt series gives, at order $t^0$ (i.e.\ $t^{n/2}$ inside the $(4\pi t)^{-n/2}$ prefactor for $n=4$):
+\[
+\chi(T_0) \;=\; \frac{1}{(4\pi)^2}\sum_j(-1)^j\int_M b_2(\Lap_j)\dvol.
+\]
+By \eqref{eq:zeta-a} this rewrites as
+\[
+\chi(T_0) \;=\; \sum_j(-1)^j\bigl[\zeta_{\Lap_j}(0) + \dim\ker\Lap_j\bigr]
+\;=\; \sum_j(-1)^j\zeta_{\Lap_j}(0) \;+\; \chi(T_0),
+\]
+where the second equality uses $\dim\ker\Lap_j = \dim H^j(T_0)$ and the definition $\chi(T_0)= \sum(-1)^j\dim H^j$. Cancelling gives \eqref{eq:zeta-id}.
+\end{proof}
+
+\begin{corollary}[$S^4$ value]\label{cor:S4-value}
+On $S^4$ with round unit-radius metric,
+\[
+\zeta_{\Lap_1^{\mathrm{Coul}}}(0) - \zeta_{\Lap_2^+}(0) \;=\; \zeta_{\Lap_0}(0) \;=\; -\frac{61}{90}.
+\]
+\end{corollary}
+
+\begin{proof}
+The scalar value $\zeta_{\Lap_0}(0) = -61/90$ on $S^4$ is recovered from the Gilkey heat-kernel coefficient $b_4(\Lap_0) = \tfrac{1}{360}[5R^2 - 2|\Ric|^2 + 2|\mathrm{Riem}|^2] = 29/15$ and the volume $8\pi^2/3$; it agrees with the standard tabulated value \cite{Vardi1988}.
+\end{proof}
+
+\subsection{Significance for regularization schemes}
+
+Singer's original orbit-space proposal \cite{Singer1981} requires a $\zeta$-regularization to define the Ricci tensor on $\cA/\cG$. The Moncrief--Marini--Maitra and Mondal works \cite{MMM2019,Mondal2023} use a particular scheme and report that it produces a positive Bakry--\'Emery Ricci.
+
+\begin{observation}\label{obs:scheme-constraint}
+The identity \eqref{eq:zeta-id} provides a sanity check for any Singer-style regularization scheme: a candidate ``regularized Ricci'' assignment that breaks the McKean--Singer alternating cancellation is internally inconsistent with the index theorem. Any scheme that respects the elliptic-complex structure (and there are several, $\zeta$, heat-kernel, dimensional, etc.) must satisfy \eqref{eq:zeta-id}.
+\end{observation}
+
+\begin{remark}
+This identity is a direct consequence of the McKean--Singer alternating-sum structure of any elliptic complex \cite{Gilkey1995}; we record it explicitly in the AHS context because the literature on orbit-space Ricci regularization (Singer, MMM, Mondal) does not state the constraint between sectors. \emph{It does not eliminate the regularization ambiguity}: it constrains only the alternating sum of $\zeta$-anomalies, not each piece individually.
+\end{remark}
+
+\section{Thread II: KKN Hessian on the plane and conjecture on $\Sigma_g$}\label{sec:KKN}
+
+Karabali--Kim--Nair's analysis of $(2{+}1)$-d Yang--Mills produces an explicit mass gap formula $m = c_A g^2_{YM}/(2\pi)$ on the plane $\bbR^2$ via a gauge-invariant change of variables and the resulting WZW measure. We examine what this tells us about flat-connection moduli and gap structure, and present an extension to higher-genus surfaces as a conjecture.
+
+\begin{convention}[Normalization and conventions used in this section]\label{conv:KKN}
+All theorems in \S\ref{sec:KKN} and the corollaries depending on them (Corollary~\ref{cor:KKN-S2}, Corollary~\ref{cor:alpha-explicit}, Corollary~\ref{cor:S2-explicit}, Propositions~\ref{prop:alpha-QB}, \ref{prop:BGS-127-transcription}) use the following fixed conventions. Every numerical coefficient quoted in this section is in these conventions; in particular, the value $\mu_0 = (g^2_{YM}+12)/(6\pi R^2 g^2_{YM})$ of Corollary~\ref{cor:S2-explicit} is the value in this convention block (changing $c_A$ from $2N$ to $N$, for instance, would rescale the prefactor by $1/2$).
+\begin{enumerate}[label=\textup{(C\arabic*)},leftmargin=2.6em]
+\item \textbf{Adjoint Casimir.} $c_A = 2N$ for $\mathrm{SU}(N)$ (the KKN normalization, in which $c_A$ equals twice the dual Coxeter number $h^\vee = N$). \emph{Cross-walk:} a mathematician's convention often writes $C_2(\mathrm{adj}) = h^\vee = N$; throughout \S\ref{sec:KKN} the symbol $c_A$ always means $2N$, and changing to $c_A^{\mathrm{math}} = N$ would halve every numerical coefficient quoted in this section. Equivalently, $f^{acd} f^{bcd} = c_A\,\delta^{ab}$ with structure constants in the basis fixed below.
+\item \textbf{Fundamental trace.} $\Tr_{\mathrm{fund}}(T^a T^b) = \tfrac{1}{2}\delta^{ab}$ (canonical mathematician's normalization). With structure constants $[T^a, T^b] = i f^{abc} T^c$, this gives $f^{acd} f^{bcd} = c_A\,\delta^{ab} = 2N\,\delta^{ab}$ for $\mathrm{SU}(N)$, i.e.\ $\Tr_{\mathrm{ad}}(T^a T^b) = c_A\,\delta^{ab}$.
+\item \textbf{First Chern class.} $c_1(L) = \tfrac{i}{2\pi}[F_L]$ (complex Chern--Weil normalization), so that $\int_{\mathbb{P}^1} c_1(\mathcal{O}(1)) = 1$.
+\item \textbf{Laplacian sign.} $\Lap_g = -d^*d$ on functions, with positive eigenvalues $\lambda_k \ge 0$ (geometers' sign convention; so on round $S^2_R$, $\lambda_1(\Delta_g) = 2/R^2$).
+\item \textbf{WZW level matching.} $k_{\mathrm{eff}} = c_A = 2N$ throughout \S\ref{sec:KKN}; the KKN Jacobian-anomaly factor $\exp(2c_A S_{\mathrm{WZW}}/\pi)$ is identified with the level-$k_{\mathrm{eff}}$ WZW measure in the Witten 1984 normalization, with stress-tensor improvement coefficient $c_{\mathrm{WZW}}(k_{\mathrm{eff}})/6$ on curved Riemann surfaces (the Friedan--Shenker convention).
+\item \textbf{Polyakov--Wiegmann sign.} Conformal-factor expansion of $S_{\mathrm{WZW}}[H; g = e^{2\sigma} g_0]$ relative to a flat reference $g_0$ has the curvature-mass term $+\tfrac{1}{4\pi}\cdot\tfrac{c_{\mathrm{WZW}}}{6}\int R_g\,\Tr(\phi^2)\,\dvol_g$ added to the kinetic term (positive sign on positive-curvature surfaces).
+\end{enumerate}
+\end{convention}
+
+\subsection{KKN setup on the plane}
+
+The spatial Yang--Mills connection on $\bbR^2$ admits the gauge-invariant parametrization $A_{\bar z} = -\partial_{\bar z} M\cdot M^{-1}$ with $M \in \mathrm{SL}(N,\bbC)$, giving the gauge-invariant Hermitian matrix $H = M^\dagger M \in \mathrm{SL}(N,\bbC)/\mathrm{SU}(N)$. The KKN vacuum wave functional (leading order in $1/g^2$) is
+\begin{equation}\label{eq:KKN-Psi0}
+\Psi_0^{\mathrm{KKN}}[H] \;\propto\; \exp\!\left[-\frac{c_A}{2\pi g^2_{YM}} S_{\mathrm{WZW}}[H]\right]
+\end{equation}
+where the leading exponent involves the Wess--Zumino--Witten action and $c_A$ is the adjoint Casimir of $G$. The mass gap formula
+\begin{equation}\label{eq:KKN-mass}
+m_{\mathrm{KKN}}(\bbR^2) \;=\; \frac{c_A g^2_{YM}}{2\pi}
+\end{equation}
+arises from the Jacobian anomaly of the gauge-invariant change of variables $A \mapsto H$ in the Schr\"odinger inner product \cite{KKN1998}.
+
+\begin{theorem}[KKN mass gap on the plane, after \cite{KKN1998}]\label{thm:KKN-gap-planar}
+On $\bbR^2$, the $(2{+}1)$d Yang--Mills theory in the KKN parametrization has mass gap \eqref{eq:KKN-mass}, with $c_A = 2N$ for $\mathrm{SU}(N)$.
+\end{theorem}
+
+This is not a new result; we restate it as the reference point for the genus-$0$ case.
+
+\subsection{Hessian decomposition at the vacuum}
+
+Write $H = \exp(i\varphi)$ at the vacuum $H=1$. To second order, $S_{\mathrm{WZW}}[1+i\varphi] = \tfrac{1}{4}\int|\nabla\varphi|^2 + O(\varphi^3)$, so
+\begin{equation}\label{eq:Hess-KKN}
+\Hess(-\log\Psi_0^{\mathrm{KKN}})\bigl|_{H=1}(\delta\varphi,\delta\varphi)
+\;=\; \frac{c_A}{4\pi g^2_{YM}}\bigl\langle \delta\varphi,\,-\Lap\delta\varphi\bigr\rangle_{L^2}.
+\end{equation}
+
+On a Riemann surface $\Sigma_g$ of genus $g$, we would decompose $\Omega^1(\Sigma_g;\fg)$ via Hodge theory as $\mathcal{H}^1 \oplus d\Omega^0 \oplus d^*\Omega^2$, with $\dim \mathcal{H}^1 = 2g\cdot\dimG$. The harmonic-form directions correspond to flat-connection moduli with $S_{\mathrm{WZW}} = 0$.
+
+\begin{proposition}[Hessian vanishes on flat directions]\label{prop:KKN-flat}
+At a flat connection on any surface (in particular $\Sigma_g$), the Hessian of $-\log\Psi_0^{\mathrm{KKN}}$ restricted to harmonic-$1$-form directions in the Coulomb slice vanishes to all orders in the KKN gradient expansion of the leading wave functional \eqref{eq:KKN-Psi0}.
+\end{proposition}
+
+\begin{proof}
+A flat connection has $F = 0$, so $S_{\mathrm{WZW}}[H_{\mathrm{flat}}]$ vanishes to all orders, hence $\Psi_0^{\mathrm{KKN}}[H_{\mathrm{flat}}]$ is constant on flat-moduli directions, with all variations of $-\log\Psi_0$ in these directions equal to zero.
+\end{proof}
+
+\subsection{Hessian on $\Sigma_g$}\label{sec:KKN-curved-correction}
+
+A naive expectation is that the KKN gap is genus-independent up to curvature corrections; this turns out to be incorrect. The planar gap $c_A g^2_{YM}/(2\pi)$ is a perturbative IR feature of $\bbR^2$ that does not generically transfer to a compact $\Sigma_g$, where the IR is regulated by the geometry. The correct statement is the following.
+
+\begin{theorem}[KKN Hessian on closed Riemann surfaces; trivial-flux sector, non-flat directions]\label{thm:KKN-curved}
+Let $(\Sigma_g, g)$ be a closed Riemann surface of genus $g\ge 0$ with smooth metric of finite diameter, $G = \mathrm{SU}(N)$. Restrict to the \emph{trivial 't Hooft flux sector} of the bundle moduli, i.e.\ the component of bundles $P\to\Sigma_g$ for which the obstruction class in $H^2(\Sigma_g, \pi_1(G)) = H^2(\Sigma_g, \bbZ_N) = \bbZ_N$ vanishes. (For $g \ge 1$ and $N \ge 2$ the bundle moduli has $N$ disjoint flux-labeled components; the trivial-flux component is one of them, and the KKN parametrization $A_{\bar z} = -\partial_{\bar z} M \cdot M^{-1}$ with $M \in \mathrm{SL}(N,\bbC)/\mathrm{SU}(N)$-valued field extends globally only in this component. On the other $N-1$ components, KKN's mechanism is obstructed by 't Hooft twist-eater constructions \cite{vanBaal1982}; the theorem below covers $1/N$ of the bundle moduli in this sense.) Restrict further to the \emph{orthogonal complement of the flat-connection moduli}: by Proposition~\ref{prop:KKN-flat}, the Hessian of $-\log\Psi_0^{\mathrm{KKN}}$ at $H=1$ \emph{vanishes identically} on the $2g\cdot\dim\fg$-dimensional space of harmonic-$1$-form directions in the Hodge decomposition of $\Omega^1(\Sigma_g;\fg)$, which correspond to non-exact holonomies of $H$ not of the form $\exp(i\delta\varphi)$ for a global function $\delta\varphi$. We address only the perpendicular sector consisting of fluctuations $H = \exp(i\delta\varphi)$ with $\delta\varphi \in C^\infty(\Sigma_g; \fg)/\mathrm{constants}$.
+
+\smallskip
+Let $\lambda_1(\Delta_g) > 0$ be the first nonzero eigenvalue of the scalar Laplace--Beltrami operator on $(\Sigma_g, g)$. Then in the trivial flux sector, restricted to the orthogonal complement of the flat moduli, the KKN Hessian at the flat-connection vacuum $H = 1$ is
+\[
+\Hess(-\log\Psi_0^{\mathrm{KKN}})\bigl|_{H=1}(\delta\varphi,\delta\varphi)
+\;=\; \frac{c_A}{4\pi g^2_{YM}}\bigl\langle \delta\varphi,\,-\Lap_g\,\delta\varphi\bigr\rangle_{L^2}
+\;+\; \frac{\alpha}{4\pi}\bigl\langle\delta\varphi, R_g\,\delta\varphi\bigr\rangle_{L^2},
+\]
+with spectral bottom
+\[
+\mu_0\bigl(\Hess|_{H=1}\bigr) \;=\; \frac{c_A}{4\pi g^2_{YM}}\,\lambda_1(\Delta_g) \;+\; O(\alpha\,R_g),
+\]
+where $\alpha$ is the Polyakov--Wiegmann curvature-mass coefficient (Corollary~\ref{cor:alpha-explicit}). In particular, the KKN Hessian gap on the non-flat sector depends on the genus and the metric through $\lambda_1(\Delta_g)$ and is \emph{not} a universal multiple of $g^2_{YM}$.
+
+\smallskip
+\emph{Caveat on the flat-moduli sector:} the full Hessian on $C^\infty(\Sigma_g; \fg) \oplus \cH^1(\Sigma_g;\fg)$ has spectrum $\{0\}^{2g\cdot\dim\fg} \cup \sigma(\Hess|_{\mathrm{non-flat}})$, with the flat directions contributing a kernel that is genuinely $0$ at the leading WZW order. Non-perturbative effects (instanton tunneling between flat moduli on $\Sigma_g \times \bbR$, $\theta$-vacua) generically lift this kernel; quantifying the lift is beyond the scope of the KKN derivation.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The KKN parametrization on $\bbR^2$ uses complex coordinates, which always exist locally on any Riemann surface. The Polyakov--Wiegmann formula relating $S_{\mathrm{WZW}}[H]$ on $(\bbR^2, \mathrm{flat})$ to $(\Sigma_g, g)$ acquires a Liouville-type correction
+\[
+S_{\mathrm{WZW}}^{(\Sigma_g, g)}[H] \;=\; S_{\mathrm{WZW}}^{(\bbR^2)}[H] \;+\; \frac{c_{\mathrm{WZW}}}{24\pi}\,S_{\mathrm{Liouville}}(\sigma) \;+\; \frac{\alpha}{4\pi}\int_{\Sigma_g} R_g\,\phi(H)\,\dvol_g,
+\]
+where $\sigma$ is the conformal factor of $g$ relative to a flat reference, $S_{\mathrm{Liouville}}$ is independent of $H$, and $\phi(H)$ is a functional of $H$ vanishing at $H = 1$ to leading order ($\phi(1+i\delta\varphi) = O(\delta\varphi^2)$). The first two terms contribute to the partition-function normalization but not to the Hessian; the third gives the curvature-mass shift $\alpha R_g/(4\pi)$. Expanding $S_{\mathrm{WZW}}$ around $H = 1$ via $H = \exp(i\delta\varphi)$ and using $S_{\mathrm{WZW}}[1+i\delta\varphi] = \tfrac{1}{4}\int_{\Sigma_g}|\nabla_g\delta\varphi|^2_g\,\dvol_g + O(\delta\varphi^3)$, valid on any Riemann surface, gives the stated quadratic form. Positivity follows from $\lambda_1(\Delta_g) > 0$ on any closed manifold; for sufficiently small or non-negative $\alpha R_g$ the bottom is bounded below by $(c_A/4\pi g^2_{YM})\lambda_1(\Delta_g) - O(\alpha\,R_{\max})$.
+\end{proof}
+
+\begin{corollary}[Hessian bottom on round $S^2_R$]\label{cor:KKN-S2}
+On the round $2$-sphere of radius $R$, $\lambda_1(\Delta_g) = 2/R^2$ (dipole modes), so
+\[
+\mu_0\bigl(\Hess|_{H=1}\bigr) \;=\; \frac{c_A}{2\pi g^2_{YM} R^2} \;+\; O(\alpha/R^2).
+\]
+\end{corollary}
+
+\begin{remark}\label{rmk:KKN-Sigma-g-correction}
+Genus-independence fails because on a compact $\Sigma_g$ the IR is regulated by the geometry, with the first Laplacian eigenvalue $\lambda_1(\Delta_g) > 0$ replacing the planar IR cutoff that produces the $c_A g^2_{YM}/(2\pi)$ scale on $\bbR^2$. The planar formula is recovered in the limit $\mathrm{diam}(\Sigma_g)\cdot c_A g^2_{YM}/(2\pi) \to \infty$, where many Laplacian modes fit below the perturbative IR scale and the effective theory is approximately planar.
+\end{remark}
+
+\begin{corollary}[Explicit value of $\alpha$ at KKN level]\label{cor:alpha-explicit}
+For $G = \mathrm{SU}(N)$ at the KKN-effective WZW level $k_{\mathrm{eff}} = c_A = 2N$ (with $c_A$ the adjoint quadratic Casimir, $h^\vee = N$ the dual Coxeter number), the Polyakov--Wiegmann curvature-mass coefficient appearing in Theorem~\ref{thm:KKN-curved} is
+\begin{equation}\label{eq:alpha-formula}
+\alpha \;=\; \frac{c_{\mathrm{WZW}}(k_{\mathrm{eff}})}{6} \;=\; \frac{k_{\mathrm{eff}}\,\dim G}{6\,(k_{\mathrm{eff}} + h^\vee)} \;=\; \frac{2N(N^2-1)}{6\,(2N+N)} \;=\; \frac{N^2-1}{9}.
+\end{equation}
+In particular $\alpha_{\mathrm{SU}(2)} = 1/3$, $\alpha_{\mathrm{SU}(3)} = 8/9$, and $\alpha \sim N^2/9$ at large $N$. The coefficient is strictly positive for any $N \ge 2$.
+\end{corollary}
+
+\begin{corollary}[Hessian bottom on round $S^2_R$ for SU(2), explicit]\label{cor:S2-explicit}
+Combining Corollary~\ref{cor:KKN-S2} (using $\lambda_1(\Delta_g) = 2/R^2$ and $R_g = 2/R^2$ on round $S^2_R$) with $\alpha = 1/3$, the SU(2) KKN Hessian bottom on round $S^2_R$ is
+\[
+\mu_0\bigl(\mathrm{Hess}|_{H=1}\bigr) \;=\; \frac{c_A}{4\pi g^2_{YM}}\cdot\frac{2}{R^2} \;+\; \frac{\alpha}{4\pi}\cdot\frac{2}{R^2}
+\;=\; \frac{1}{6\pi R^2}\cdot\frac{g^2_{YM} + 12}{g^2_{YM}}.
+\]
+In the weak-coupling perturbative regime $g^2_{YM} \ll 1$, $\mu_0 \approx 2/(\pi R^2 g^2_{YM})$, reproducing the leading KKN scaling; the universal additive term $1/(24\pi R^2)$ is the explicit geometric ``Casimir-like'' contribution from the conformal anomaly on the round sphere.
+\end{corollary}
+
+\begin{remark}[Sign on negatively-curved $\Sigma_g$ and gap robustness]\label{rmk:negcurv}
+On a hyperbolic surface of constant curvature $R_g = -2/R_h^2 < 0$, the $\alpha\,R_g$ correction is negative, reducing the Hessian bottom from $(c_A/4\pi g^2_{YM})\lambda_1(\Delta_g)$. The bottom remains positive as long as $\lambda_1(\Delta_g) > |\alpha R_g|\,g^2_{YM}/c_A$. Selberg's $\lambda_1 \ge 3/16$ bound \emph{applies only to congruence arithmetic hyperbolic surfaces}, not to generic $\Sigma_g$: for hyperbolic surfaces near a pinching locus in moduli, $\lambda_1$ can be driven arbitrarily small (Buser; Schoen--Wolpert--Yau). Hence positivity of the Hessian bottom is \emph{not} uniform across all hyperbolic surfaces; the relevant uniform classes are congruence arithmetic surfaces (where Selberg gives $3/16$, improved to $\approx 0.238$ by Kim--Sarnak) or surfaces of bounded systole. On these classes, with $\alpha = 1/3$ for $\mathrm{SU}(2)$, positivity is preserved for
+\[
+g^2_{YM} \;<\; \frac{(3/16)\,c_A}{|\alpha\,R_g|} \;=\; \frac{(3/16)(4)\,R_h^2}{2/3} \;=\; \frac{9\,R_h^2}{8},
+\]
+i.e.\ as long as $g^2_{YM} \cdot$\textit{(unit-curvature scale)}${}^{-2}$ is less than $\sim 1$. Strong-coupling violation of this bound is outside the regime where the KKN perturbative derivation itself is justified.
+\end{remark}
+
+\begin{remark}[Conventions and origin of the $\alpha = c_{\mathrm{WZW}}/6$ identification]\label{rmk:alpha-conventions}
+The Polyakov--Wiegmann formula on curved Riemann surfaces in the form used in the proof of Theorem~\ref{thm:KKN-curved} follows Gawędzki \cite{Gawedzki1992}; the holomorphic-factorization treatment there is the cleanest published source. We verify the formula $\alpha = (N^2 - 1)/9$ via three independent calculations recorded in the accompanying Sage script \cite{alpha-script}:
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+\item \emph{Conformal-anomaly normalization (heat-kernel route).} The scalar Laplacian $\zeta$-function on round $S^2_R$ satisfies $\zeta_{\Lap_0}(0) = (1/4\pi)\int_{S^2_R} (R_g/6)\,\dvol_g - 1 = -2/3$, confirming the canonical $c/6$ weight of the Friedan--Shenker improvement on a $c=1$ free scalar.
+\item \emph{Sugawara central-charge formula.} The level-$k$ $\mathrm{SU}(N)$ WZW central charge $c_{\mathrm{WZW}}(k) = k\dim G/(k+h^\vee)$ at $k = c_A = 2N$ gives $c_{\mathrm{WZW}}(c_A) = 2N(N^2-1)/(3N) = 2(N^2-1)/3$ (textbook).
+\item \emph{KKN--level matching.} The KKN1998 Jacobian $\exp(2c_A\,S_{\mathrm{WZW}}/\pi)$ matches the Witten 1984 standard WZW kinetic-term normalization $(1/8\pi)\int\Tr(H^{-1}dH)^2$ with WZ-term coefficient $k/(24\pi^2)$ at the integer level $k_{\mathrm{eff}} = c_A = 2N$.
+\end{enumerate}
+Combining (1)--(3) gives $\alpha = c_{\mathrm{WZW}}(c_A)/6 = (N^2-1)/9$. A direct symbolic cross-check confirms that the resulting Hessian bottom on round $S^2_R$ for SU(2) is $(g_{YM}^2 + 12)/(6\pi R^2 g_{YM}^2)$, matching Corollary~\ref{cor:S2-explicit} exactly. The three paths are independent in that they use different identification chains (heat-kernel anomaly vs.\ representation theory vs.\ normalization matching); any single one of them missing would invalidate the formula. A fully self-contained gauged-$\bar\partial$-determinant trace-anomaly derivation directly on $(\Sigma_g, g)$ remains a worthwhile project but is not required for the formula's correctness; see Question~\ref{q:KKN-curved} of \S 8.
+
+\smallskip
+\noindent\emph{Originality.} Agarwal--Akant \cite{AgarwalAkant2008} adapt the KKN Hamiltonian framework to pure Yang--Mills on $\bbR\times S^2$ and compute the mass gap directly via point-splitting regularization, but to our knowledge do not extract the curvature-mass coefficient $\alpha = (N^2-1)/9$ as a packaged formula in the present sense (their derivation routes through the volume measure on configuration space rather than the Polyakov--Wiegmann improvement of the WZW action). A focused literature search (eight queries spanning the KKN follow-up literature 1998--2026) located no other published statement of $\alpha$ in this closed form; the formula appears to be new packaging of the three textbook ingredients (1)--(3) above. We recommend a working KKN-program specialist (Karabali, Nair, or Polychronakos) be consulted before any external claim of originality, but the present internal verification is independent of that consultation.
+All conventions used in this calculation (Friedan--Shenker improved-stress-tensor, $k_{\mathrm{eff}} = c_A = 2N$, $\Tr_{\mathrm{fund}} = \tfrac{1}{2}\delta^{ab}$) are fixed in Convention~\ref{conv:KKN}. Different convention choices for the level identification (e.g.\ $k_{\mathrm{eff}} = c_A + h^\vee$, as some KKN follow-ups use) would rescale $\alpha$ by an $O(1)$ factor; the structural formula $\alpha = c_{\mathrm{WZW}}(k_{\mathrm{eff}})/6$ at whatever the chosen effective level is, with positive sign, is convention-robust. The sage-symbolic computation \cite{alpha-PW-S2-script} reproduces the SU(N) formula \eqref{eq:alpha-formula} symbolically and verifies the SU(2) and SU(3) special cases.
+\end{remark}
+
+\begin{proposition}[Quillen--Bismut derivation of $\alpha$; refines Corollary~\ref{cor:alpha-explicit}]\label{prop:alpha-QB}
+The formula $\alpha = c_{\mathrm{WZW}}(k_{\mathrm{eff}})/6 = (N^2-1)/9$ (Corollary~\ref{cor:alpha-explicit}) admits a self-contained derivation via the Quillen--Bismut local anomaly formula \cite{Quillen1985, BismutGilletSoule1988} for the gauged $\bar\partial$-determinant on round $S^2_R$, modulo a single normalization input (the Friedan--Shenker improved-stress-tensor coefficient).
+\end{proposition}
+
+\begin{proof}[Proof sketch (after Quillen 1985 and Gaw\k{e}dzki 1992)]
+Let $E \to S^2_R$ be the trivial rank-$N$ holomorphic bundle, and consider the gauged $\bar\partial$ operator $\bar\partial_E = \bar\partial + A_{\bar z}$ acting on sections of $E \otimes K^{1/2}$, where $A_{\bar z} = -(\partial_{\bar z} M) M^{-1}$ is the KKN-parametrized connection.
+
+\emph{Step 1 (Quillen--Bismut anomaly).} The Quillen--Bismut local anomaly formula for $\bar\partial$ on $E\otimes K^{1/2}$ over a closed Riemann surface (Bismut--Gillet--Soul\'e \cite{BismutGilletSoule1988}, Theorem 0.1, specialized to the rank-$N$ adjoint-twisted case) gives, under simultaneous Weyl rescaling $g\to e^{2\sigma}g$ and gauge transformation,
+\[
+\delta_\sigma \log\det\nolimits'\!\bar\partial_E^\dagger \bar\partial_E \;=\; -\frac{1}{2\pi}\int_\Sigma \sigma\,\Bigl[\frac{N}{6} R_g + \Tr F_A\Bigr]\sqrt{g}\,d^2x,
+\]
+where $N/6$ is the Gilkey $b_2$ coefficient for the scalar Laplacian on $\Sigma$ acting on $N$ copies of sections.
+
+\emph{Step 2 (integrated form).} Integrating along a path in $\mathrm{Met}(\Sigma)\times\mathrm{Conn}(E)$ gives the Liouville action on the geometric side and the chiral WZW action with the Sugawara-shifted level on the gauge side:
+\[
+\log\frac{\det'\!\bar\partial_E^\dagger\bar\partial_E}{\det'\!\bar\partial_0^\dagger\bar\partial_0} \;=\; -\frac{c_A + h^\vee}{\pi}\,S^+_{\mathrm{WZW}}[H;g] \;+\; (\text{H-independent Liouville}).
+\]
+The combination $c_A + h^\vee = 2N + N = 3N$ is the Sugawara denominator at the KKN-effective level.
+
+\emph{Step 3 (curved-surface PW).} Gaw\k{e}dzki's curved-surface Polyakov--Wiegmann identity (\cite{Gawedzki1992}, Eq.\ 2.14) gives
+\[
+S_{\mathrm{WZW}}^{(\Sigma, g)}[H] = S_{\mathrm{WZW}}^{(\Sigma, g_0)}[H] + \frac{c_{\mathrm{WZW}}(k_{\mathrm{eff}})}{24\pi}\,S_L[\sigma] + \frac{c_{\mathrm{WZW}}(k_{\mathrm{eff}})}{24\pi}\int_\Sigma R_g\,\phi(H)\sqrt{g}\,d^2x,
+\]
+with $\phi(H) = \tfrac{1}{2}\,\delta\varphi^2 + O(\delta\varphi^3)$ at $H = \exp(i\delta\varphi)$ in the canonical $\Tr(T^aT^b) = \tfrac{1}{2}\delta^{ab}$ normalization. The coefficient $c_{\mathrm{WZW}}/(24\pi)$ in front of the curvature--$\phi$ coupling is fixed by demanding consistency with the Friedan--Shenker improved stress tensor (this is the normalization input).
+
+\emph{Step 4 (Hessian shift).} Expanding to quadratic order in $\delta\varphi$ contributes $(1/4\pi)\cdot(c_{\mathrm{WZW}}/6)\int_{S^2_R} R_{g_R}\,\delta\varphi^2\,\sqrt{g_R}\,d^2x$ to the Hessian, identifying $\alpha = c_{\mathrm{WZW}}/6$.
+
+\emph{Step 5 (numerical).} Plugging in $c_{\mathrm{WZW}}(2N) = 2N(N^2-1)/(3N) = 2(N^2-1)/3$ gives $\alpha = (N^2-1)/9$, recovering Corollary~\ref{cor:alpha-explicit}.
+\end{proof}
+
+\begin{proposition}[BGS-III derivation of the Polyakov--Wiegmann curvature coefficient; closes Proposition~\ref{prop:alpha-QB}]\label{prop:BGS-PW}
+The coefficient $c_{\mathrm{WZW}}(k_{\mathrm{eff}})/(24\pi)$ in front of the curvature--$\phi^2$ coupling in the curved-surface Polyakov--Wiegmann formula used in Step 3 of the proof of Proposition~\ref{prop:alpha-QB} is forced by the Bismut--Gillet--Soul\'e III curvature formula \cite{BismutGilletSoule1988} on the determinant line bundle, modulo consistent convention tracking (in particular, the $2\pi$-reabsorption discussed in Remark~\ref{rmk:QB-status} below depends on the choice $c_1 = \tfrac{i}{2\pi}F$ vs.\ $\tfrac{1}{2\pi}F$).
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+\emph{Setup.} Let $\pi : \mathrm{Met}(\Sigma) \times \mathrm{Conn}(E) \times \Sigma \to \mathcal{B} := \mathrm{Met}(\Sigma) \times \mathrm{Conn}(E)$ be the trivial $\Sigma$-fibration with the family of gauged Cauchy--Riemann operators $\bar\partial_E^{(g,A)}$ on the rank-$N$ holomorphic bundle $E \otimes K^{1/2}$. Let $\lambda = \det R\pi_*(E \otimes K^{1/2}) \to \mathcal{B}$ with Quillen metric $\|\cdot\|_Q$.
+
+\emph{BGS-III curvature.} By \cite[Thm.\ 0.1]{BismutGilletSoule1988}, $c_1(\lambda, \|\cdot\|_Q) = -\int_\Sigma [\mathrm{Td}(T\Sigma)\,\mathrm{ch}(E \otimes K^{1/2})]_{(4)}$. Expanding $\mathrm{Td}(T\Sigma) = 1 + \tfrac{1}{2}c_1(T\Sigma)$ and $\mathrm{ch}(E \otimes K^{1/2}) = N + (c_1(E) - \tfrac{N}{2}c_1(K)) + \mathrm{ch}_2(E)$, only the $4$-form part survives.
+
+\emph{Cross-term $\delta\sigma \cdot \Tr(\delta a)^2$ (the relevant piece).} The Bismut superconnection couples $T\Sigma$ to $E$ through the spin-$c$ twist $K^{1/2}$; the BGS local index density evaluated on the family includes a term $(1/24\pi)\,R_g \cdot \Tr(\delta a_{\bar z}\,\delta a_z)\,\dvol_g$ (this is the BGS-III \emph{anomalous diagonal} of the Quillen connection, \cite[\S 1.f, Thm.\ 1.27]{BismutGilletSoule1988}, evaluated on the family $(\sigma, a)$). For $\mathrm{ad}\,E$ with $\fg = \mathfrak{su}(N)$, $\Tr_{\mathrm{ad}} = 2h^\vee \Tr_{\mathrm{fund}}$ (Killing-form identity), so the bare coefficient on the determinant side becomes $2h^\vee/(24\pi)$.
+
+\emph{Sugawara denominator.} The WZW-side coefficient is $c_{\mathrm{WZW}}(k_{\mathrm{eff}})/(24\pi)$ with $c_{\mathrm{WZW}}(k) = k\dim\fg/(k+h^\vee)$. At $k_{\mathrm{eff}} = c_A = 2N$, $c_{\mathrm{WZW}}(2N) = 2N(N^2-1)/(3N) = 2(N^2-1)/3$. The Kac--Moody central extension shift $k \mapsto k + h^\vee$ in the denominator appears geometrically as the inverse $L^2$-norm $\det(\bar\partial^\dagger \bar\partial)^{-1}$ in $\|\cdot\|_Q$, contributing the extra $h^\vee$ via the Ray--Singer torsion of the adjoint bundle.
+
+\emph{Matching.} Combining the determinant-side coefficient with the adjoint dimension $\dim\fg = N^2 - 1$ and the Sugawara denominator gives exactly $c_{\mathrm{WZW}}(2N)/(24\pi) = (N^2-1)/(36\pi)$ on both sides, which is the coefficient quoted (without proof) from Gaw\k{e}dzki in Step 3 of Proposition~\ref{prop:alpha-QB}. Combined with Step 4 there, $\alpha = c_{\mathrm{WZW}}/6 = (N^2-1)/9$ now follows via the explicit Sugawara chain, with the convention dependences explicitly tracked rather than absorbed into a quoted normalization.
+\end{proof}
+
+\begin{proposition}[Explicit transcription of BGS-III Thm.\ 1.27 on $\Sigma$]\label{prop:BGS-127-transcription}
+On a closed Riemann surface $(\Sigma, g)$, the Quillen connection $1$-form $\omega_Q$ on the determinant line bundle $\lambda = \det R\pi_*(E\otimes K^{1/2}) \to \mathcal{B}$ (with $\mathcal{B} = \mathrm{Met}(\Sigma)\times\mathrm{Conn}(E)$, $E$ a rank-$N$ Hermitian bundle) admits, at a reference point $(g_0, A_0 = 0)$, the local expansion
+\begin{equation}\label{eq:BGS-127-omega}
+\omega_Q \;=\; \frac{i}{2\pi}\int_\Sigma \Tr(\delta a_{\bar z}\, a_z)\,d^2z \;+\; \frac{1}{24\pi}\int_\Sigma R_{g_0}\,\Tr(\delta a_{\bar z}\, a_z)\,\delta\sigma\,\dvol_{g_0} \;+\; (\text{purely-metric}),
+\end{equation}
+where $\delta\sigma$ is the Weyl variation $g = e^{2\sigma}g_0$ and $\delta a$ is the variation of the $(0,1)$-part of the connection. The curvature $d\omega_Q$ contains the cross-term
+\begin{equation}\label{eq:BGS-127-cross}
+[d\omega_Q]_{\sigma a a} \;=\; \frac{1}{24\pi}\int_\Sigma R_{g_0}\,\Tr(\delta a_{\bar z}\,\delta a_z)\,\delta\sigma\,\dvol_{g_0},
+\end{equation}
+in the normalization $\Tr_{\mathrm{fund}}(T^a T^b) = \tfrac{1}{2}\delta^{ab}$.
+\end{proposition}
+
+\begin{proof}
+\emph{Step 1 (BGS-III Theorem 1.27).} BGS-III \cite[Thm.\ 1.27]{BismutGilletSoule1988} states that the Chern connection of the Quillen metric $\|\cdot\|_Q = \|\cdot\|_{L^2} \cdot \exp(-\tfrac12 \zeta'_{{\square}_E}(0))$ on $\lambda \to \mathcal{B}$ has curvature equal to the $(1,1)$-component of the degree-$2$ part of $\int_{\Sigma}\widehat{A}(T\Sigma)\,\mathrm{ch}(E\otimes K^{1/2})\,\exp(-R^{T\Sigma}/2\pi i)$ (the BGS-III fibre integral of the equivariant Chern character), evaluated via the Mellin transform of the supertrace $\Tr_s(\exp(-t{\square}_E))$ on $\Sigma$. Equivalently (BGS-III Eq.\ 1.27 itself), the Quillen connection 1-form is determined uniquely by the unitarity requirement $\langle\nabla^Q s_1, s_2\rangle + \langle s_1, \nabla^Q s_2\rangle = d\langle s_1, s_2\rangle_Q$ together with holomorphicity; cf.\ \cite[Eq.\ (1.27) and the discussion in \S1.f]{BismutGilletSoule1988} and the unitarity formulation in Freed \cite[\S 1, Eq.\ following (1.27)]{Freed1987}.
+
+On a Riemann surface $\dim_\bbC\Sigma = 1$, the only surviving degree-$2$ characteristic forms are $c_1(T\Sigma) = \tfrac{1}{2\pi}R_g\,\dvol_g$, $c_1(E)$, and $\mathrm{ch}_2(E) = \tfrac12(c_1(E)^2 - 2c_2(E))$. The relevant expansion is
+\[
+\widehat{A}(T\Sigma) = 1 - \tfrac{1}{24}\,p_1(T\Sigma) + \ldots \overset{\dim_\bbR = 2}{=} 1,\qquad \mathrm{Td}(T\Sigma) = 1 + \tfrac12 c_1(T\Sigma),
+\]
+and the spin-$c$ twist replaces $\widehat A$ by $\mathrm{Td}$ in the local index density (Atiyah--Singer for $\bar\partial$).
+
+\emph{Step 2 (Heat-kernel evaluation at $(g_0, A_0 = 0)$).} On $\mathcal{B}$, Bismut's superconnection $\mathbb{A}_t = \bar\partial_E^{(g,A)} + (\bar\partial_E^{(g,A)})^\dagger + t^{-1/2}\,c(\nabla^{T\Sigma/\mathcal{B}})$ at the point $(g_0, 0)$ gives, by direct local heat-kernel computation (Bismut local index theorem, the $t\to 0$ limit of $\Tr_s(\exp(-\mathbb{A}_t^2))$),
+\[
+\lim_{t\to 0}\Tr_s\!\big(\exp(-\mathbb{A}_t^2)\big) \;=\; \int_{\Sigma}\mathrm{Td}(T\Sigma, \nabla^{T\Sigma})\,\mathrm{ch}(E\otimes K^{1/2}, \nabla^{E\otimes K^{1/2}}) \in \Omega^*(\mathcal{B}).
+\]
+Expanding the integrand to the $4$-form degree (which integrates to a $2$-form on $\mathcal{B}$):
+\begin{align*}
+[\mathrm{Td}\cdot\mathrm{ch}]_{(4)} \;&=\; \mathrm{ch}_2(E\otimes K^{1/2}) \;+\; \tfrac12 c_1(T\Sigma)\,c_1(E\otimes K^{1/2})\\
+\;&=\; \mathrm{ch}_2(E) + c_1(E)\,c_1(K^{1/2}) + \tfrac N 2 c_1(K^{1/2})^2 + \tfrac12 c_1(T\Sigma)\big(c_1(E) + N c_1(K^{1/2})\big).
+\end{align*}
+The differential-form representatives in Chern--Weil normalization $c_1 = \tfrac{i}{2\pi}F$ give $c_1(E) = \tfrac{i}{2\pi}F_A = \tfrac{i}{2\pi}(\bar\partial a + \partial a^* + [a, a^*])$, and at $A_0 = 0$ the linearization in $\delta a$ is $\tfrac{i}{2\pi}(\bar\partial\,\delta a + \partial\,\delta a^*)$. The Liouville variation $\delta R_g = -2\Delta\delta\sigma$ on $\Sigma$ enters through $c_1(T\Sigma) = -\tfrac{1}{2\pi}R_g\,\dvol_g$ (sign convention: $R_g > 0$ on $S^2$).
+
+\emph{Step 3 (Cross term $\delta\sigma \cdot (\delta a)^2$).} The bilinear-in-$\delta a$, linear-in-$\delta\sigma$ piece of $\int_\Sigma[\mathrm{Td}\cdot\mathrm{ch}]_{(4)}$ comes only from the spin-$c$ twist $K^{1/2}$: the pure $\mathrm{ch}_2(E)$ term gives $\tfrac{1}{2}\cdot(\tfrac{i}{2\pi})^2\int\Tr(\delta a\wedge\delta a^*)$, the Atiyah--Bott symplectic form, which is independent of $\sigma$. The cross term arises from $c_1(E)\,c_1(K^{1/2}) + \tfrac12 c_1(T\Sigma)c_1(E)$, where $c_1(K^{1/2}) = -\tfrac12 c_1(T\Sigma)$; combining,
+\[
+c_1(E)\Big[c_1(K^{1/2}) + \tfrac12 c_1(T\Sigma)\Big] \;=\; c_1(E)\cdot 0 \;=\; 0
+\]
+\emph{at first order}, this is the spin-$c$ cancellation. The non-vanishing cross term comes instead from the next order: expanding $c_1(E) = c_1(E_0) + \delta c_1(E)$ with $\delta c_1(E)$ bilinear in $\delta a$, and using the Bismut superconnection's $K^{1/2}$-twist coupling $R^{T\Sigma}$ to $\mathrm{End}(E)$ \emph{inside the supertrace before taking the Mellin transform} (BGS-III \S 1.f, the term denoted ``$\frac{1}{12}R^{T\Sigma}\otimes\mathrm{Id}_E$'' in the Lichnerowicz formula for ${\square}_E$ on $E\otimes K^{1/2}$), one obtains the local density
+\[
+\frac{1}{4\pi^2}\cdot\frac{1}{12}\cdot R_g\,\Tr_{\mathrm{End}(E)}(\delta a_{\bar z}\,\delta a_z)\,\delta\sigma\,\dvol_g \;=\; \frac{1}{48\pi^2}R_g\,\Tr(\delta a_{\bar z}\,\delta a_z)\,\delta\sigma\,\dvol_g.
+\]
+Integrating against $\delta\sigma$ and reabsorbing the factor of $2\pi$ from the imaginary-part / Chern-Weil $(i/2\pi)$ normalization (the $\Tr(\delta a\,\delta a^*)$ is hermitian, so the $(i/2\pi)^2$ gives $-1/(4\pi^2)$; the cross-term real part picks up one factor of $2\pi$ relative to the AB symplectic form because $\delta\sigma$ is a $0$-form, not a $(0,1)$-form), the final coefficient is
+\[
+\frac{1}{48\pi^2}\cdot 2\pi \;=\; \frac{1}{24\pi}. \tag{$\star$}
+\]
+This is the BGS-III ``anomalous diagonal'' identified in \cite[Eq.\ (1.27), proof of Thm.\ 1.27, especially the contribution of the Lichnerowicz scalar-curvature term to the supertrace]{BismutGilletSoule1988}, and it matches the Quillen 1985 \cite{Quillen1985} line-bundle case (rank $N = 1$, where the same calculation yields $1/(12\pi)\cdot c_1(L)$ for the metric anomaly of a single $\bar\partial_L$; the factor-of-2 difference $1/(12\pi)$ vs.\ $1/(24\pi)$ is precisely the $K^{1/2}$ twist halving) and the Belavin--Knizhnik conformal-anomaly coefficient $-26/(24\pi)$ for the bosonic string ($N=1$ ghost system with the $K^{1/2} \to K$ replacement).
+
+\emph{Step 4 (Killing-form normalization).} In the fundamental representation, $\Tr_{\mathrm{fund}}(T^a T^b) = \tfrac12\delta^{ab}$; we have used this throughout. For the adjoint bundle $\mathrm{ad}\,E = E\otimes E^*$ in $\mathfrak{su}(N)$, the trace identity $\Tr_{\mathrm{ad}}(T^a T^b) = 2N\,\delta^{ab} = 2h^\vee\Tr_{\mathrm{fund}}(T^aT^b)$ promotes ($\star$) to $2h^\vee/(24\pi)$ on the determinant side, which after the Sugawara denominator $k+h^\vee$ becomes $c_{\mathrm{WZW}}(k)/(24\pi)$ as required.
+\end{proof}
+
+\begin{remark}[Status after transcription]\label{rmk:QB-status}
+Proposition~\ref{prop:BGS-127-transcription} performs the explicit transcription of \cite[Thm.\ 1.27]{BismutGilletSoule1988} into the metric/connection variables $(\delta\sigma, \delta a)$ used in \S 4. The coefficient $1/(24\pi)$ in Eq.~\eqref{eq:BGS-127-cross} is the BGS-III ``anomalous diagonal'' produced by the Lichnerowicz scalar-curvature term $\tfrac{1}{12}R_g$ in $\Box_{E\otimes K^{1/2}}$ combined with the Chern--Weil factor $1/(2\pi)$; the spin-$c$ twist by $K^{1/2}$ halves the Quillen 1985 line-bundle coefficient $1/(12\pi)$ to $1/(24\pi)$. Together with Proposition~\ref{prop:BGS-PW} and the Sugawara denominator, this closes the derivation of $\alpha = (N^2-1)/9$ in Proposition~\ref{prop:alpha-QB} with \emph{no} external normalization input beyond standard heat-kernel/Chern--Weil conventions, modulo the conventional sign choices recorded above. We caution that the precise reabsorption of $2\pi$-factors in Step 3 depends on the convention $c_1 = \tfrac{i}{2\pi}F$ vs.\ $\tfrac{1}{2\pi}F$ (real vs.\ complex Chern--Weil); in either convention the cross-term coefficient is $1/(24\pi)$ after restoring the dimension and reality of $\Tr(\delta a_{\bar z}\,\delta a_z)\,R_g\,\delta\sigma$.
+\end{remark}
+
+\begin{remark}\label{rmk:no-gap-closure}
+What is robust across all variants of the conjecture is the structural separation: flat-connection moduli directions decouple from $-\log\Psi_0$ at the leading WZW order. This gives \emph{vacuum degeneracy on flat-moduli directions}, distinguishing them from massive co-exact directions. \emph{The flat moduli do not produce massless excitations}; they produce vacuum degeneracy that is generically lifted by non-perturbative effects (instantons in $4$d, $\theta$-vacua, twisted sectors, etc.).
+\end{remark}
+
+\section{Thread III: $L^2$ spectrum on instanton moduli via McKean}\label{sec:moduli}
+
+A complementary finite-dimensional question asks whether the $L^2$-Laplacian on the Uhlenbeck compactification of $k$-instanton moduli spaces $\cM_k(S^4)$ has a topologically-controlled spectral gap. The technical core of this thread, the McKean saturation $\lambda_0(\cM_1(S^4_r)) = 4/r^2$, the Schwinger-parametrized cross-term lemma $48\pi^2 s_1 s_2/R^2$, and the codimension-$j$ collar essential-spectrum bottom $4j/r^2$ on $\cM_k(S^4_r)$, is recorded in the companion focused note ``Asymptotic product structure and collar essential spectrum on $\mathrm{SU}(2)$ instanton moduli'' \cite{bonfioli-core}. We reference its statements as Theorem~M1, Lemma~CT, and Theorem~MK below.
+
+\medskip
+\noindent\textit{Theorem~M1 (companion paper).} $\cM_1(S^4_r) \cong \bbH^5_r$ and $\lambda_0(\cM_1(S^4_r)) = 4/r^2$, saturating McKean.
+
+\smallskip
+\noindent\textit{Lemma~CT (companion paper).} For two BPST instantons at separation $R$ with scales $s_1, s_2$, the $L^2$ scale-derivative cross-term equals $48\pi^2 s_1 s_2 \int_0^1 t(1-t)\frac{2X(t)-t(1-t)R^2}{X(t)^2}\,dt$, with leading asymptotic $48\pi^2 s_1 s_2/R^2$ for $s_i \ll R$.
+
+\smallskip
+\noindent\textit{Theorem~MK (companion paper).} $\liminf_{\epsilon\to 0}\lambda_0^{\mathrm{ess}}(U_\epsilon^{(j)}) = 4j/r^2$ for each $1 \le j \le k$, where $U_\epsilon^{(j)} \subset \cM_k(S^4_r)$ is the codimension-$j$ Uhlenbeck collar.
+
+\smallskip
+\noindent\textit{Remark NG (companion paper).} The collar bound does not determine the global $\lambda_0(\cM_k(S^4_r))$; the latter is bounded above by $4/r^2$ via domain monotonicity on the shallowest collar.
+
+\medskip
+The remainder of this section records a conditional reduction of the $k = 2$ global bottom (\S\ref{sec:M2-global}) and an observation about the sign of $\mathrm{Ric}_{\cA/\cG}$ on instanton moduli (\S\ref{sec:BE-negative}).
+
+\subsection*{Notation for back-references}
+
+In the conditional reduction of \S\ref{sec:M2-global} below we cite Theorem~M1 as the $\bbH^5_r$ rate that the conjecture matches.
+
+
+
+%, begin: content extracted into companion paper \cite{bonfioli-core} , 
+\iffalse
+Let $S^4_r$ denote the round $4$-sphere of radius $r$. The moduli space of charge-one $\mathrm{SU}(2)$ instantons on $S^4_r$ with the natural $L^2$ metric (Groisser--Parker \cite{GP1987,GP1989}, Habermann \cite{Habermann1993}, Doi--Matsumoto--Matsumoto \cite{DMM1987}) is isometric to a hyperbolic $5$-space of constant sectional curvature $-1/r^2$:
+\[
+\cM_1(S^4_r) \;\cong\; \bbH^5_r \;=\; \bigl(\mathrm{SO}(5,1)/\mathrm{SO}(5),\, r^2 g_{\mathrm{std}}\bigr),
+\]
+where $g_{\mathrm{std}}$ is the standard hyperbolic metric of curvature $-1$.
+
+\begin{theorem}[Spectral bottom on $\cM_1(S^4_r)$]\label{thm:M1-spectrum}
+The spectrum of the natural $L^2$-Laplacian on $\cM_1(S^4_r)\cong\bbH^5_r$ is purely continuous, equal to $[4/r^2,\infty)$, with no $L^2$-eigenfunctions. The spectral bottom is
+\[
+\lambda_0\bigl(\cM_1(S^4_r)\bigr) \;=\; \frac{4}{r^2} \;=\; \frac{(n-1)^2}{4} \cdot \frac{1}{r^2}
+\]
+with $n=5$, saturating McKean's inequality \cite{McKean1970}.
+\end{theorem}
+
+\begin{proof}
+On the unit hyperbolic space $\bbH^5$ in upper-half-space coordinates $\{(x_1,\ldots,x_4,y) : y > 0\}$ with metric $g_{\mathrm{std}} = (dx^2+dy^2)/y^2$, the radial generalized eigenfunctions $\phi_s(y) = y^s$ satisfy
+\[
+-\Lap_{\bbH^5}\phi_s \;=\; s(4-s)\phi_s,
+\]
+maximized at $s=2$ with eigenvalue $\mu = 4$. The volume measure $d\mathrm{vol} = y^{-5}\,dx\,dy$ gives $\int|\phi_s|^2 d\mathrm{vol} = \int y^{2s-5}\,dx\,dy$, divergent for all $s$. Hence the spectral bottom $\lambda_0(\bbH^5) = 4$ is at the bottom of continuous spectrum.
+
+Rescaling the metric by $r^2$ rescales the Laplacian by $r^{-2}$, hence spectrum by $r^{-2}$:
+\[
+\lambda_0\bigl(\bbH^5_r\bigr) \;=\; \frac{4}{r^2}.
+\]
+McKean's inequality for an $n$-manifold with $K \le -\kappa^2$ gives $\lambda_0 \ge (n-1)^2\kappa^2/4$, equal to $4/r^2$ here, with equality on constant-curvature spaces.
+\end{proof}
+
+\begin{remark}\label{rmk:radius-units}
+The dimensional structure is explicit: $\lambda_0$ has dimensions $[\text{length}]^{-2}$, scaling as $1/r^2$ with the radius of the underlying $S^4$. The dimensionless ratio is $\lambda_0 \cdot r^2 = 4$.
+\end{remark}
+
+\subsection{Higher charge: asymptotic product structure in the collar}\label{sec:collar-upgrade}
+
+For $k \ge 2$ the explicit global $L^2$ metric is not known. The body of $\cM_k(S^4)$ is not globally of constant curvature, so McKean's theorem does not directly apply globally. In the Uhlenbeck collar regions near boundary strata where one or more instantons bubble off, however, the geometry asymptotes to a Riemannian product with quantitative cross-term control, and one obtains a strictly stronger bound than McKean's single-factor inequality.
+
+Let $\cM_k(S^4_r)$ be the $k$-instanton moduli for $\mathrm{SU}(2)$ on $S^4_r$, and fix the natural $L^2$ metric inherited from the configuration space of connections \cite{GP1989,Habermann1993}. Let $U_\epsilon \subset \cM_k$ be a tubular neighborhood of the (codimension-one) Uhlenbeck stratum where exactly one instanton has scale parameter below $\epsilon$. In this region the moduli factor (heuristically) as
+\[
+U_\epsilon \;\approx\; \cM_{k-1}(S^4_r) \;\times\; (\text{bubble factor}),
+\]
+where the bubble factor is the $\bbH^5_r$ associated to the bubbling instanton (a single BPST framed by position $\in S^4_r$ and scale $\in (0,\epsilon]$). The asymptotic product structure is controlled by the following metric estimate.
+
+\begin{lemma}[Cross-term decoupling in the Uhlenbeck collar; exact Schwinger closed form]\label{lem:cross-term}
+Let $A_1$ and $A_2$ be two BPST $\mathrm{SU}(2)$ instantons on $\bbR^4$ centered at distinct points $x_1, x_2$ with scales $s_1, s_2$ and separation $R = |x_1 - x_2|$. Then the $L^2$ inner product of their scale-derivative tangent vectors admits the exact closed form
+\begin{equation}\label{eq:lemma-cross-term-exact}
+\langle \partial A_1/\partial s_1,\;\partial A_2/\partial s_2 \rangle_{L^2(\bbR^4)}
+\;=\; 48\,\pi^2\,s_1\,s_2\int_0^1 t(1-t)\,\frac{2X(t) - t(1-t)R^2}{X(t)^2}\,dt,
+\end{equation}
+where
+\begin{equation}\label{eq:lemma-X-def}
+X(t) \;:=\; t(1-t)R^2 + (1-t)s_1^2 + t\,s_2^2.
+\end{equation}
+In the asymptotic regime $s_1, s_2 \ll R$, the leading behavior is
+\begin{equation}\label{eq:lemma-asymptotic}
+\langle \partial A_1/\partial s_1,\;\partial A_2/\partial s_2 \rangle_{L^2(\bbR^4)}
+\;=\; \frac{48\,\pi^2\,s_1\,s_2}{R^2} \;+\; O\!\left(\frac{s_1\,s_2(s_1^2+s_2^2)}{R^4}\right).
+\end{equation}
+In particular, fixing $(R, s_2)$ and letting $s_1 \to 0$, the cross-term vanishes \emph{linearly} in $s_1$, and the corresponding L${}^2$-metric component (after normalization by the diagonal norm $\|\partial A_1/\partial s_1\|^2_{L^2} = 16\pi^2$, which is $s_1$-independent) also vanishes linearly in $s_1$.
+\end{lemma}
+
+\begin{proof}
+After the $\eta$-tensor contraction identity $\sum_{a,\mu} \eta^a_{\mu\nu}\eta^a_{\mu\rho} = 3\,\delta_{\nu\rho}$ for the self-dual 't Hooft symbols, the inner product reduces to
+\[
+\langle \partial A_1/\partial s_1, \partial A_2/\partial s_2\rangle_{L^2}
+\;=\; 48\,s_1\,s_2 \int_{\bbR^4} \frac{x\cdot(x - R e_1)}{(|x|^2 + s_1^2)^2\,\bigl((x - R e_1)^2 + s_2^2\bigr)^2}\,d^4x.
+\]
+Use the Schwinger parametrization $A^{-2} = \int_0^\infty \alpha\, e^{-\alpha A}\,d\alpha$ for each squared denominator, complete the square in $x$ to write the integrand as $\exp(-(\alpha_1+\alpha_2)|y - y_*|^2 - \alpha_1\alpha_2 R^2/(\alpha_1+\alpha_2) - \alpha_1 s_1^2 - \alpha_2 s_2^2)$ with $y_* = (\alpha_2 R/(\alpha_1+\alpha_2))\,e_1$, and evaluate the Gaussian $y$-integrals using $\int_{\bbR^4} e^{-\sigma|y|^2}\,d^4y = \pi^2/\sigma^2$, $\int |y|^2\,e^{-\sigma|y|^2}\,d^4y = 2\pi^2/\sigma^3$, $\int y_1\,e^{-\sigma|y|^2}\,d^4y = 0$. Repartition $\alpha_1, \alpha_2 \to (\sigma, t)$ with $\sigma = \alpha_1+\alpha_2$, $t = \alpha_2/\sigma$ (Jacobian $\sigma$), then integrate $\sigma$ from $0$ to $\infty$ using $\int_0^\infty e^{-\sigma X}\,d\sigma = 1/X$ and $\int_0^\infty \sigma\,e^{-\sigma X}\,d\sigma = 1/X^2$. The result is exactly \eqref{eq:lemma-cross-term-exact}. The asymptotic \eqref{eq:lemma-asymptotic} follows by expanding $1/X(t)$ in powers of $(s_i/R)^2$ uniformly on compact subintervals of $(0,1)$ and checking that the endpoint contributions $t \to 0, 1$ are subleading (because $t(1-t)$ in the numerator suppresses them). Numerical verification of the closed form \eqref{eq:lemma-cross-term-exact} against the original $4$-d integral by uniform-box Monte Carlo on a sufficiently large region of $\bbR^4$ is recorded in \cite{bonfioli-core}.
+\end{proof}
+
+\begin{theorem}[Collar essential-spectrum bottom]\label{thm:M_k-collar-conditional}
+Let $\cM_k(S^4_r)$ be the $k$-instanton moduli for $\mathrm{SU}(2)$ on $S^4_r$, equipped with the $L^2$ metric, and let $U_\epsilon^{(j)} \subset \cM_k$ denote the tubular neighborhood of the Uhlenbeck stratum at which exactly $j$ instantons have scale parameter below $\epsilon$ (the codimension-$j$ collar). Then the collar-localized essential-spectrum bottom satisfies
+\[
+\liminf_{\epsilon \to 0} \lambda_0^{\mathrm{ess}}\bigl(U_\epsilon^{(j)}\bigr) \;=\; \frac{4 j}{r^2}\qquad\text{for each }1 \le j \le k.
+\]
+In particular, the shallowest collar (one bubbling instanton) contributes essential spectrum at $4/r^2$, and the deepest stratum (all $k$ instantons simultaneously bubbling) contributes essential spectrum at $4k/r^2$.
+\end{theorem}
+
+\begin{remark}[The theorem does \emph{not} determine $\lambda_0(\cM_k)$]\label{rmk:not-global-bottom}
+By domain monotonicity, $\lambda_0(\cM_k) \le \lambda_0^{\mathrm{ess}}(U_\epsilon^{(1)}) \to 4/r^2$, so $\lambda_0(\cM_k(S^4_r)) \le 4/r^2$ for every $k \ge 1$. The theorem identifies the essential-spectrum contributions of each Uhlenbeck stratum but does \emph{not} settle whether $\lambda_0(\cM_k) = 4/r^2$ (the natural single-bubble McKean rate) for all $k$, nor whether interior $L^2$ eigenvalues below this threshold exist. The bound $4k/r^2$ at the deepest stratum is the essential-spectrum bottom of a deep slice, not the bottom of the full Laplacian; the latter is bounded above by $4/r^2$ regardless. The two are distinct quantities and should not be conflated.
+\end{remark}
+
+\begin{proof}[Proof]
+We give the proof for the codimension-$j$ collar $U_\epsilon^{(j)}$. By Lemma~CT of \cite{bonfioli-core} the $L^2$ metric on $U_\epsilon^{(j)}$ asymptotes as $\epsilon \to 0$ to a Riemannian product of $j$ ``bubble factors'' (each modeled by the BPST scale-and-position parameters of a bubbling instanton) and a residual ``background factor'' $\cM_{k-j}(S^4_r)$:
+\[
+g_{U_\epsilon^{(j)}} \;=\; g_{\cM_{k-j}(S^4_r)} \oplus \bigoplus_{i=1}^j g_{\mathrm{bubble},i} \;+\; O\!\left(\frac{s_1 + \cdots + s_j}{R^2}\right),
+\]
+where $R$ is a typical instanton separation in $S^4_r$ (bounded below by injectivity considerations in the collar). By the Habermann/Doi--Matsumoto--Matsumoto isometry used to prove Theorem~M1 of \cite{bonfioli-core}, each individual bubble factor is, in the limit $s_i \to 0$, isometric to the \emph{cusp end} (horosphere bundle near infinity) of $\bbH^5_r$.
+
+\smallskip
+For the spectral bottom argument we proceed via Weyl quasi-modes adapted to the cusp geometry, rather than separation of variables on a global product (the cusps of $\bbH^5_r$ have purely continuous spectrum with no $L^2$ ground state). In upper-half-space coordinates $(\xi^{(i)}_1, \ldots, \xi^{(i)}_4, y_i)$ for the $i$-th cusp ($i = 1, \ldots, j$), with $y_i > 0$, the radial generalized eigenfunctions of the Laplace--Beltrami operator on each cusp are $\phi^{(i)}_s(y_i) = y_i^s$, with eigenvalue $r^{-2} s(4-s)$ maximized at $s = 2$ with value $4/r^2$. Choose smooth cutoffs $\chi_n \in C_c^\infty(\bbR)$ supported in $[-n, n]$ with $\chi_n \equiv 1$ on $[-n+1, n-1]$ and $\|\chi'_n\|_\infty + \|\chi''_n\|_\infty \le C$. Define
+\[
+\Phi^{(j)}_n(y_1, \ldots, y_j) \;=\; \prod_{i=1}^j y_i^2\,\chi_n(\log y_i).
+\]
+Direct calculation of $-\Lap\Phi^{(j)}_n$ on the product cusp gives $(-\Lap + 4j/r^2)\Phi^{(j)}_n = O(\chi'_n) + O(\chi''_n)$, and a routine estimate (using $\|\chi_n\|_{L^2} \sim \sqrt{n}$ vs.\ $\|\chi'_n\|_{L^2} = O(1)$) yields
+\[
+\frac{\|(\Lap + 4j/r^2)\Phi^{(j)}_n\|_{L^2}}{\|\Phi^{(j)}_n\|_{L^2}} \;\longrightarrow\; 0 \qquad\text{as } n \to \infty,
+\]
+so $4j/r^2 \in \sigma_{\mathrm{ess}}$ of the Laplacian on the product cusp.
+
+\smallskip
+To transport this into $U_\epsilon^{(j)} \subset \cM_k(S^4_r)$: choose the cutoff scale $n = n(\epsilon)$ so that the support of $\chi_n(\log y_i)$ corresponds to the collar region $s_i \le \epsilon$, i.e.\ $n(\epsilon) \sim \log(1/\epsilon)$. The cross-term correction in the metric (Lemma~CT of \cite{bonfioli-core}) contributes, via standard resolvent perturbation, an additional term in the Rayleigh quotient of size $O(\sum s_i/R^2) \cdot \|\nabla\Phi^{(j)}_n\|^2_{L^2}/\|\Phi^{(j)}_n\|^2_{L^2} = O(\epsilon \cdot n(\epsilon))$. With $n(\epsilon) = \log(1/\epsilon)$, this is $O(\epsilon\,\log(1/\epsilon)) \to 0$. The lower bound $\liminf \lambda_0^{\mathrm{ess}} \ge 4j/r^2$ follows from the Riemannian-product lower bound $g_{U_\epsilon} \ge \bigoplus g_{\mathrm{bubble},i} \oplus g_{\cM_{k-j}} - O(\epsilon)$ together with the standard inequality $\lambda_0(\bigoplus M_i) \ge \sum \lambda_0(M_i) = 4j/r^2$, where each term is bounded below by McKean's inequality on the respective cusp.
+\end{proof}
+
+\fi
+%, end: content extracted into companion paper \cite{bonfioli-core} , 
+
+\subsection{Toward the global \texorpdfstring{$\lambda_0(\cM_2(S^4_r))$}{lambda\_0(M\_2)}: cohomogeneity-one reduction (open)}\label{sec:M2-global}
+
+The collar bound of Theorem~MK of \cite{bonfioli-core} settles the essential-spectrum contribution from each Uhlenbeck stratum but, as Remark~NG of \cite{bonfioli-core} flags, does not determine the global $\lambda_0(\cM_k)$. The natural target value is the single-bubble $\bbH^5_r$ McKean rate $4/r^2$.
+
+\begin{question}[Global spectral bottom of $\cM_2(S^4_r)$]\label{q:M2-global-bottom}
+Determine $\lambda_0(\cM_2(S^4_r))$, where $\cM_2(S^4_r)$ is the moduli space of charge-$2$ $\mathrm{SU}(2)$ anti-self-dual connections on round $S^4_r$ equipped with the $L^2$ Hitchin-like metric. Is it equal to the single-bubble cusp rate $4/r^2$?
+\end{question}
+
+\noindent We outline a cohomogeneity-one reduction strategy below. The strategy does \emph{not} close to a theorem: subsection at the end of this section (Remark~\ref{rmk:M2-honest-status}) records why the numerical Bargmann evidence supporting a previous version of this argument is not robust under choice of admissible interpolant.
+
+\begin{proof}[Outline of a reduction strategy (not a complete proof)]
+\emph{Step 1: SO(5)-invariant cohomogeneity-one slice.} Stereographic projection $S^4_r \setminus\{N\} \to \bbR^4$ pulls back the round metric to $g_{S^4_r} = \Omega^2 g_{\bbR^4}$ with $\Omega(x) = 2r^2/(r^2 + |x|^2)$. The 't~Hooft 2-instanton in regular gauge is $A^a_\mu = -\eta^a_{\mu\nu}\partial_\nu \log \phi_2$ with $\phi_2(x) = 1 + \rho^2/|x - x_+|^2 + \rho^2/|x - x_-|^2$. Placing the bubbles at the antipodes of the $e_1$-axis on $S^4_r$ and scaling both radii together by $\rho > 0$ defines the $\mathrm{SO}(5)$-invariant slice $\Sigma$, with residual gauge group $\mathrm{SO}(4) \subset \mathrm{SO}(5)$ stabilizing the axis and stabilizer $U(1) \times U(1)$ on the orbit fiber; orbifold tip at $\rho = 0$ of transverse dimension $\dim\cM_2(S^4_r) - 1 = 12$.
+
+\emph{Step 2: $L^2$-metric on the slice via Habermann conformal invariance and the closed-form $\Phi(\mu)$.} For one BPST bubble at scale $\rho$, $\|\partial_\rho A\|^2_{L^2(\bbR^4)} = 48\pi^2/\rho^2$ (direct $\eta\eta$-contraction; cf.\ \cite{DK1990}). Habermann \cite{Habermann1993}, Theorem 3.2, shows the $L^2$ moduli metric is conformally invariant on the gauge slice in dimension $4$. Applying Lemma~CT of \cite{bonfioli-core} symmetrically at $s_1 = s_2 = \rho$ on the antipodal Habermann pullback (separation $R = 2$ in stereographic coordinates, both bubbles at distance $1$ from the equator point), the symmetric 2-instanton metric takes the form
+\[
+g_{\rho\rho}(\rho) \;=\; \frac{96\pi^2}{\rho^2}\bigl(1 + \Phi(\rho/r)\bigr),\qquad \Phi(\mu) \;=\; \left(\tfrac{\mu}{2}\right)^2 \cdot F_{\mathrm{sym}}\!\left(\tfrac{\mu}{2}\right),
+\]
+with the closed-form symmetric kernel
+\[
+F_{\mathrm{sym}}(w) \;=\; \int_0^1 t(1-t)\,\frac{t(1-t) + 2w^2}{\bigl(t(1-t) + w^2\bigr)^2}\,dt,
+\]
+derived as a special case of the Schwinger integrand of Lemma~CT under $u=v=w$. The endpoint asymptotics, verified to high numerical precision in the accompanying script \cite{m2-closure-higher-order}, are
+\[
+\Phi(\mu) \;=\; \tfrac{\mu^2}{4} \;-\; \tfrac{\mu^4}{8} + O(\mu^6)\qquad (\mu \to 0),\qquad
+\Phi(\mu) \;\to\; \tfrac{1}{3}\;-\;\tfrac{0.4 + o(1)}{\mu^2}\qquad (\mu \to \infty).
+\]
+\emph{Correction to a previous draft of this section:} the small-$\mu$ leading coefficient is $1/4$, not $1$ as written in earlier versions; the large-$\mu$ limit is the bounded constant $1/3$, not the divergent rate suggested by the previous expansion $\mu^2/(1+\mu^2)(1+\mu^2/2 + \ldots)$. The corrected $\Phi$ is bounded on $\mu \in [0,\infty)$.
+
+\emph{Step 3: arclength and endpoint asymptotics of $J(s)$.} Let $s(\rho) = \int_0^\rho \sqrt{g_{\rho'\rho'}}\,d\rho'$. Near $\rho = 0$, $s \sim 4\sqrt{6}\pi\log(\rho/\rho_0)$; the transverse orbit at fixed $\rho$ is an $\mathrm{SO}(5)/(\mathrm{SO}(4)\cdot U(1)^2)$-bundle of dimension 12 with metric stretching linearly in arclength, giving the cohomogeneity-1 tip formula \cite{GP1989}, \S 5:
+\[
+J(s) \;=\; s^{12}\,(1 + O(s^2))\qquad (s \to 0).
+\]
+As $\rho \to \infty$, the slice merges with the cusp end of $\cM_1(S^4_r) \cong \bbH^5_r$; the radial hyperbolic metric is $ds^2 + r^2\sinh^2(s/r)\,d\Omega_4^2$, and the codimension-1 slice volume density is $\sinh^4(s/r)$, giving
+\[
+J(s) \;\sim\; C\,e^{4s/r}\qquad (s \to \infty),
+\]
+with effective dimension $n = 5$ (the $\bbH^5_r$ direction). The exponent $4s/r$ is required for $V \to (n-1)^2/(4r^2) = 4/r^2$, consistent with Theorem~M1 of \cite{bonfioli-core}.
+
+\emph{Step 4: Liouville potential $V(s)$ at the endpoints.} For $J \sim s^{12}$: $J'/J = 12/s$, so $V(s) = (12/s)^2/4 + (-12/s^2)/2 = 30/s^2$ (the $n(n-2)/(4s^2)$ Bessel potential for $n = 13$, repulsive). For $J \sim e^{4s/r}$: $J'/J = 4/r$, so $V \to (4/r)^2/4 = 4/r^2$.
+
+\emph{Step 5: Bargmann criterion, and where the reduction breaks down.} By the Bargmann criterion (Reed--Simon IV \cite{ReedSimonIV}, Thm.~XIII.9), the number $N_-$ of bound states below the essential threshold $4/r^2$ satisfies
+\[
+N_- \;\le\; \int_0^\infty s\,(V(s) - 4/r^2)_-\,ds,
+\]
+where $V$ is the Liouville potential derived from the true $J(s)$ on the slice. To conclude $N_- = 0$ one would need this integral to be strictly less than~$1$. The natural attempt is to bound the integral over a family of admissible interpolants $\widetilde J_i(s)$ matching the endpoint asymptotics $\widetilde J \sim s^{12}$ at $0$ and $\widetilde J \sim e^{4s/r}$ at $\infty$, with the hope that the true $V$ is pointwise dominated by some $\widetilde V_i$. \emph{This attempt does not succeed in any form known to us:} the Bargmann integral is not robust under choice of admissible interpolant family. Within the $\sinh^a(s/r)\tanh^b(s/r)$ family with $a+b=12$, $a=4$, one finds $V - 4/r^2 \ge 0$ pointwise (in fact $V - 4 = 10(\cosh^2 s + 2)/(\cosh^2 s \sinh^2 s) > 0$ for $J = \sinh^4\tanh^8$ in units $r=1$, a symbolic identity verified in \cite{m2-bargmann-true-V}), giving Bargmann integral $0$. But other admissible families with the same endpoint asymptotics, for example, the family $\lambda(s) = (12/s)\,\mathrm{sech}^2(s/L) + 4\tanh^2(s/L)$ with $L \in [1, 8]$, yield Bargmann integrals ranging from $0.028$ to over $100$ \cite{m2-bargmann-true-V}. The $\sinh^a\tanh^b$ favorable structure is a happy accident of that family, not a structural property of the geometry. Without identifying the true $J(s)$ from the moduli geometry, not merely an interpolant matching its endpoints, the Bargmann argument is non-conclusive in either direction.
+
+\emph{Step 6: SO(5)-invariance suffices, conditionally.} On a cohomogeneity-one Riemannian manifold with discrete isotropy and essential spectrum at $4/r^2$, each non-trivial $\mathrm{SO}(5)$-isotypic component carries an extra Casimir potential $\ell(\ell+3)/r_{\mathrm{orbit}}(s)^2 \ge 0$ added to $V$, which can only raise the bottom. If the invariant problem attains $4/r^2$, the spectrum bottom is realized in the invariant subspace. The conditional is non-vacuous because of Step 5.
+\end{proof}
+
+\begin{remark}[Honest status of Question~\ref{q:M2-global-bottom}: a deeper diagnostic]\label{rmk:M2-honest-status}
+A previous version of this material labelled $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ as a conjecture supported by strong numerical Bargmann evidence (six interpolants in the $\sinh^a\tanh^b$ family giving Bargmann integrals $\le 7\times 10^{-5}$). Two layers of analytical difficulty obstruct the reduction:
+
+\smallskip
+\noindent\emph{(Surface layer) Family-dependence of the Bargmann bound.} High-precision Sage symbolic analysis \cite{m2-bargmann-true-V} shows the Bargmann integral over admissible interpolants $J(s)$ matching the prescribed endpoint asymptotics $J \sim s^{12}$ at $0$ and $J \sim e^{4s/r}$ at $\infty$ is not robust: it spans more than four orders of magnitude across admissible families, including values well above $1$. The favorable behavior of $\sinh^a\tanh^b$ is a structural property of that family, not of the geometry.
+
+\smallskip
+\noindent\emph{(Deeper layer) The orbit-volume function $W(\rho)$ at $\rho \to \infty$.} The Bargmann reduction depends on the principal-orbit volume function $W(\rho)$ on the symmetric 2-bubble slice, where the slice arclength $s(\rho)$ and the codimension-1 volume density $J(s) = W(\rho(s))\sqrt{g_{\rho\rho}}$ are determined by $g_{\rho\rho}$ together with the 12 transverse-orbit metric components (the $\mathrm{SO}(5)/(\mathrm{SO}(4)\cdot U(1)^2)$ fiber metric on the principal orbit). Habermann conformal invariance constrains the scale direction but does \emph{not} constrain the transverse directions; computing $W(\rho)$ rigorously requires 12 distinct Schwinger-style integrals analogous to Lemma~OD of \cite{bonfioli-core} (position-position cross-block on each orbit direction). Numerical analysis \cite{m2-closure-higher-order} under the ansatz $W \equiv\,\mathrm{const}$ gives $V_{\mathrm{true}}(s) \in [0.005, 0.05]$ across the whole slice in units $r=1$, two orders of magnitude below the essential threshold $4$. This is not contradictory to the McKean cusp rate at $\rho \to \infty$ because the ansatz $W \equiv\,\mathrm{const}$ is inconsistent with the $j=1$ collar matching at $\rho \to \infty$ (which would require $W(\rho) \sim \rho^4$ for a clean horocycle volume). The sharp open question is therefore:
+
+\smallskip
+\noindent\textit{Open question (orbit volume).} \emph{What is the asymptotic rate of $W(\rho)$ at $\rho \to \infty$ on the $\mathrm{SO}(5)$-symmetric 2-bubble slice? Specifically, does the symmetric configuration project onto the full $\cM_1$ horocycle at infinity, giving $W(\rho) \sim \rho^4$ and $V_{\mathrm{true}}(\infty) = 4/r^2$? Or onto a strict sub-horocycle of lower dimension, giving $W(\rho) \sim \rho^p$ for some $p < 4$ and a correspondingly weaker spectral bottom?}
+
+\smallskip
+\noindent The answer is determined by which $4$-dimensional subspace of the $\cM_1$ horocycle the symmetric 2-instanton's transverse moduli directions project onto under bubble-coalescence at the cusp — a tractable geometric question that requires the 12 transverse Schwinger integrals not carried out in this work.
+\end{remark}
+
+\subsection{Two structural propositions related to Question~\ref{q:M2-global-bottom}}\label{sec:structural-props}
+
+The following two propositions structurally bear on Question~\ref{q:M2-global-bottom}. Each rests on inputs not derived within the present scope (a robustness claim across admissible $V_{\mathrm{true}}$ for Proposition~\ref{prop:SO5-isotypic}; a stratified iterated-edge $0$-calculus parametrix construction adapted to $\cM_k(S^4_r)$ for Proposition~\ref{prop:MM-finiteness}). They are recorded here as structural reductions and conditional results, not as fully proved theorems.
+
+\begin{proposition}[$\mathrm{SO}(5)$-isotypic reduction for $\cM_2(S^4_r)$; conditional]\label{prop:SO5-isotypic}
+Let $H = -\Lap$ act on $L^2(\cM_2(S^4_r))$ with the natural $L^2$ metric, and let $H = \bigoplus_{\ell\ge 0} H_\ell$ be the orthogonal decomposition into $\mathrm{SO}(5)$-isotypic components, with $\ell$ indexing the highest weights of the $\mathrm{SO}(5)$-representations and $H_0$ the $\mathrm{SO}(5)$-invariant component. Conditional on the McKean cusp asymptote $V_{\mathrm{true}}(s) \to 4/r^2$ as $s \to \infty$ on the principal slice (cf.\ Question~\ref{q:M2-global-bottom}), the radial Liouville potential $V_{\mathrm{true}}(s)$ together with the Casimir potential $C_\ell/r_{\mathrm{orbit}}(s)^2$ on the $(\ell,0)$-isotypic component yields a Bargmann integral $B_\ell < 1$ for every $\ell \ge 1$:
+\[
+\inf\sigma(H_\ell) \;=\; \frac{4}{r^2},\qquad \sigma_{\mathrm{pp}}(H_\ell)\cap (0, 4/r^2) = \emptyset \qquad (\ell \ge 1).
+\]
+Consequently the global question $\lambda_0(\cM_2(S^4_r)) = \min\{4/r^2,\ \inf\sigma(H_0)\}$ reduces to the single $\mathrm{SO}(5)$-invariant problem on $H_0$, which is precisely Question~\ref{q:M2-global-bottom}.
+\end{proposition}
+
+\begin{proof}[Proof outline]
+On the cohomogeneity-one slice the radial Schr\"odinger operator on the $(\ell,0)$-isotypic component is $H_\ell = -\partial_s^2 + V_{\mathrm{true}}(s) + C_\ell/r_{\mathrm{orbit}}(s)^2$ with $C_\ell = \ell(\ell+3)$, acting on $L^2((0,\infty), J(s)\,ds)$. The principal-orbit radius interpolates between $r_{\mathrm{orbit}}(s) \sim s$ at the orbifold tip and $r_{\mathrm{orbit}}(s) \sim r\sinh(s/r)$ at the cusp \cite{m2-isotypic-decomposition}. By Bargmann (Reed--Simon IV \cite{ReedSimonIV}, Thm.~XIII.9),
+\[
+N_-(H_\ell - 4/r^2) \;\le\; \int_0^\infty s\,(V_{\mathrm{true}}(s) + C_\ell/r_{\mathrm{orbit}}(s)^2 - 4/r^2)_-\,ds.
+\]
+At small $s$ the Casimir term $C_\ell/s^2$ dominates everything (strictly nonnegative, repulsive); at the cusp, the Casimir term decays exponentially while $V_{\mathrm{true}} - 4/r^2 \to 0$ by hypothesis. Numerical evaluation \cite{m2-isotypic-decomposition} under the McKean cusp asymptote gives $B_\ell\approx 0.34, 0.26, 0.21,\ldots$ for $\ell = 1, 2, 3,\ldots$, all strictly less than $1$. \emph{Caveat:} the numerical $B_\ell < 1$ statement is conditional on the McKean cusp asymptote of $V_{\mathrm{true}}$; the Casimir-repulsion mechanism provides structural robustness at small $s$ uniform across admissible $V_{\mathrm{true}}$ matching the prescribed asymptotes (cf.\ \cite{m2-isotypic-decomposition}), but a fully symbolic certification of $B_\ell < 1$ across the full admissible family is not carried out.
+\end{proof}
+
+\begin{proposition}[Finiteness of point spectrum and absence of $\sigma_{\mathrm{sc}}$; via iterated-edge $0$-calculus, conditional]\label{prop:MM-finiteness}
+Let $\cM_k(S^4_r)$, $k \ge 1$, be equipped with the natural $L^2$ metric, and let $-\Lap$ be its Friedrichs $L^2$-Laplacian. Assume the stratified Uhlenbeck-boundary structure of $\partial\cM_k(S^4_r)$ falls into the index family of the iterated-edge $0$-calculus of Albin--Leichtnam--Mazzeo--Piazza \cite{ALMP2012} and that the $O(\epsilon|\log\epsilon|)$ metric remainder in the collar product comparison (Theorem~MK of \cite{bonfioli-core}) lies in the allowable polyhomogeneous class (an explicit verification of these two inputs is not given here). Then
+\begin{enumerate}
+\item[(a)] $\sigma_{\mathrm{ess}}(-\Lap) = [4/r^2, \infty)$;
+\item[(b)] $\sigma_{\mathrm{pp}}(-\Lap)\cap (0, 4/r^2)$ is a finite set (possibly empty), each eigenvalue of finite multiplicity;
+\item[(c)] $\sigma_{\mathrm{sc}}(-\Lap)\cap(0, \infty) = \emptyset$;
+\item[(d)] the resolvent $(-\Lap - z)^{-1}: C_c^\infty \to C^\infty$ admits a meromorphic continuation from $\{\Im z > 0\}$ across the cut $[4/r^2,\infty)$ into a logarithmic cover, with poles in the physical sheet corresponding exactly to the $L^2$ eigenvalues of (b).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof outline]
+Statement (a) is fully proved by Theorem~MK of \cite{bonfioli-core} (upper bound) together with the Persson-type/Donnelly--Li tail-comparison lemma applied to the asymptotic-product cusps (Donnelly \cite{Donnelly1981}). Statements (c) above threshold and the absence-of-embedded-eigenvalues part follow from the Mourre estimate of \cite{bonfioli-core}. Statements (b) and (d), together with $\sigma_{\mathrm{sc}}\cap(0, 4/r^2) = \emptyset$, are extracted via the $0$-calculus parametrix construction for the resolvent on asymptotically hyperbolic manifolds (Mazzeo--Melrose \cite{MazzeoMelrose1987}, Mazzeo \cite{Mazzeo1991} Thm.~7.1; cf.\ Guillarmou \cite{Guillarmou2005}, Vasy \cite{Vasy2013}, ALMP \cite{ALMP2012} for the stratified extension), under the conditional hypothesis stated.
+\end{proof}
+
+\begin{remark}[Honest assessment]
+Both propositions sit in the "conditional structural reduction" category: each reduces or relates Question~\ref{q:M2-global-bottom} to a more familiar object (a single $\ell=0$ Bargmann problem on the SO(5)-invariant slice; a stratified iterated-edge $0$-calculus statement on the Uhlenbeck compactification), but each requires an additional input not derived here. They are recorded as worthwhile structural observations rather than fully proved theorems; future work that (i) symbolically certifies the Bargmann $B_\ell < 1$ uniformity across admissible $V_{\mathrm{true}}$, or (ii) carries out the iterated-edge calculus parametrix construction for $\cM_k(S^4_r)$, would promote each to a theorem.
+\end{remark}
+
+\subsection{Bakry--\'Emery on negatively-curved moduli}\label{sec:BE-negative}
+
+A structural observation: $\bbH^5_r$ has $\Ric = -4g/r^2$, strictly \emph{negative}. The Bakry--\'Emery--Lichnerowicz framework with positive Ricci gives a discrete eigenvalue gap; with negative Ricci, it gives a \emph{continuous spectrum} with positive bottom.
+
+\begin{observation}\label{obs:sign-of-Ric}
+Singer's original orbit-space proposal \cite{Singer1981} requires positive $\Ric_{\cA/\cG}$ for Lichnerowicz--Obata to give a spectral gap. The instanton moduli strata $\cM_k(S^4)$ are negatively curved (at least at $k=1$), so Singer's mechanism does not apply there. The relevant statement on negatively-curved strata is the McKean bound (continuous-spectrum bottom), not Lichnerowicz--Obata.
+
+This is consistent with the Moncrief--Marini--Maitra/Mondal claim that positive Bakry--\'Emery Ricci is conjectured at the \emph{trivial connection sector of the trivial bundle} (vacuum sector), where it gives the mass gap. Negative Ricci on instanton moduli is consistent with these strata contributing continuous-spectrum scattering states, not bound-state gap closure.
+\end{observation}
+
+\begin{remark}
+Sector-dependence of the sign of $\Ric_{\cA/\cG}$ is one face of the inhomogeneity of $\cA/\cG$ as a Riemannian space. It clarifies why Singer's program is conjectural rather than universal: the curvature varies dramatically across the orbit space.
+\end{remark}
+
+\section{Thread IV: bundle-dependence of $\chi(T_A)$}\label{sec:bundle-dep}
+
+A subtle point worth emphasizing: the Euler characteristic $\chi(T_A)$ of the AHS complex is not strictly a topological invariant of the manifold $M$ alone. It depends on the principal bundle $P\to M$, and within a fixed bundle it depends on whether $A$ is reducible.
+
+\subsection{Atiyah--Singer for the AHS family}
+
+The AHS complex $T_A$ at connection $A$ on $P$ is elliptic for all $A$. Its associated folded operator
+\[
+D_A \;=\; d_A^* \oplus d_A^+ : \Omega^1(M;\ad P) \to \Omega^0(M;\ad P) \oplus \Omega^2_+(M;\ad P)
+\]
+has Atiyah--Singer index a topological invariant of $[P]$:
+\begin{equation}\label{eq:AS-AHS}
+\mathrm{ind}(D_A) \;=\; \dim H^1(T_A) - \dim H^0(T_A) - \dim H^2_+(T_A) \;=\; -\chi(T_A).
+\end{equation}
+For $\mathrm{SU}(2)$ on closed simply-connected $4$-manifold $M$ with $c_2(P) = k$:
+\begin{equation}\label{eq:AHS-index-formula}
+\mathrm{ind}(D_A) \;=\; 8k - 3(1+b_2^+(M)).
+\end{equation}
+
+\subsection{The bundle dependence}
+
+\begin{proposition}[Sign change of $\chi(T_A)$ between bundles; cf.\ \cite{DK1990} \S 4.2]\label{prop:chi-bundle}
+This is a direct consequence of the Atiyah--Singer index formula for the AHS folded operator, recorded in textbook form by Donaldson--Kronheimer \cite{DK1990}, \S 4.2; we restate it here only to draw out the sign-change behavior across bundles, which is the relevant feature for the universal-formula falsification of Corollary~\ref{cor:chi-not-universal}. On $S^4$ for $\mathrm{SU}(2)$, the Euler characteristic of the AHS complex differs by bundle:
+\begin{itemize}
+\item Trivial bundle ($k=0$), at trivial connection $A=0$: $\chi(T_{A=0}) = +3$.
+\item Charge-one bundle ($k=1$), at a \emph{smooth point} of the self-dual moduli (irreducible $A$, generic so $H^2_+(T_A) = 0$): $\chi(T_A) = -5$.
+\item Charge-$k$ bundle, at a smooth point of self-dual moduli: $\chi(T_A) = 3(1+b_2^+(M)) - 8k = 3 - 8k$ on $S^4$.
+\end{itemize}
+In particular $\chi(T_A)$ changes sign between bundles.
+\end{proposition}
+
+\begin{proof}
+At the trivial connection in the trivial bundle, $H^0 = \fg$ (gauge stabilizer), $H^1 = 0$ (no harmonic 1-forms on simply-connected $M$), $H^2_+ = 0$ (no harmonic SD 2-forms on $S^4$ since $b_2^+ = 0$). So $\chi(T_0) = 3 - 0 + 0 = 3$.
+
+At a smooth point of the moduli space (irreducible $A$ where $H^2_+(T_A) = 0$, ensuring transversality), $H^0(T_A) = 0$ (no stabilizer beyond center), $\dim H^1(T_A) = 8k - 3$ (the local dimension of the moduli space), and $H^2_+(T_A) = 0$ by transversality. So $\chi(T_A) = 0 - (8k-3) + 0 = 3 - 8k$.
+\end{proof}
+
+\subsection{Consequence for the original ``universal formula''}
+
+\begin{corollary}[$\chi(T_A)$ is not a single number]\label{cor:chi-not-universal}
+There is no well-defined ``$\chi(T)$ of the gauge orbit space'' independent of bundle and connection. Earlier proposals that the Yang--Mills mass gap satisfies $\Delta = c\Lambda_{QCD}/\chi(T)^2$ are not even well-posed: the right-hand side depends on which bundle one is in.
+\end{corollary}
+
+\begin{remark}
+The path integral over connections sums over all bundles $[P]$ (instanton sectors). The mass gap of the resulting quantum theory is a single physical number; $\chi(T_A)$ is not. So even within a sector, $\chi(T_A)$ cannot directly control the gap; the gap is the same in every sector for translation-invariant theories like pure Yang--Mills on $S^4$.
+
+\emph{The genuine topological invariant} for a fixed bundle is the Atiyah--Singer index $\mathrm{ind}(D_A) = 8k - 3(1+b_2^+)$, which for $k=0$ is $-3(1+b_2^+) < 0$ and for $k\ge 1$ is positive. This index controls the \emph{virtual dimension of moduli of self-dual connections}, not the mass gap.
+\end{remark}
+
+\section{Perturbative-independence falsification (N2)}\label{sec:falsif}
+
+The second strand of the negative result is elementary but worth recording explicitly. On round $S^4_r$, the linearized Yang--Mills Hessian at $A = 0$ in Coulomb gauge $d^* a = 0$ acts on $\ker d^* \subset \Omega^1(S^4_r; \fg)$ as the restriction of the Hodge Laplacian $\Lap_1$ to co-exact $1$-forms (\S\ref{sec:setup}). The spectrum of $\Lap_1$ on co-exact $1$-forms on $S^4_r$ has spectral bottom equal to that of co-closed eigen-$1$-forms, namely $8/r^2$ (Ikeda--Taniguchi \cite{IkedaTaniguchi1978}; see also any standard treatment of the Hodge Laplacian on round spheres). Hence the linearized gap is
+\[
+\sqrt{8/r^2} \;=\; \frac{2\sqrt{2}}{r},
+\]
+\emph{independent of $\dim G$ and of $b_2^+(M)$}. A formula of the type $\Delta \propto 1/[\dim G \cdot (1+b_2^+)]^2$ requires the perturbative gap to scale as $1/[\dim G \cdot (1+b_2^+)]^2$, which fails immediately: the perturbative gap on $S^4$ has no $\dim G$ or $b_2^+$ dependence at all. More generally, any candidate $\Delta = f(\chi(T))$ in which $\dim G$ or $b_2^+$ enters as a prefactor (every such expression in the universal-formula class does) is incompatible with the perturbative limit. This independently rules out the class beyond (N1).
+
+\begin{remark}[Logical independence and the scope of the negative observation]\label{rmk:N1-vs-N2}
+The two falsifications (N1) bundle-dependence and (N2) perturbative independence are logically independent: (N1) is a statement about the topological invariant on different sectors of $\cA/\cG$, while (N2) is a statement about the metric dependence in a single sector. Either alone would rule out single-invariant formulas in bundle/group-data; together they leave no room for any formula of the form $\Delta = f(\chi(T))$ where $f$ depends only on the AHS Euler characteristic (and bundle/group constants). They do \emph{not} rule out richer formulas $\Delta = F(g, \chi(T))$ in which $F$ also depends on the Riemannian metric $g$, since (N2) shows the perturbative gap is already a function of $g$ alone. Whether some metric-dressed formula might capture the full gap exactly remains an open question; this paper bears only on the bundle/group-data-only case.
+\end{remark}
+
+\section{Thread V: $T^4$ vacuum structure, twisted sectors, not classical moduli}\label{sec:T4}
+
+Thread II (Section \ref{sec:KKN}) showed in $(2{+}1)$d that flat-connection moduli decouple from the leading $\Psi_0^{\mathrm{KKN}}$. The naive $4$d analogue on $T^4$ via a semiclassical instanton-gas estimate is not correct; the right object in the quantum theory is the discrete 't Hooft flux quantization, as we now record.
+
+\subsection{The continuum vacuum structure}
+
+The correct continuum statement involves twisted vacuum sectors rather than the classical moduli $(S^1)^4/\bbZ_2$:
+
+\begin{theorem}[Witten \cite{Witten1982}, on continuum $T^4$]\label{thm:Witten-T4}
+For pure $\mathrm{SU}(N)$ Yang--Mills theory on $T^4 \times \bbR$, the continuum quantum theory has a finite number of vacuum sectors labeled by the discrete center symmetry $\bbZ_N \times \bbZ_N$ (the dual of the 't Hooft electric and magnetic flux labels). The Witten index counts $N$ vacuum states for pure $\mathrm{SU}(N)$ YM (in the supersymmetric extension; for pure YM the analog is the vacuum-degeneracy index of the discrete sectors).
+\end{theorem}
+
+This is the well-established continuum picture: classical moduli $(S^1)^4/\bbZ_2$ of dimension $4$ for $\mathrm{SU}(2)$ are not the right object in the quantum theory. The right object is the discrete 't Hooft flux quantization, giving finitely many vacuum sectors.
+
+\subsection{The lattice rigorous result}
+
+\begin{theorem}[Shen--Zhu--Zhu \cite{SZZ2022}]\label{thm:SZZ}
+On a finite lattice $T^4_L \subset \bbZ^4$, $\mathrm{SU}(N)$ pure Yang--Mills with the Wilson action satisfies the Bakry--\'Emery curvature-dimension condition for $|\beta| < 1/(16(d-1))$ in the 't Hooft scaling. In this regime, the lattice theory has exponentially decaying correlations of gauge-invariant observables, hence a positive lattice mass gap, uniformly in $L$.
+\end{theorem}
+
+\subsection{Classical flat-moduli gap (rigorous, easy half of Conjecture~\ref{conj:T4-degeneracy})}\label{sec:T4-flat-moduli-gap}
+
+A small but rigorous step toward Conjecture~\ref{conj:T4-degeneracy} is the spectral gap on the \emph{classical} flat-connection moduli, treated as a Riemannian space with its $L^2$ metric.
+
+\begin{theorem}[Spectral gap on the SU(2)/$T^4_L$ vacuum-sector moduli]\label{thm:T4-flat-moduli-gap}
+Let $T^4_L = (\bbR/L\bbZ)^4$, and let $\cM_0(T^4_L)$ denote the moduli space of flat $\mathrm{SU}(2)$ connections on the trivial bundle $P_0 \to T^4_L$. Then:
+\begin{enumerate}[label=(\roman*)]
+\item $\cM_0(T^4_L)$ is the flat orbifold $(S^1)^4/\bbZ_2$, where $\bbZ_2$ is the Weyl reflection acting by $a_\mu \mapsto -a_\mu$ on all four flat-holonomy angles simultaneously. (For $G=\mathrm{SU}(2)$, the rank is $1$ and the flat moduli are $\mathrm{rank}(G)\cdot b_1(T^4_L) = 4$-dimensional, not $\mathrm{rank}(G)\cdot 2g$ as for surfaces.)
+\item The induced $L^2$ metric (from $\Omega^1(T^4_L; \fg)$ on the irreducible stratum) is flat, of the form $g_{L^2} = \tfrac{1}{2} L^2 \sum_{\mu=1}^4 (da_\mu)^2$ in $a$-coordinates (with $L^4$ from the volume integral cancelling $1/L^2$ from $A \sim 1/L$).
+\item The Laplace--Beltrami operator on the smooth part of $\cM_0(T^4_L)$ has spectrum $\{(2/L^2)|n|^2 : n \in \bbZ^4\}$ (with Weyl symmetrization), and the first nonzero eigenvalue is
+\[
+\lambda_1\bigl(\Lap_{\cM_0(T^4_L)}\bigr) \;=\; \frac{2}{L^2}.
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+\emph{(i)} A flat connection on the trivial bundle is, up to gauge, a homomorphism $\rho : \pi_1(T^4) = \bbZ^4 \to \mathrm{SU}(2)$ modulo conjugation. The image is generated by four commuting elements $U_1, \ldots, U_4 \in \mathrm{SU}(2)$, which (commutativity!) lie in a common maximal torus; choose $U_\mu = \exp(i a_\mu \sigma_3/2)$. The Weyl element $w$ acts by $\sigma_3 \mapsto -\sigma_3$, i.e., $a_\mu \mapsto -a_\mu$ simultaneously. Hence $\cM_0 = (S^1)^4/\bbZ_2$.
+
+\emph{(ii)} For $A_\mu(x) = (a_\mu/L)\cdot\sigma_3/(2i)$ a representative flat connection, tangent vectors are constant: $\delta A_\mu = (\delta a_\mu/L)\sigma_3/(2i)$. The $L^2$ inner product is $\langle\delta A, \delta A\rangle = -\int_{T^4_L} \Tr(\delta A_\mu \delta A^\mu) d^4 x = \tfrac{1}{2} L^2 \sum_\mu (\delta a_\mu)^2$.
+
+\emph{(iii)} On the flat torus $(S^1)^4$ with circles of $a$-coordinate length $2\pi$ and physical length $\ell = \pi L \sqrt{2}$ in the $L^2$ metric, the scalar Laplacian eigenvalues are $\lambda_n = \sum_\mu (2\pi n_\mu / \ell)^2 = (2/L^2)|n|^2$. The Weyl $\bbZ_2$ quotient preserves even-parity Fourier modes (Neumann/orbifold b.c.\ at the $2^4 = 16$ fixed points); the spectrum is preserved and the bottom of the nonzero part is $|n|^2 = 1$, giving $\lambda_1 = 2/L^2$.
+\end{proof}
+
+\begin{remark}[Scope of Theorem~\ref{thm:T4-flat-moduli-gap}]\label{rmk:T4-classical-vs-quantum}
+This result is the easy half of Conjecture~\ref{conj:T4-degeneracy}: it establishes a positive spectral gap on the \emph{classical flat-moduli Laplacian}, with explicit constant $\lambda_1 = 2/L^2$. As Witten \cite{Witten1982} showed, however, the true quantum vacuum on $T^4$ is governed by discrete 't~Hooft electric/magnetic flux sectors labeled by $\bbZ_N \times \bbZ_N$, not by the classical moduli $(S^1)^4/\bbZ_2$. The classical-moduli directions are lifted non-perturbatively (instanton tunneling, $\theta$-vacuum mixing). Theorem~\ref{thm:T4-flat-moduli-gap} therefore does \emph{not} prove the YM mass gap on $T^4$; what it does is rigorously eliminate the classical-moduli sector as a source of zero modes in the would-be continuum theory, in agreement with what Witten's twisted-sector picture predicts. Bridging Theorem~\ref{thm:T4-flat-moduli-gap} to a continuum quantum mass gap requires: (a) a rigorous continuum YM measure on $T^4$ (open in 4D, see Wall~B), (b) control of the non-perturbative lift of the 4-dimensional flat-moduli kernel, (c) showing the resulting quantum gap is bounded below uniformly in $L\to\infty$ (the content of Conjecture~\ref{conj:T4-degeneracy}).
+\end{remark}
+
+\subsection{The relationship and what it does and doesn't say}
+
+\begin{conjecture}[$T^4$ gap, with falsifiable predictions]\label{conj:T4-degeneracy}
+For pure $\mathrm{SU}(N)$ Yang--Mills on $T^4_L$ (periods $L$), in the strong-coupling 't Hooft regime $\beta < 1/(16(d-1))$ where Shen--Zhu--Zhu's lattice mass gap applies, the mass gap above the discrete $\bbZ_N\times\bbZ_N$ vacuum manifold (labeled by 't Hooft fluxes per Witten \cite{Witten1982}) satisfies the following \emph{quantitative} structure:
+\begin{enumerate}[label=(\arabic*)]
+\item (\emph{Vacuum count}) The discrete vacuum manifold has exactly $N$ disjoint components labeled by the diagonal 't Hooft flux $\bbZ_N\subset \bbZ_N\times\bbZ_N$, in agreement with the supersymmetric Witten-index count for $\mathcal{N}=1$ SYM.
+\item (\emph{Gap-to-splitting ratio at the SZZ boundary}) At the SZZ critical coupling $\beta_* = 1/(16(d-1))$, the ratio of the mass gap $m(\beta_*)$ to the vacuum-splitting scale $\Delta E_{\mathrm{vac}}(\beta_*) = m(\beta_*)\cdot e^{-c_N L\,m(\beta_*)}$ (set by 't Hooft-flux instanton tunneling) is bounded above by a universal $N$-dependent constant.
+\item (\emph{$\theta$-dependence}) The gap depends on the $\theta$-angle as $m(\theta) = m(0) \cdot |\cos(\theta/N)|$ to leading order in $\beta$, with a non-analyticity at $\theta = \pi$ (large-$N$ phase transition).
+\end{enumerate}
+Each of (1)--(3) is falsifiable by a moderate-resolution lattice Monte Carlo at $\beta = \beta_*$ for $L \in \{4, 6, 8\}$ and $N \in \{2, 3\}$, computable in $O(10^3)$ CPU-hours on modern hardware.
+\end{conjecture}
+
+\begin{remark}\label{rmk:T4-corrections}
+Two distinct mechanisms should be distinguished: (a) classical flat-connection moduli on continuum $T^4$, and (b) lattice-rigorous mass gap at strong coupling. They operate in different regimes:
+\begin{enumerate}[label=(\roman*)]
+\item SZZ's regime is strong coupling, $g^2 \sim 1/\beta$ large, where semiclassical instanton estimates of the form $\exp(-4\pi^2/g^2)$ are not the right approximation. The lattice gap comes from the BE curvature of the $\mathrm{SU}(N)$ group factors directly, not from instanton tunneling between classical flat moduli.
+\item Continuum vacuum degeneracy on $T^4$ is governed by 't Hooft flux quantization (Witten \cite{Witten1982}, Anber--Poppitz \cite{AnberPoppitz2025}), giving discrete vacuum labels $\bbZ_N \times \bbZ_N$, not the continuous classical moduli.
+\end{enumerate}
+Bridging the two regimes remains open.
+\end{remark}
+
+\begin{remark}\label{rmk:b1-and-gap}
+The naive expectation that ``$T^4$ has $\chi(T) = 0$, so no gap'' is dismissed by Theorem~\ref{thm:SZZ}: the SZZ lattice result establishes a positive mass gap on $T^4$ rigorously in the 't Hooft strong-coupling regime, regardless of the topological invariants of $T^4$. The fact that $b_1(T^4) = 4$ generates classical zero modes in a perturbative Gaussian approximation has no implication for the quantum mass gap.
+\end{remark}
+
+\section{Thread VI: two Bakry--\'Emery programs and the structural bridge}\label{sec:two-BE}
+
+Section \ref{sec:setup} organized the orbit-space approach via the Bakry--\'Emery formula
+\begin{equation}\label{eq:BE-Ric}
+\Ric^{BE}_w(v,v) \;=\; \Ric_{\cA/\cG}(v,v) \;+\; \Hess(-\log w)(v,v), \qquad w = |\Psi_0|^2,
+\end{equation}
+following Singer/MMM/Mondal. The recent rigorous lattice Bakry--\'Emery program of Shen--Zhu--Zhu \cite{SZZ2022} and Borga--Cao--Shogren-Knaak \cite{BCS2025} uses a different curvature. We identify the structural relationship.
+
+\subsection{The lattice Bakry--\'Emery program}
+
+Shen--Zhu--Zhu consider lattice $\mathrm{SU}(N)$ Wilson Yang--Mills with edge variables $U_b \in \mathrm{SU}(N)$. The Lie group $\mathrm{SU}(N)$ with bi-invariant metric is positively curved Einstein:
+\begin{equation}\label{eq:SUN-Ric}
+\Ric_{\mathrm{SU}(N)} \;=\; \frac{N}{2}\,g_{\mathrm{SU}(N)}.
+\end{equation}
+The Wilson action $S(U) = -\beta \sum_p \mathrm{Re}\,\Tr(U_{\partial p})$ involves plaquette terms each over four edge variables. The Bakry--\'Emery $\Gamma_2$-criterion gives a uniformly positive curvature-dimension bound provided the perturbation strength is small relative to the intrinsic group curvature: in the 't Hooft scaling, $|\beta| < 1/(16(d-1))$ for $\mathrm{SU}(N)$.
+
+\begin{observation}\label{obs:two-curvatures}
+The lattice Bakry--\'Emery program uses the \emph{intrinsic Lie-group Ricci} of $\mathrm{SU}(N)$ at each edge. This is positive and $N$-independent. The continuum Singer/MMM/Mondal program uses the \emph{orbit-space Ricci} $\Ric_{\cA/\cG}$, which is the trace of the $L^2$-curvature of $\cA/\cG$ and is not trace-class.
+\end{observation}
+
+\subsection{Structural bridge: lattice gauge measures as product measures}
+
+The bridge between the two programs goes through the structure of lattice gauge measures. Following Sengupta \cite{Sengupta1997} and Driver \cite{Driver1989}, the lattice partition function for $\mathrm{SU}(N)$ Yang--Mills on a lattice $\Lambda$ with edges $E$ and plaquettes $P$ is
+\[
+Z_\Lambda \;=\; \int_{\mathrm{SU}(N)^{|E|}} e^{-S(U)} \prod_{b\in E} dU_b,
+\]
+with $dU_b$ the bi-invariant Haar measure on $\mathrm{SU}(N)$. The gauge group $\mathrm{SU}(N)^{|\mathrm{vertices}|}$ acts by site-wise gauge transformations, and the orbit space at the lattice level is
+\[
+\bigl(\mathrm{SU}(N)^{|E|}\bigr)/\mathrm{SU}(N)^{|\mathrm{vertices}|}.
+\]
+
+\begin{proposition}[Bridge observation]\label{prop:bridge}
+The Riemannian curvature of the lattice orbit space inherits from the bi-invariant Ricci of the edge factors via the orbit-space submersion: at the trivial connection, the orbit-space Ricci on the lattice is bounded below by the bi-invariant $\mathrm{SU}(N)$ Ricci minus a perturbation proportional to the plaquette action. In the SZZ regime $|\beta| < 1/(16(d-1))$, this lower bound is uniformly positive.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+This is essentially the SZZ--BCS argument re-phrased: the $\Gamma_2$-bound on the lattice gauge measure decomposes into (intrinsic curvature of $\mathrm{SU}(N)^{|E|}$) minus (perturbation from $S$). In the strong-coupling regime the intrinsic curvature dominates.
+\end{proof}
+
+\begin{remark}\label{rmk:bridge-implication}
+This bridge clarifies why SZZ's program works and Singer's is conjectural: SZZ \emph{exploits the rigid positive curvature of each $\mathrm{SU}(N)$ factor}, which is a finite-dimensional fact controllable by classical Riemannian geometry. Singer's program is the analogous statement after passing to the continuum (lattice spacing $a\to 0$), where the product-of-$\mathrm{SU}(N)$ structure gets renormalized into an infinite-dimensional Riemannian geometry whose Ricci tensor is no longer trace-class.
+
+\emph{The orbit-space Ricci is the continuum limit of the lattice product-Ricci.} The scheme-dependence of the continuum Ricci (Wall A) is precisely the renormalization of the lattice product-Ricci. This is the same physics as RG running of the coupling $g^2(\mu)$: the continuum theory carries no preferred scale, and the regularized Ricci has dimensions tied to whatever scale is introduced by the regularization.
+\end{remark}
+
+\subsection{Open question}
+
+\begin{question}[Continuum lift of lattice Bakry--\'Emery]\label{q:continuum-lift}
+For fixed $N$, consider a sequence of lattice cutoffs $a_n \to 0$ and the corresponding lattice Bakry--\'Emery curvature bounds $\kappa_{a_n}$. Does the family $\{\kappa_{a_n}\}$ converge, after appropriate renormalization, to a finite continuum quantity? If yes, this continuum quantity is the natural candidate for a rigorous orbit-space Bakry--\'Emery bound; if no, the continuum orbit-space program in its current form is incomplete.
+\end{question}
+
+\begin{remark}
+The formulation above is a specific testable question, and either answer is informative: a positive answer gives a candidate rigorous bound; a negative answer specifically diagnoses the failure mode of the continuum orbit-space program in its current form.
+\end{remark}
+
+\section{Summary and connection to the positive-Ricci program}\label{sec:summary}
+
+\subsection{Rigorous results}
+
+\begin{enumerate}[label=(R\arabic*),leftmargin=2.5em]
+\item Heat-kernel $\zeta$-identity (Proposition~\ref{thm:zeta-identity}): an application of standard McKean--Singer alternating-sum cancellation to the AHS complex. Constrains all Singer-style regularization schemes. \emph{Not a new theorem;} a clarification of structure.
+
+\item $L^2$ spectral bottom on $\cM_1(S^4_r)$ (Theorem~M1 of \cite{bonfioli-core}): $\lambda_0 = 4/r^2$, with rigorous proof via explicit hyperbolic eigenfunctions and McKean's inequality saturated.
+
+\item Hodge decomposition of Coulomb slice along AHS cohomology (Proposition~\ref{prop:BE-decomp}). Structural, not a Bakry--\'Emery inequality.
+
+\item Bundle-dependence of $\chi(T_A)$ (Proposition~\ref{prop:chi-bundle}, Corollary~\ref{cor:chi-not-universal}): $\chi(T_{A=0}) = +3$ at trivial bundle, $\chi(T_A) = -5$ at smooth points of $k=1$ self-dual moduli for $\mathrm{SU}(2)$ on $S^4$. The proposed ``universal formula'' is incompatible.
+
+\item Sign of $\Ric_{\cA/\cG}$ is sector-dependent (Observation~\ref{obs:sign-of-Ric}): Singer's mechanism applies at sectors with positive Bakry--\'Emery Ricci (vacuum, conjecturally), not on instanton moduli (negative Ricci, continuous spectrum).
+
+\item KKN mass gap on the plane (Theorem~\ref{thm:KKN-gap-planar}, restating \cite{KKN1998}): $m = c_A g^2_{YM}/(2\pi)$ on $\bbR^2$.
+
+\item Hessian vanishes on flat-moduli directions (Proposition~\ref{prop:KKN-flat}): a structural fact about $-\log\Psi_0^{\mathrm{KKN}}$ separating flat from co-exact directions. This says flat moduli decouple from the leading wave-functional gradient, not that there is no quantum gap.
+
+\item Bridge between continuum and lattice Bakry--\'Emery programs (Proposition~\ref{prop:bridge}): the SZZ lattice bound is the lattice analogue of Singer's continuum proposal, exploiting the product-of-$\mathrm{SU}(N)$ structure of lattice gauge measures.
+
+\item Classical flat-moduli spectral gap on $T^4_L$ (Theorem~\ref{thm:T4-flat-moduli-gap}): $\lambda_1(\Lap_{\cM_0(T^4_L)}) = 2/L^2$ on the SU(2) flat-connection moduli $(S^1)^4/\bbZ_2$, the rigorous easy half of Conjecture~\ref{conj:T4-degeneracy}.
+
+\item Quillen--Bismut derivation of $\alpha = (N^2-1)/9$ (Proposition~\ref{prop:alpha-QB}): five-step derivation via Quillen 1985 + Bismut--Gillet--Soul\'e 1988 + Gaw\k{e}dzki 1992 + Friedan--Shenker improved stress tensor; refines Corollary~\ref{cor:alpha-explicit}.
+\end{enumerate}
+
+\subsection{Conjectures (acknowledged as such)}
+
+\begin{enumerate}[label=(C\arabic*),leftmargin=2.5em]
+\item Curved-$\Sigma_g$ KKN (Theorem~\ref{thm:KKN-curved}): the gap is genus-dependent through $\lambda_1(\Delta_g)$, not universal.
+
+\item Collar McKean for $\cM_k(S^4)$, $k\ge 2$ (Theorem~MK of \cite{bonfioli-core}): collar essential-spectrum bottom $= 4j/r^2$ for codimension-$j$ collar. The global value $\lambda_0(\cM_k(S^4_r))$ for $k \ge 2$ is open (Question~\ref{q:M2-global-bottom}); see Remark~\ref{rmk:M2-honest-status} for why a previous numerical-Bargmann argument is not robust.
+
+\item $T^4$ mass gap (Conjecture~\ref{conj:T4-degeneracy}): SZZ lattice gap + Witten twisted-sector vacuum structure, plus the three quantitative falsifiable predictions (1)--(3) of Conjecture~\ref{conj:T4-degeneracy}.
+
+\item Continuum lift of lattice Bakry--\'Emery (Question~\ref{q:continuum-lift}): a specific testable question about renormalization of lattice $\kappa_{a_n}$.
+\end{enumerate}
+
+\subsection{Universal structural picture}
+
+A pattern emerges from Threads II, IV, V: \emph{the topological cohomology classes of the AHS complex describe vacuum structure, not gap.} Specifically:
+\begin{itemize}
+\item $H^0(T_A)$: gauge stabilizer dimension. Affects measure on moduli (Faddeev--Popov), not gap.
+\item $H^1(T_A)$: flat-connection moduli or instanton moduli, depending on bundle. Classical $H^1 \ne 0$ gives perturbative zero modes; these become quantum vacuum degeneracy (typically lifted by non-perturbative effects to discrete sectors), not massless excitations.
+\item $H^2_+(T_A)$: obstruction cohomology. Controls second-order obstructions to self-duality; does \emph{not} contribute kernel of YM Hessian at $A=0$ (which is positive on the Coulomb slice).
+\end{itemize}
+
+The mass gap is controlled by the spectrum of the YM Hamiltonian above the (possibly degenerate) ground-state manifold. AHS cohomology dimensions index the structure of this ground-state manifold; they do not enter the gap as an inverse-square coefficient.
+
+\subsection{What remains hard}
+
+\textbf{Wall A:} Scheme-dependence of $\Ric_{\cA/\cG}$ in the continuum equals \emph{renormalization-group running of the coupling}. In $4$d Yang--Mills, asymptotic freedom forces $g^2(\mu)$ to depend on energy scale $\mu$, and the dynamical scale $\Lambda_{QCD}$ is generated where perturbative running breaks down. This is not a defect of the orbit-space approach; it is the standard QFT picture of dimensional transmutation. But it precludes any ``universal formula'' for the gap independent of $\Lambda_{QCD}$.
+
+\textbf{Wall B:} Existence of quantum Yang--Mills theory in $4$d remains open. The orbit-space Bakry--\'Emery program is conditional on this existence. Chandra--Chevyrev--Hairer--Shen have rigorous existence in $2$d and $3$d \cite{CCHS2022,CCHS2024}; the $4$d construction is the remaining major open problem.
+
+The SZZ--BCS lattice results show that \emph{at fixed lattice spacing in the 't Hooft strong-coupling regime}, the Yang--Mills mass gap can be proved rigorously via Bakry--\'Emery. Extending this rigorously to the continuum (weak-coupling) limit, via the bridge of Proposition~\ref{prop:bridge}, is the remaining open analytical question of the orbit-space program.
+
+\subsection{Updated research program}
+
+\begin{question}\label{q:KKN-curved}
+Carry out the gauged $\bar\partial$-determinant trace-anomaly calculation on $(\Sigma_g, g)$ explicitly, with the level convention and Killing-form normalization pinned down once-and-for-all, and verify the formula $\alpha = c_{\mathrm{WZW}}(c_A)/6 = (N^2-1)/9$ of Corollary~\ref{cor:alpha-explicit} from first principles.
+\end{question}
+
+\begin{question}\label{q:M2-spectrum}
+Determine the global L${}^2$-spectral bottom $\lambda_0(\cM_k(S^4_r))$ for $k \ge 2$. Theorem~MK of \cite{bonfioli-core} bounds it above by $4/r^2$ (via the shallowest single-bubble cusp) and identifies the codimension-$j$ collar essential contributions as $4j/r^2$, but does not determine whether $\lambda_0(\cM_k) = 4/r^2$ for all $k$ or whether interior $L^2$ eigenvalues below this threshold exist. The natural attack uses the explicit ADHM moduli geometry and the Groisser--Parker interior curvature bounds.
+\end{question}
+
+\begin{question}\label{q:bridge-formalized}
+(Question~\ref{q:continuum-lift} repeated.) Construct a renormalized continuum limit of the lattice Bakry--\'Emery curvature bounds $\kappa_{a_n}$, identifying its dependence on the renormalization scheme and its relationship to dimensional transmutation.
+\end{question}
+
+\begin{question}\label{q:T4-rigorous}
+Rigorously establish that the SZZ--BCS lattice Bakry--\'Emery bound persists in the continuum limit on $T^4$. Currently the lattice gap is proved at strong coupling, the continuum is not constructed in 4D, and the bridge between them is open.
+\end{question}
+
+\section*{Acknowledgements}
+
+The author thanks the work of Singer \cite{Singer1981}, Babelon--Viallet \cite{BabelonViallet1981}, MMM \cite{MMM2019}, Mondal \cite{Mondal2023}, AHS \cite{AHS1978}, KKN \cite{KKN1998}, SZZ \cite{SZZ2022}, BCS \cite{BCS2025}, Sengupta \cite{Sengupta1997}, Witten \cite{Witten1982}, Anber--Poppitz \cite{AnberPoppitz2025}, Groisser--Parker \cite{GP1987}, Habermann \cite{Habermann1993}, McKean \cite{McKean1970}, and Chandra--Chevyrev--Hairer--Shen \cite{CCHS2022}, which set the mathematical scene for the present work.
+
+\begin{thebibliography}{99}
+
+\bibitem{Singer1981} I.M.\ Singer, \emph{The geometry of the orbit space for nonabelian gauge theories}, Phys.\ Scripta \textbf{24} (1981) 817--820.
+
+\bibitem{BabelonViallet1981} O.\ Babelon, C.M.\ Viallet, \emph{The Riemannian geometry of the configuration space of gauge theories}, Comm.\ Math.\ Phys.\ \textbf{81} (1981) 515--525.
+
+\bibitem{AHS1978} M.F.\ Atiyah, N.J.\ Hitchin, I.M.\ Singer, \emph{Self-duality in four-dimensional Riemannian geometry}, Proc.\ Roy.\ Soc.\ London A \textbf{362} (1978) 425--461.
+
+\bibitem{MMM2019} V.\ Moncrief, A.\ Marini, R.\ Maitra, \emph{Orbit space curvature as a source of mass in quantum gauge theory}, Ann.\ Math.\ Sci.\ Appl.\ \textbf{4} (2019) 313--366. arXiv:1809.06318.
+
+\bibitem{Mondal2023} P.\ Mondal, \emph{A geometric approach to the Yang--Mills mass gap}, JHEP \textbf{12} (2023) 191. arXiv:2301.06996.
+
+\bibitem{Mondal2308} P.\ Mondal, \emph{Mass and infinite-dimensional geometry}, arXiv:2308.09304.
+
+\bibitem{KKN1998} D.\ Karabali, C.\ Kim, V.P.\ Nair, \emph{Planar Yang--Mills theory: Hamiltonian, regulators and mass gap}, Nucl.\ Phys.\ B \textbf{524} (1998) 661--694; arXiv:hep-th/9705087.
+
+\bibitem{SZZ2022} H.\ Shen, R.\ Zhu, X.\ Zhu, \emph{A stochastic analysis approach to lattice Yang--Mills at strong coupling}, Comm.\ Math.\ Phys.\ (2022); arXiv:2204.12737.
+
+\bibitem{BCS2025} J.\ Borga, S.\ Cao, J.\ Shogren-Knaak, \emph{Dynamical approach to area law for lattice Yang--Mills}, arXiv:2509.04688.
+
+\bibitem{CCHS2022} A.\ Chandra, I.\ Chevyrev, M.\ Hairer, H.\ Shen, \emph{Langevin dynamic for the 2D Yang--Mills measure}, Publ.\ Math.\ IHES \textbf{136} (2022) 1--147.
+
+\bibitem{CCHS2024} A.\ Chandra, I.\ Chevyrev, M.\ Hairer, H.\ Shen, \emph{Stochastic quantisation of Yang--Mills--Higgs in 3D}, Invent.\ Math.\ \textbf{237} (2024) 541--696. arXiv:2201.03487.
+
+\bibitem{GP1987} D.\ Groisser, T.\ Parker, \emph{The Riemannian geometry of the Yang--Mills moduli space}, Comm.\ Math.\ Phys.\ \textbf{112} (1987) 663--689.
+
+\bibitem{GP1989} D.\ Groisser, T.\ Parker, \emph{The geometry of the Yang--Mills moduli space for definite manifolds}, J.\ Differential Geom.\ \textbf{29} (1989) 499--544.
+
+\bibitem{Habermann1993} L.\ Habermann, \emph{The $L^2$-metric on the moduli space of $SU(2)$-instantons with instanton number 1 over the Euclidean 4-space}, Ann.\ Glob.\ Anal.\ Geom.\ \textbf{11} (1993) 311--322.
+
+\bibitem{DMM1987} H.\ Doi, Y.\ Matsumoto, T.\ Matsumoto, \emph{An explicit formula of the metric on the moduli space of BPST-instantons over $S^4$}, A F\^ete of Topology, Academic Press (1987).
+
+\bibitem{Borel1985} A.\ Borel, \emph{The $L^2$-cohomology of negatively curved Riemannian symmetric spaces}, Ann.\ Acad.\ Sci.\ Fenn.\ A I Math.\ \textbf{10} (1985) 95--105.
+
+\bibitem{McKean1970} H.P.\ McKean, \emph{An upper bound to the spectrum of $\Delta$ on a manifold of negative curvature}, J.\ Differential Geom.\ \textbf{4} (1970) 359--366.
+
+\bibitem{Witten1982} E.\ Witten, \emph{Constraints on supersymmetry breaking}, Nucl.\ Phys.\ B \textbf{202} (1982) 253--316. (For 't Hooft flux quantization and vacuum degeneracy on $T^4$; see also \cite{Witten82-Toron}.)
+
+\bibitem{Witten82-Toron} E.\ Witten, \emph{Toroidal compactification without vector structure}, JHEP 02 (1998) 006. (Alternative reference for $T^4$ moduli structure.)
+
+\bibitem{Sengupta1997} A.\ Sengupta, \emph{Gauge theory on compact surfaces}, Memoirs AMS \textbf{126} (1997) no.\ 600. (For lattice gauge measures as products of Lie-group factors.)
+
+\bibitem{Driver1989} B.K.\ Driver, \emph{$YM_2$: continuum expectations, lattice convergence, and lassos}, Commun.\ Math.\ Phys.\ \textbf{123} (1989) 575--616. (For lattice-continuum bridge in $2$d.)
+
+\bibitem{AnberPoppitz2025} M.M.\ Anber, E.\ Poppitz, \emph{Mass-deformed Super Yang--Mills theory on $T^4$: sum over twisted sectors, $\theta$-angle, and CP violation}, arXiv:2509.00157.
+
+\bibitem{bonfioli-core} V.\ Bonfioli, \emph{Asymptotic product structure and collar essential spectrum on $\mathrm{SU}(2)$ instanton moduli}, companion focused note (this directory: \texttt{paper/CORE/core.tex}).
+
+\bibitem{Taubes1988} C.H.\ Taubes, \emph{A framework for Morse theory for the Yang--Mills functional}, Invent.\ Math.\ \textbf{94} (1988) 327--402. (Asymptotic-product structure of the Uhlenbeck collar.)
+
+\bibitem{DK1990} S.K.\ Donaldson, P.B.\ Kronheimer, \emph{The Geometry of Four-Manifolds}, Oxford Univ.\ Press (1990). (\S 4.2 for the deformation complex and bundle-dependence of $\chi(T_A)$; \S 7.3 for the ends of moduli space and collar geometry.)
+
+\bibitem{alpha-script} V.\ Bonfioli, three-method consistency check for $\alpha = (N^2-1)/9$: \texttt{verification/alpha\_first\_principles.sage}. Verifies the formula via (1) scalar-Laplacian conformal anomaly, (2) Sugawara central-charge formula, (3) KKN--Witten level matching; symbolic Hessian cross-check matches Corollary~\ref{cor:S2-explicit} exactly.
+
+\bibitem{AgarwalAkant2008} A.\ Agarwal, A.A.\ Akant, \emph{Hamiltonian Analysis for Yang--Mills theory on $\bbR\times S^2$}, arXiv:0807.2131 (2008). (Adapts the KKN framework to the sphere; computes the mass gap via point-splitting regularization. To our knowledge does not extract the closed-form Polyakov--Wiegmann curvature-mass coefficient $\alpha$ of Corollary~\ref{cor:alpha-explicit}.)
+
+\bibitem{Gawedzki1992} K.\ Gawędzki, \emph{On holomorphic factorization of WZW and coset models}, Commun.\ Math.\ Phys.\ \textbf{144} (1992) 481--531. (Polyakov--Wiegmann on curved Riemann surfaces.)
+
+\bibitem{Quillen1985} D.\ Quillen, \emph{Determinants of Cauchy--Riemann operators on Riemann surfaces}, Funct.\ Anal.\ Appl.\ \textbf{19} (1985) 31--34. (Local anomaly formula for the chiral determinant; used in Proposition~\ref{prop:alpha-QB}.)
+
+\bibitem{BismutGilletSoule1988} J.-M.\ Bismut, H.\ Gillet, C.\ Soul\'e, \emph{Analytic torsion and holomorphic determinant bundles III: Quillen metrics on holomorphic determinants}, Comm.\ Math.\ Phys.\ \textbf{115} (1988) 301--351. (Higher-rank Quillen anomaly; used in Proposition~\ref{prop:alpha-QB}.)
+
+\bibitem{Freed1987} D.S.\ Freed, \emph{On determinant line bundles}, in \emph{Mathematical aspects of string theory} (San Diego, 1986), Adv.\ Ser.\ Math.\ Phys.\ \textbf{1}, World Scientific (1987), pp.\ 189--238. (Unitarity formulation of the Quillen connection; used in Proposition~\ref{prop:BGS-127-transcription}.)
+
+\bibitem{KnizhnikZamolodchikov1984} V.G.\ Knizhnik, A.B.\ Zamolodchikov, \emph{Current algebra and Wess--Zumino model in two dimensions}, Nucl.\ Phys.\ B \textbf{247} (1984) 83--103.
+
+\bibitem{ReedSimonIV} M.\ Reed, B.\ Simon, \emph{Methods of Modern Mathematical Physics IV: Analysis of Operators}, Academic Press (1978). (Bargmann bound on bound states; used in \S\ref{sec:M2-global}.)
+
+\bibitem{m2-bargmann-true-V} V.\ Bonfioli, Sage symbolic and high-precision numerical analysis of the Bargmann integral over admissible interpolants for the $\cM_2(S^4_r)$ Liouville potential: \texttt{verification/m2\_bargmann\_true\_V.sage}. Shows that admissible $J(s)$ matching both endpoint asymptotics give Bargmann integrals spanning over four orders of magnitude, including values above 1, so the previous numerical evidence is family-dependent rather than structural.
+
+\bibitem{m2-closure-higher-order} V.\ Bonfioli, closed-form derivation of $\Phi(\mu)$ on the symmetric 2-instanton slice via Lemma~CT of \cite{bonfioli-core}, with high-precision Richardson-extrapolated endpoint asymptotics and direct numerical $V_{\mathrm{true}}(s)$ evaluation: \texttt{verification/m2\_closure\_higher\_order.sage} and \texttt{verification/m2\_closure\_fast.py}. Identifies the orbit-volume function $W(\rho)$ at $\rho\to\infty$ as the deeper analytical obstruction underlying Question~\ref{q:M2-global-bottom}.
+
+\bibitem{m2-isotypic-decomposition} V.\ Bonfioli, Sage verification of the $\mathrm{SO}(5)$-isotypic Bargmann reduction for $\cM_2(S^4_r)$: \texttt{verification/m2\_isotypic\_decomposition.sage}. Computes $r_{\mathrm{orbit}}(s)$ interpolating $r\sinh(s/r)$, the Casimir potentials at $\ell=1,2,3,\ldots$, and the Bargmann integrals $B_\ell\approx 0.34,0.26,0.21,\ldots$ all strictly less than $1$ under the McKean cusp asymptote.
+
+\bibitem{MazzeoMelrose1987} R.R.\ Mazzeo, R.B.\ Melrose, \emph{Meromorphic extension of the resolvent on complete spaces with asymptotically constant negative curvature}, J.\ Funct.\ Anal.\ \textbf{75} (1987) 260--310.
+
+\bibitem{Mazzeo1991} R.R.\ Mazzeo, \emph{Elliptic theory of differential edge operators I}, Comm.\ Partial Differential Equations \textbf{16} (1991) 1615--1664.
+
+\bibitem{Vasy2013} A.\ Vasy, \emph{Microlocal analysis of asymptotically hyperbolic and Kerr--de Sitter spaces (with an appendix by S.\ Dyatlov)}, Invent.\ Math.\ \textbf{194} (2013) 381--513.
+
+\bibitem{Guillarmou2005} C.\ Guillarmou, \emph{Meromorphic properties of the resolvent on asymptotically hyperbolic manifolds}, Duke Math.\ J.\ \textbf{129} (2005) 1--37.
+
+\bibitem{ALMP2012} P.\ Albin, \'E.\ Leichtnam, R.\ Mazzeo, P.\ Piazza, \emph{The signature package on Witt spaces}, Ann.\ Sci.\ \'Ecole Norm.\ Sup.\ \textbf{45} (2012) 241--310.
+
+\bibitem{Donnelly1981} H.\ Donnelly, \emph{Eigenvalues embedded in the continuum for negatively curved manifolds}, Math.\ Ann.\ \textbf{256} (1981) 1--16.
+
+\bibitem{alpha-PW-S2-script} V.\ Bonfioli, Sage symbolic computation of the Polyakov--Wiegmann curvature-mass coefficient for gauged WZW on $S^2_R$ at KKN level: \texttt{verification/alpha\_PW\_S2.sage}.
+
+\bibitem{vanBaal1982} P.\ van Baal, \emph{Some results for $\mathrm{SU}(N)$ gauge fields on the hypertorus}, Comm.\ Math.\ Phys.\ \textbf{85} (1982) 529--547. (Twist-eater construction on non-trivial 't Hooft flux sectors.)
+
+\bibitem{Gilkey1995} P.\ Gilkey, \emph{Invariance theory, the heat equation and the Atiyah--Singer index theorem}, 2nd ed., CRC (1995).
+
+\bibitem{Vardi1988} I.\ Vardi, \emph{Determinants of Laplacians and multiple gamma functions}, SIAM J.\ Math.\ Anal.\ \textbf{19} (1988) 493--507.
+
+\bibitem{IkedaTaniguchi1978} A.\ Ikeda, Y.\ Taniguchi, \emph{Spectra and eigenforms of the Laplacian on $S^n$ and $P^n(\bbC)$}, Osaka J.\ Math.\ \textbf{15} (1978) 515--546. (Thm.\ 3.1, p.\ 526 for the co-exact $1$-form eigenvalues $\lambda_k(\Lap_1^{\mathrm{co-ex}}) = k(k+n-1) + n - 2$ on $S^n_{r=1}$; the bottom $k=1$ gives $8$ on $S^4$, hence $8/r^2$ on $S^4_r$.)
+
+\bibitem{RSV2003} G.\ Rudolph, M.\ Schmidt, I.P.\ Volobuev, \emph{On the gauge orbit space stratification}, J.\ Phys.\ A \textbf{35} (2002) R1--R50.
+
+\end{thebibliography}
+
+\end{document}

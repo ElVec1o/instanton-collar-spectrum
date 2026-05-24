@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: article
+title: "Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli"
+authors:
+  - family-names: Bonfioli
+    given-names: Vico
+    email: vicobonfioli@gmail.com
+year: 2026
+url: "https://github.com/ElVec1o/instanton-collar-spectrum"
