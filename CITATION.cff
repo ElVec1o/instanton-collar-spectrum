@@ -8,3 +8,11 @@ authors:
     email: vicobonfioli@gmail.com
 year: 2026
 url: "https://github.com/ElVec1o/instanton-collar-spectrum"
+doi: 10.5281/zenodo.20370060
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.20370060
+    description: "Concept DOI (resolves to latest version)"
+  - type: doi
+    value: 10.5281/zenodo.20370061
+    description: "v1.0 (revision 6, FINAL pre-submission)"

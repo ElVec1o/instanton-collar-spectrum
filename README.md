@@ -1,5 +1,7 @@
 # instanton-collar-spectrum
 
+[![DOI](https://zenodo.org/badge/1248611476.svg)](https://doi.org/10.5281/zenodo.20370060)
+
 Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.
 
 Author: Vico Bonfioli (vicobonfioli@gmail.com)
@@ -40,6 +42,7 @@ If you use this work, please cite as:
 ```
 Bonfioli, Vico. Asymptotic product structure and collar essential spectrum
 on SU(2) instanton moduli. 2026.
+DOI: 10.5281/zenodo.20370060
 https://github.com/ElVec1o/instanton-collar-spectrum
 ```
 
