@@ -2,86 +2,71 @@
 
 [![DOI](https://zenodo.org/badge/1248611476.svg)](https://doi.org/10.5281/zenodo.20370060)
 
-Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.
+LaTeX sources, PDFs, and verification code for
 
-Author: Vico Bonfioli (vicobonfioli@gmail.com)
+> V. Bonfioli, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli*, 2026. 24 pages.
 
-## Contents
+and the supplementary companion
 
-- `paper/CORE/core.tex`, `core.pdf`, 24-page submission paper. Targeted at Annales Henri Poincaré or J. Geom. Phys.
-- `paper/EXTRA/extra.tex`, `extra.pdf`, 30-page supplementary companion (arXiv-only).
-- `paper/SPLIT.md`, rationale for the CORE/EXTRA split.
-- `external-review/REVIEWER_BUNDLE.md`, single-file reviewer bundle combining paper, companion, split rationale, revision log, and all verification artifacts.
-- `external-review/REVIEWER_GUIDE.md`, short guide for reviewers.
-- `verification/`, computational verification scripts:
-  - `lemma_ct_rust/`, independent Rust adaptive Gauss-Kronrod cubature for Lemma 4.1 (Schwinger closed form), machine-precision verified to ~2.5 ulp.
-  - Sage / Python scripts for off-diagonal cross-blocks, the Mourre commutator, the SU(N) extension, the Polyakov-Wiegmann alpha, and the M_2 supplementary analyses.
+> *AHS cohomology and the Yang-Mills mass gap: supplementary observations*, 2026. 30 pages.
 
-## Main results
+## Results
 
-- **Theorem 3.2.** lambda_0(M_1(S^4_r)) = 4/r^2, via the Habermann / Doran-Murchadha-Marolf identification of M_1(S^4_r) with hyperbolic 5-space and McKean saturation.
-- **Lemma 4.1.** Exact Schwinger closed form for the BPST scale-derivative L^2 cross-term, with explicit next-order coefficient and remainder. Machine-precision verified.
-- **Lemma 4.2.** Off-diagonal cross-block bounds (scale-position, position-position, gauge-fixed, bubble-background).
-- **Theorem 4.3.** Codim-j Uhlenbeck collar essential bottom = 4j/r^2, via operator-norm metric comparison (1 +/- C eps |log eps|) g_prod with Weyl quasi-modes upper bound and min-max lower bound.
-- **Theorem 4.4.** Mourre spectral type with C^{1,1} regularity (Froese-Hislop conjugated radial Schrodinger framework): no singular continuous spectrum above threshold, locally finite point spectrum, absolutely continuous spectrum above 4j/r^2 + C eps |log eps|.
-- **Remark 4.5.** SU(N) extension with explicit framing-overlap scalar.
+Let M_k(S^4_r) denote the charge-k SU(2) instanton moduli space over the round 4-sphere of radius r, with the L^2 metric.
 
-## Status and provenance
+- **Theorem 3.2.** lambda_0(M_1(S^4_r)) = 4/r^2. (Habermann / Doran-Murchadha-Marolf identification of M_1 with hyperbolic 5-space of curvature -1/r^2; McKean's bound is saturated.)
+- **Lemma 4.1.** An exact Schwinger-parametrized closed form for the BPST scale-derivative L^2 cross-term, with next-order coefficient and remainder bound.
+- **Lemma 4.2.** Off-diagonal cross-block bounds for the L^2 metric on the multi-instanton collar: scale-position asymptotics, position-position IR behavior, gauge-fixed bound, bubble-background bound.
+- **Theorem 4.3.** On the codimension-j Uhlenbeck collar, the bottom of the essential spectrum equals 4j/r^2. (Operator-norm metric comparison (1 +/- C eps |log eps|) g_prod; Weyl quasi-modes; min-max.)
+- **Theorem 4.4.** Mourre estimate in the Froese-Hislop conjugated radial framework with C^{1,1} regularity: no singular continuous spectrum above the threshold, locally finite point spectrum, absolutely continuous spectrum above 4j/r^2 + C eps |log eps|.
+- **Remark 4.5.** SU(N) extension.
 
-Final pre-submission revision (revision 6).
+The global bottom lambda_0(M_k(S^4_r)) for k >= 2 is open; the paper proves the collar-localized statement only. The companion contains conditional and exploratory material and is not part of the submission.
 
-Full disclosure: this work was produced by an independent researcher, with extensive LLM assistance for drafting, adversarial review, and verification tooling. The manuscript went through six rounds of adversarial LLM review (three independent model instances per round, blind to one another), which converged on minor-revision-level feedback. **It has not yet been reviewed by a human domain expert.**
+## Layout
 
-The strongest independent evidence of correctness is computational: the Lemma 4.1 closed form agrees with the original 4-dimensional integral to ~2.5 ulp on a 106-point grid spanning four orders of magnitude in scale ratio, computed by an independent Rust adaptive Gauss-Kronrod implementation (see `verification/lemma_ct_rust/RESULTS.md`).
+| Path | Contents |
+|---|---|
+| `paper/CORE/` | Submission paper (`core.tex`, `core.pdf`) |
+| `paper/EXTRA/` | Supplementary companion (`extra.tex`, `extra.pdf`) |
+| `paper/SPLIT.md` | Criterion for the CORE/EXTRA split |
+| `external-review/` | Single-file bundle (paper + companion + code, one markdown file), reviewer guide, revision history |
+| `verification/` | Verification code (Rust, SageMath, Python) |
 
-Expert feedback, corrections, and refutations are actively welcome: vicobonfioli@gmail.com.
+## Verification
 
-## Reproducing the verification
+| Artifact | Checks | Run |
+|---|---|---|
+| `verification/lemma_ct_rust/` | Lemma 4.1 closed form against the original 4-D integral; 106-point grid over four orders of magnitude in s/R; max relative error ~2.5 ulp (`RESULTS.md`) | `cargo run --release` |
+| `lemma_5_2_schwinger.py` | Lemma 4.1, Monte Carlo | `python3 lemma_5_2_schwinger.py` |
+| `lemma_ct_higher_order.sage` | Lemma 4.1 next-order coefficient | `sage lemma_ct_higher_order.sage` |
+| `lemma_od_position_terms.sage` | Lemma 4.2 scale-position terms | `sage lemma_od_position_terms.sage` |
+| `mourre_estimate_cusp.sage` | Theorem 4.4 commutator identities (unconjugated failure and conjugated-frame identity) | `sage mourre_estimate_cusp.sage` |
+| `mourre_iterated_commutator.sage` | Lemmas A.7, A.8 | `sage mourre_iterated_commutator.sage` |
+| `lemma_ct_SUN.sage` | Remark 4.5 | `sage lemma_ct_SUN.sage` |
+| `alpha_*.sage`, `m2_*.sage`, `m2_closure_fast.py` | Companion-only material | as above |
 
-Rust cubature (Lemma 4.1), requires a Rust toolchain:
-
-```
-cd verification/lemma_ct_rust
-cargo run --release
-```
-
-Sage scripts (symbolic identities), require SageMath:
-
-```
-sage verification/mourre_estimate_cusp.sage
-sage verification/lemma_ct_higher_order.sage
-```
-
-Plain-Python scripts run with any Python 3:
+## Building
 
 ```
-python3 verification/lemma_5_2_schwinger.py
-python3 verification/m2_closure_fast.py
-```
-
-## Compiling the paper
-
-```
-cd paper/CORE && pdflatex core.tex && pdflatex core.tex
+cd paper/CORE  && pdflatex core.tex  && pdflatex core.tex
 cd paper/EXTRA && pdflatex extra.tex && pdflatex extra.tex
 ```
 
-Expected output: CORE 24 pages, EXTRA 30 pages, zero undefined references.
+Expected: CORE 24 pages, EXTRA 30 pages, no undefined references.
 
-## Licenses
+## Provenance
 
-- Paper, companion, and bundle: CC-BY 4.0 (`LICENSE-paper`). Reuse requires attribution.
-- Verification code: MIT (`LICENSE-code`).
+The author is an independent researcher. The manuscript was produced with extensive LLM assistance (drafting, internal adversarial review, verification tooling); the author takes responsibility for the content. It has not been reviewed by a human expert. The numerical verification above is machine-checked and independent of the derivations. Corrections and counterexamples: vicobonfioli@gmail.com.
 
-## Citation
+## License and citation
 
-If you use this work, please cite as:
+Paper and companion: CC-BY 4.0 (`LICENSE-paper`). Code: MIT (`LICENSE-code`).
 
 ```
 Bonfioli, Vico. Asymptotic product structure and collar essential spectrum
-on SU(2) instanton moduli. 2026.
-DOI: 10.5281/zenodo.20370060
+on SU(2) instanton moduli. 2026. DOI: 10.5281/zenodo.20370060
 https://github.com/ElVec1o/instanton-collar-spectrum
 ```
 
-A `CITATION.cff` file is included for automated tools.
+`CITATION.cff` is included.

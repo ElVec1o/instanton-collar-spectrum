@@ -3,13 +3,13 @@
 The paper is split into a tightly-scoped journal submission (`CORE/`) and an
 arXiv-only supplementary companion (`EXTRA/`). The split is the result of a
 deliberate "include in CORE only what is 100% proven; demote everything else to
-the companion" decision after multiple rounds of blind LLM review.
+the companion" decision made during drafting.
 
 ## `CORE/`, the journal submission
 
-**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 20 pages.
+**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 24 pages.
 
-Three theorems, two lemmas, one self-contained six-page weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
+Three theorems, two lemmas, one self-contained weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
 
 Contents:
 
@@ -41,12 +41,10 @@ The companion is *not* part of the journal submission. It is intended for arXiv 
 
 ## Why the split
 
-Multiple rounds of blind LLM review converged on the recommendation that:
+The criterion:
 
-1. CORE should contain only content that is journal-defensible at the AHP/JGP tier (where the natural home lies).
-2. Material that is structurally interesting but rests on additional inputs (numerical Bargmann robustness; stratified iterated-edge 0-calculus citation chains) should be honestly relegated.
-
-The surgery was explicitly validated by a fresh post-surgery blind eval: three LLM reviewers all moved the package from "AHP a stretch" to "AHP/JGP minor revision, ~75–85% acceptance after one round." The honest scoping in CORE was specifically called out as a strength.
+1. CORE contains only fully proved content.
+2. Material that rests on additional inputs (numerical Bargmann robustness; stratified iterated-edge 0-calculus citation chains) is placed in the companion and labeled as conditional.
 
 ## Versioned history
 

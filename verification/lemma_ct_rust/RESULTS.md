@@ -161,4 +161,4 @@ demand from native double-precision arithmetic.
   highly-asymmetric case (s1, s2) = (0.05, 2.0).
 
 The Schwinger closed form of Lemma CT is therefore verified to at
-least 15 digits, comfortably exceeding the 10–12 digit goal.
+least 15 digits, exceeding the 10-12 digit goal.

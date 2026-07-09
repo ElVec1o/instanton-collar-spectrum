@@ -1,14 +1,14 @@
-# Reviewer bundle, single-file edition (revision 6, FINAL)
+# Reviewer bundle, single-file edition (revision 6)
 
 **Paper:** *Asymptotic product structure and collar essential spectrum on $\mathrm{SU}(2)$ instanton moduli*
 **Author:** Vico Bonfioli (vicobonfioli@gmail.com)
-**Status:** FINAL pre-submission revision, ready for AHP / J. Geom. Phys.
+**Status:** revision 6, pre-submission.
 
 **Note on review provenance.** All review rounds referenced anywhere in this bundle were adversarial LLM reviews: independent model instances, blind to one another, run against the manuscript and the verification suite. No human domain expert has reviewed this work yet. The strongest independent evidence of correctness is computational (the Rust cubature in Part 6, agreeing with the Lemma 4.1 closed form to ~2.5 ulp on a 106-point grid).
 
-What changed since revision 5. Five consolidations from the final internal-review round (three independent LLM reviewer instances, convergent on minor revisions):
+Changes since revision 5:
 
-1. Mourre residual-factor paragraph rewritten (unanimous concern across all three reviewers): the muddled "drops by orthogonality" sentence is replaced with the correct identity-level statement, A_j acts trivially on the residual factor $\mathcal{M}_{k-j}$, so $[-\Delta_{\mathcal{M}_{k-j}} \otimes 1, iA_j] = 0$ identically, and the full commutator $[-\Delta_{\mathrm{prod}}, iA_j]$ lives entirely on the cusp factors.
+1. Mourre residual-factor paragraph rewritten at the identity level: A_j acts trivially on the residual factor $\mathcal{M}_{k-j}$, so $[-\Delta_{\mathcal{M}_{k-j}} \otimes 1, iA_j] = 0$ identically, and the full commutator $[-\Delta_{\mathrm{prod}}, iA_j]$ lives entirely on the cusp factors.
 2. Orphan bibitems removed: Davies1989 and AnkerPierfelice2014 (no longer cited after the previous-round A.5 Hardy-bypass refactor) deleted from bibliography.
 3. Lemma 4.2(v) / Prop A.10 dimensional typo fixed: the intermediate expression `C R^{-1}|a|/R = C R^{-2}|a|` was awkwardly stated; rewritten as the scale-invariant Sobolev embedding `H^2(B_R) -> L^infty(B_R)` in 4D with constant `C R^{-2}` (two derivatives, each contributing one factor of inverse length).
 4. Horosphere transverse spectrum clarified: the previous "discrete after fibering over the compact horocyclic slice" phrasing conflated quotient-horocycle and flat-R^4 situations. Replaced with the correct Fourier-mode decomposition on R^4 (continuous transverse Laplacian on [0,infty)), with the zero-mode sector setting the 4/r^2 threshold and positive Fourier modes contributing nonnegative additive shifts that strictly raise the bottom.
@@ -22,7 +22,7 @@ No new mathematical content, these are tightenings of the existing arguments. CO
 - Part 2: CORE, the submission paper
 - Part 3: EXTRA, the supplementary companion
 - Part 4: CORE/EXTRA split rationale
-- Part 5: Revision log
+- Part 5: Revision history
 - Part 6: Verification artifacts
 
 ---
@@ -31,70 +31,49 @@ No new mathematical content, these are tightenings of the existing arguments. CO
 
 # Reviewer's guide
 
-This bundle contains everything needed to evaluate the paper
+Contents and verification map for
 
 > **"Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli"** by V. Bonfioli
 
-as well as an arXiv-only supplementary companion.
+and its supplementary companion.
 
-## What's in the bundle
+## Files
 
-```
-external-review/
-├── REVIEWER_GUIDE.md          (this file)
-├── paper/
-│   ├── core.pdf               <- PRIMARY: 20-page submission paper
-│   ├── core.tex               <- LaTeX source of the primary paper
-│   ├── extra.pdf              <- SUPPLEMENTARY: 30-page arXiv-only companion
-│   ├── extra.tex              <- LaTeX source of the companion
-│   └── SPLIT.md               <- one-page rationale for primary vs supplementary
-└── verification/              <- computational artifacts cited in the paper
-    ├── lemma_ct_rust/         <- Rust adaptive Gauss–Kronrod (Lemma 4.1)
-    │   ├── Cargo.toml
-    │   ├── src/main.rs
-    │   └── RESULTS.md         <- machine-precision grid table (~2.5 ulp)
-    ├── lemma_5_2_schwinger.py     <- Python Monte Carlo (Lemma 4.1 sanity)
-    ├── lemma_ct_higher_order.sage <- Sage next-order Schwinger expansion
-    ├── lemma_od_position_terms.sage <- Sage scale-position + IR-divergence diagnosis
-    ├── lemma_ct_SUN.sage          <- Sage SU(N) extension (Remark 4.5)
-    ├── mourre_estimate_cusp.sage  <- Symbolic H^5 commutator identity (Theorem 4.4)
-    ├── mourre_iterated_commutator.sage <- Iterated commutator (Lemmas A.7, A.8)
-    ├── alpha_first_principles.sage <- Sage alpha = (N^2-1)/9 (companion only)
-    ├── alpha_PW_S2.sage           <- Sage Polyakov-Wiegmann check (companion only)
-    ├── m2_bargmann_true_V.sage    <- Honest M_2 robustness diagnostic (companion)
-    ├── m2_closure_higher_order.sage <- Closed-form Phi(mu) (companion)
-    ├── m2_closure_fast.py         <- Numerical V_true(s) evaluation (companion)
-    └── m2_isotypic_decomposition.sage <- Conditional SO(5) proposition (companion)
-```
+| Path | Description |
+|---|---|
+| `paper/CORE/core.pdf` (`core.tex`) | Submission paper, 24 pages |
+| `paper/EXTRA/extra.pdf` (`extra.tex`) | Supplementary companion, 30 pages, not part of the submission |
+| `paper/SPLIT.md` | Rationale for the CORE/EXTRA split |
+| `verification/lemma_ct_rust/` | Rust adaptive Gauss-Kronrod cubature (Lemma 4.1); `RESULTS.md` holds the 106-point grid table |
+| `verification/lemma_5_2_schwinger.py` | Python Monte Carlo check of Lemma 4.1 |
+| `verification/lemma_ct_higher_order.sage` | Next-order Schwinger expansion |
+| `verification/lemma_od_position_terms.sage` | Scale-position terms and IR-divergence diagnosis (Lemma 4.2) |
+| `verification/lemma_ct_SUN.sage` | SU(N) extension (Remark 4.5) |
+| `verification/mourre_estimate_cusp.sage` | Symbolic H^5 commutator identity (Theorem 4.4) |
+| `verification/mourre_iterated_commutator.sage` | Iterated commutators (Lemmas A.7, A.8) |
+| `verification/alpha_first_principles.sage`, `alpha_PW_S2.sage` | alpha = (N^2-1)/9 (companion only) |
+| `verification/m2_*.sage`, `m2_closure_fast.py` | M_2 diagnostics (companion only) |
 
-## Where to start
+## Reading order
 
-1. **Read `paper/core.pdf`** (20 pages). This is the only document being submitted to the journal. It contains three theorems and two lemmas, plus a six-page self-contained appendix.
+1. `paper/CORE/core.pdf` (24 pages): three theorems, two lemmas, one self-contained appendix. This is the only document intended for journal submission.
+2. Optional: `paper/EXTRA/extra.pdf` for the supplementary material. Its two structural propositions are labeled "proof outline" and are conditional, not claimed as theorems.
+3. Optional: the verification. The main artifact is `verification/lemma_ct_rust/RESULTS.md`: an independent Rust adaptive Gauss-Kronrod cubature of the original 4-dimensional integral against the 1-dimensional closed form of Lemma 4.1, on a 106-point grid spanning four orders of magnitude in s/R; maximum relative error is about 2.5 ulp (about 5.5e-16). To rebuild: `cd verification/lemma_ct_rust && cargo run --release`.
 
-2. (Optional) **Skim `paper/extra.pdf`** for the supplementary structural observations, explicitly labeled as conditional or arXiv-only. The two structural propositions there are *not* claims; they are recorded with explicit "proof outline" labelling and honest caveats.
+## Claims and their verification artifacts
 
-3. (Optional) **Spot-check the verification.** The most consequential artifact is `verification/lemma_ct_rust/RESULTS.md`, which records an independent Rust adaptive Gauss–Kronrod cubature against the original 4-dimensional integral on a 106-point grid spanning four orders of magnitude in `s/R`, with maximum relative error ≈ 2.5 ulp (≈ 5.5 × 10⁻¹⁶, machine precision in double). If you want to rebuild it, the `lemma_ct_rust/` directory is a standalone Cargo project (`cargo run --release` after `cd verification/lemma_ct_rust/`).
-
-## The primary paper's claims at a glance
-
-| Result | Status | Verification artifact |
+| Result | Status | Artifact |
 |---|---|---|
-| Theorem 3.2: λ_0(M_1(S^4_r)) = 4/r² | Standard via Habermann/DMM + McKean (folklore packaging) | (none needed) |
-| Lemma 4.1: exact Schwinger closed form for the BPST scale-derivative cross-term | New | `lemma_ct_rust/` (machine precision); `lemma_5_2_schwinger.py` (MC); `lemma_ct_higher_order.sage` (next-order coefficient and log) |
-| Lemma 4.2: off-diagonal cross-block bounds | New (proved in Appendix A) | `lemma_od_position_terms.sage` |
-| Theorem 4.3: codimension-j Uhlenbeck collar essential bottom = 4j/r² | New, quantitative upgrade of Taubes/DK folklore | (chain through Lemma 4.1 + 4.2) |
-| Theorem 4.4: Mourre spectral type (no σ_sc above threshold, locally finite σ_pp, AC spectrum) | New, journal-grade | `mourre_estimate_cusp.sage`; `mourre_iterated_commutator.sage` |
-| Remark 4.5: SU(N) extension | Real but trivial (recorded as Remark) | `lemma_ct_SUN.sage` |
+| Theorem 3.2: lambda_0(M_1(S^4_r)) = 4/r^2 | Follows from Habermann/DMM + McKean; stated with explicit radius bookkeeping | none needed |
+| Lemma 4.1: Schwinger closed form for the BPST scale-derivative cross-term | New | `lemma_ct_rust/`; `lemma_5_2_schwinger.py`; `lemma_ct_higher_order.sage` |
+| Lemma 4.2: off-diagonal cross-block bounds | New; proved in Appendix A | `lemma_od_position_terms.sage` |
+| Theorem 4.3: codimension-j Uhlenbeck collar essential bottom = 4j/r^2 | New; quantitative version of the qualitative product picture in Groisser-Parker and Donaldson-Kronheimer §7.3 | via Lemmas 4.1, 4.2 |
+| Theorem 4.4: Mourre spectral type (no sigma_sc above threshold, locally finite sigma_pp, AC spectrum) | New | `mourre_estimate_cusp.sage`; `mourre_iterated_commutator.sage` |
+| Remark 4.5: SU(N) extension | Routine; recorded as a remark | `lemma_ct_SUN.sage` |
 
-## What is explicitly open
+## What is open
 
-The global L²-spectral bottom λ_0(M_k(S^4_r)) for k ≥ 2 is open. The paper proves only the collar-localized essential-spectrum statement and disclaims the global bottom explicitly (Remark "Domain monotonicity bounds the global bottom" and the corresponding Open Question in §5). Two structural reductions of the k=2 case are recorded in the supplementary companion (extra.pdf) as *conditional propositions* rather than theorems.
-
-## Author's self-assessment of the package
-
-The author's view is that the primary paper is journal-acceptable at the tier of Annales Henri Poincaré, Journal of Geometry and Physics, Annals of Global Analysis and Geometry, Letters in Mathematical Physics, or SIGMA. The supplementary companion is intended for arXiv only.
-
-A reviewer is welcome to verify, dispute, or recalibrate this assessment.
+The global bottom lambda_0(M_k(S^4_r)) for k >= 2 is open. The paper proves the collar-localized essential-spectrum statement only, and says so (Remark on domain monotonicity; Open Question in §5). Two structural reductions of the k = 2 case appear in the companion as conditional propositions.
 
 
 ---
@@ -462,7 +441,7 @@ Let $\cM_k(S^4_r)$, $k \ge 1$, be equipped with the natural $L^2$ metric, and le
 Statement (a) follows from Theorem~\ref{thm:M_k-collar-conditional} (upper bound) together with the Persson-type/Donnelly--Li tail-comparison lemma applied to the asymptotic-product cusps (lower bound; cf.\ Donnelly \cite{Donnelly1981}). Statements (b), (c), (d) follow from the 0-calculus parametrix construction for the resolvent on asymptotically hyperbolic manifolds (Mazzeo--Melrose \cite{MazzeoMelrose1987}, Mazzeo \cite{Mazzeo1991} Thm.~7.1; cf.\ Guillarmou \cite{Guillarmou2005}, Vasy \cite{Vasy2013}): the resolvent off the threshold is a $0$-pseudodifferential operator of order $-2$ with polyhomogeneous Schwartz kernel at the front face, modulo compact errors. The $O(\epsilon|\log\epsilon|)$ metric remainder in \eqref{eq:metric-product-bound} lies in the allowable polyhomogeneous index family (index set $\subset \{(j,l) : j \ge 1, 0 \le l \le 1\}$), and the stratified Uhlenbeck-boundary structure is handled by the iterated-edge calculus of Albin--Leichtnam--Mazzeo--Piazza \cite{ALMP2012}. Compactness of the embedding $\mathrm{Dom}(\Lap^{1/2}) \hookrightarrow L^2_{\mathrm{loc}}$ relative to the essential threshold gives the finiteness of $\sigma_{\mathrm{pp}}\cap(0, 4/r^2)$; absence of $\sigma_{\mathrm{sc}}$ follows from the meromorphic resolvent continuation combined with Mourre theory (Theorem~\ref{thm:M_k-collar-spectral-type}) on the cusp ends. The two routes are consistent: Mourre theory rules out $\sigma_{\mathrm{sc}}$ above threshold; the 0-calculus rules it out everywhere.
 \end{proof}
 
-\begin{remark}[Honest assessment of the citation chain]\label{rmk:MM-caveats}
+\begin{remark}[Caveats on the citation chain]\label{rmk:MM-caveats}
 Statement (a) is fully proved by Theorem~\ref{thm:M_k-collar-conditional} + Persson. Statements (c) above threshold and the absence-of-embedded-eigenvalues part of (c) follow from Theorem~\ref{thm:M_k-collar-spectral-type}. Statements (b) and (d), together with $\sigma_{\mathrm{sc}}\cap(0, 4/r^2) = \emptyset$, are extracted via the 0-calculus citation chain just sketched: the load-bearing technical input is the iterated-edge $0$-calculus parametrix construction for stratified asymptotically hyperbolic manifolds, which is by now standard but is not a one-line citation. A self-contained derivation specialized to $\cM_k(S^4_r)$ remains a worthwhile project. The finiteness statement (b) does \emph{not} on its own settle whether $\sigma_{\mathrm{pp}}\cap (0, 4/r^2) = \emptyset$ (i.e., whether $\lambda_0(\cM_k(S^4_r)) = 4/r^2$): see the discussion in the companion supplementary note for the case $k=2$ and the open question for $k\ge 3$.
 \end{remark}
 \fi
@@ -827,8 +806,8 @@ Summing over $k\le n$ (with multinomial constants absorbed into $C_n$) gives \eq
 For $n=1$ this recovers the single-commutator bound used in the proof of Theorem~\ref{thm:M_k-collar-conditional} (with the simpler $\epsilon|\log\epsilon|$ rate, since only $k=0,1$ enter). For $n=2$ the bound is $O(\epsilon|\log\epsilon|^3)$, which tends to $0$ as $\epsilon \to 0$, so the iterated commutator is uniformly bounded relative to $-\Lap_{\mathrm{prod}}+1$ and in particular relative to $-\Lap_{U_\epsilon^{(j)}}+1$ (since the two are mutually bounded by \S\ref{app:sec:laplacian}). This is precisely the $C^{1,1}(-\Lap_{U_\epsilon^{(j)}})$-regularity hypothesis of Sahbani \cite[Hyp.~H1--H3]{Sahbani1997}; in fact, since the bound is $O(\epsilon|\log\epsilon|^3)\to 0$, we obtain the stronger $C^2(-\Lap_{U_\epsilon^{(j)}})$ regularity.
 \end{proof}
 
-\begin{remark}[Honest comparison with bubble--background derivative]\label{rmk:iterated-honest}
-The iterated bound \eqref{eq:iterated-h-bound} is genuinely uniform: at each order $n$ the right-hand side gains one logarithmic factor but does not gain inverse-bubble-scale factors $1/s_i$ that would conflict with the $\epsilon$ decay. The crucial mechanism is that $s_i\partial_{s_i}$ acting on the BPST scale-homogeneous profile produces tangent vectors of the same scale class (Lie derivative along the conformal scale-vector field), not gradient-type terms losing decay. This is what fails in the analogous attempt to use position-dilation $(x-x_i)\cdot\partial_x$ as a conjugate operator: that would lose one inverse power of the bubble scale per derivative, breaking the iterated bound at $n=2$. The cusp coordinate $y_i$ (inverted scale) is the geometrically correct choice.
+\begin{remark}[Comparison with the bubble--background derivative]\label{rmk:iterated-honest}
+The iterated bound \eqref{eq:iterated-h-bound} is uniform: at each order $n$ the right-hand side gains one logarithmic factor but does not gain inverse-bubble-scale factors $1/s_i$ that would conflict with the $\epsilon$ decay. The crucial mechanism is that $s_i\partial_{s_i}$ acting on the BPST scale-homogeneous profile produces tangent vectors of the same scale class (Lie derivative along the conformal scale-vector field), not gradient-type terms losing decay. This is what fails in the analogous attempt to use position-dilation $(x-x_i)\cdot\partial_x$ as a conjugate operator: that would lose one inverse power of the bubble scale per derivative, breaking the iterated bound at $n=2$. The cusp coordinate $y_i$ (inverted scale) is the geometrically correct choice.
 \end{remark}
 
 \medskip
@@ -964,7 +943,7 @@ The iterated bound \eqref{eq:iterated-h-bound} is genuinely uniform: at each ord
 \item a structural observation that no formula $\Delta = f(\chi(T))$ for the Yang--Mills mass gap in terms of the AHS Euler characteristic alone can be valid (bundle-dependence + perturbative independence);
 \item a McKean--Singer $\zeta$-identity on the AHS complex constraining Singer-style regularization schemes;
 \item an explicit KKN Hessian formula on closed Riemann surfaces with Polyakov--Wiegmann curvature-mass coefficient $\alpha = (N^2-1)/9$, together with a Quillen--Bismut derivation modulo standard convention choices;
-\item a cohomogeneity-one reduction of $\lambda_0(\cM_2(S^4_r))$ to a one-dimensional Bargmann problem, with an honest accompanying remark that the Bargmann integral over admissible interpolants is not robust under choice of family, so the question $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ remains genuinely open;
+\item a cohomogeneity-one reduction of $\lambda_0(\cM_2(S^4_r))$ to a one-dimensional Bargmann problem, with an accompanying remark that the Bargmann integral over admissible interpolants is not robust under choice of family, so the question $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ remains genuinely open;
 \item an observation that the sign of orbit-space Ricci is sector-dependent, consistent with Singer/MMM/Mondal positive-Ricci-on-vacuum;
 \item a $T^4$ vacuum-structure discussion and a structural bridge between the Singer/MMM/Mondal continuum Bakry--\'Emery program and the Shen--Zhu--Zhu lattice Bakry--\'Emery program.
 \end{enumerate}
@@ -1529,7 +1508,7 @@ where $V$ is the Liouville potential derived from the true $J(s)$ on the slice. 
 \emph{Step 6: SO(5)-invariance suffices, conditionally.} On a cohomogeneity-one Riemannian manifold with discrete isotropy and essential spectrum at $4/r^2$, each non-trivial $\mathrm{SO}(5)$-isotypic component carries an extra Casimir potential $\ell(\ell+3)/r_{\mathrm{orbit}}(s)^2 \ge 0$ added to $V$, which can only raise the bottom. If the invariant problem attains $4/r^2$, the spectrum bottom is realized in the invariant subspace. The conditional is non-vacuous because of Step 5.
 \end{proof}
 
-\begin{remark}[Honest status of Question~\ref{q:M2-global-bottom}: a deeper diagnostic]\label{rmk:M2-honest-status}
+\begin{remark}[Status of Question~\ref{q:M2-global-bottom}: a deeper diagnostic]\label{rmk:M2-honest-status}
 A previous version of this material labelled $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ as a conjecture supported by strong numerical Bargmann evidence (six interpolants in the $\sinh^a\tanh^b$ family giving Bargmann integrals $\le 7\times 10^{-5}$). Two layers of analytical difficulty obstruct the reduction:
 
 \smallskip
@@ -1579,7 +1558,7 @@ Let $\cM_k(S^4_r)$, $k \ge 1$, be equipped with the natural $L^2$ metric, and le
 Statement (a) is fully proved by Theorem~MK of \cite{bonfioli-core} (upper bound) together with the Persson-type/Donnelly--Li tail-comparison lemma applied to the asymptotic-product cusps (Donnelly \cite{Donnelly1981}). Statements (c) above threshold and the absence-of-embedded-eigenvalues part follow from the Mourre estimate of \cite{bonfioli-core}. Statements (b) and (d), together with $\sigma_{\mathrm{sc}}\cap(0, 4/r^2) = \emptyset$, are extracted via the $0$-calculus parametrix construction for the resolvent on asymptotically hyperbolic manifolds (Mazzeo--Melrose \cite{MazzeoMelrose1987}, Mazzeo \cite{Mazzeo1991} Thm.~7.1; cf.\ Guillarmou \cite{Guillarmou2005}, Vasy \cite{Vasy2013}, ALMP \cite{ALMP2012} for the stratified extension), under the conditional hypothesis stated.
 \end{proof}
 
-\begin{remark}[Honest assessment]
+\begin{remark}[Scope and limitations]
 Both propositions sit in the "conditional structural reduction" category: each reduces or relates Question~\ref{q:M2-global-bottom} to a more familiar object (a single $\ell=0$ Bargmann problem on the SO(5)-invariant slice; a stratified iterated-edge $0$-calculus statement on the Uhlenbeck compactification), but each requires an additional input not derived here. They are recorded as worthwhile structural observations rather than fully proved theorems; future work that (i) symbolically certifies the Bargmann $B_\ell < 1$ uniformity across admissible $V_{\mathrm{true}}$, or (ii) carries out the iterated-edge calculus parametrix construction for $\cM_k(S^4_r)$, would promote each to a theorem.
 \end{remark}
 
@@ -1979,13 +1958,13 @@ The author thanks the work of Singer \cite{Singer1981}, Babelon--Viallet \cite{B
 The paper is split into a tightly-scoped journal submission (`CORE/`) and an
 arXiv-only supplementary companion (`EXTRA/`). The split is the result of a
 deliberate "include in CORE only what is 100% proven; demote everything else to
-the companion" decision after multiple rounds of blind LLM review.
+the companion" decision made during drafting.
 
 ## `CORE/`, the journal submission
 
-**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 20 pages.
+**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 24 pages.
 
-Three theorems, two lemmas, one self-contained six-page weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
+Three theorems, two lemmas, one self-contained weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
 
 Contents:
 
@@ -2017,12 +1996,10 @@ The companion is *not* part of the journal submission. It is intended for arXiv 
 
 ## Why the split
 
-Multiple rounds of blind LLM review converged on the recommendation that:
+The criterion:
 
-1. CORE should contain only content that is journal-defensible at the AHP/JGP tier (where the natural home lies).
-2. Material that is structurally interesting but rests on additional inputs (numerical Bargmann robustness; stratified iterated-edge 0-calculus citation chains) should be honestly relegated.
-
-The surgery was explicitly validated by a fresh post-surgery blind eval: three LLM reviewers all moved the package from "AHP a stretch" to "AHP/JGP minor revision, ~75–85% acceptance after one round." The honest scoping in CORE was specifically called out as a strength.
+1. CORE contains only fully proved content.
+2. Material that rests on additional inputs (numerical Bargmann robustness; stratified iterated-edge 0-calculus citation chains) is placed in the companion and labeled as conditional.
 
 ## Versioned history
 
@@ -2031,64 +2008,28 @@ The surgery was explicitly validated by a fresh post-surgery blind eval: three L
 
 ---
 
-# Part 5: Revision log
+# Part 5: Revision history
 
-# External peer review round 2, synthesis
+# Revision history
 
-Three independent external reviews of `paper/CORE/core.tex` (20-page focused note) + `paper/EXTRA/extra.tex` (30-page supplementary companion) + the verification suite. All received over a short period, all assume the AHP / J. Geom. Phys. tier as the natural target.
+Substantive changes to the manuscript across the internal review rounds, in chronological order. All internal review was LLM-based (see the preface note on provenance); the changes below are to the mathematics and its presentation, and stand on their own.
 
-## Verdicts
+1. **Split.** The original omnibus draft was split into CORE (only fully proved content; the journal submission) and EXTRA (conditional and exploratory material; arXiv-only companion).
 
-| Reviewer | Verdict | Key signal |
-|---|---|---|
-| R1 (two-pass, AHP/JGP track, reproduced n=5 Laplacian + α derivation) | **Accept with Minor Revisions** | "This bundle is exceptional and represents a gold standard for transparency." |
-| R2 (two-pass, deep technical pass) | **Major Revision** | Identified one real technical issue (commutator identity); recommends restructure into Paper A + Paper B |
-| R3 (single-pass, reproduced all computations in mpmath at 50-80 digits) | **Accept after six minor clarifications** | "The manuscript is careful, computationally honest, and mathematically correct." |
+2. **Independent verification of Lemma 4.1.** A standalone Rust adaptive Gauss-Kronrod cubature was added, computing the original 4-dimensional integral and the 1-dimensional Schwinger closed form independently on a 106-point grid spanning four orders of magnitude in s/R. Maximum relative discrepancy: about 2.5 ulp. See `verification/lemma_ct_rust/RESULTS.md`.
 
-## The substantive technical issue (R2)
+3. **Mourre regularity closed.** Appendix A was extended with iterated dilation-derivative and iterated-commutator bounds (Lemmas A.7, A.8) establishing the C^{1,1} hypothesis needed for the Sahbani-type Mourre conclusion, rather than assuming it.
 
-R2 identified, and the orchestrator confirmed by direct calculation, that the commutator identity stated in §4.4 and verified in `mourre_estimate_cusp.sage`,
+4. **Metric comparison and Green's-kernel estimates made explicit.** The operator-norm comparison between the moduli metric and the product metric on the collar, and the horizontal-projection Green's-kernel estimate, were written out with explicit constants in Appendix A instead of being asserted.
 
-$$[-\Delta_{\mathbb{H}^5_r}, iA] = 2(-\Delta - 4/r^2),$$
+5. **Commutator identity corrected (conjugated frame).** The identity [-Delta_{H^5_r}, iA] = 2(-Delta - 4/r^2), as stated in an earlier draft with A the radial dilation generator, is false as an operator identity on H^5_r: direct computation leaves a transverse term 2i r^{-2} y^2 Delta_x. The Mourre argument was rewritten in the Froese-Hislop framework: spherical-harmonic (respectively Fourier-mode) decomposition, reduction of each sector to a radial Schrodinger operator, conjugation by y^{(n-1)/2} and the substitution u = log y to the model H_conj = -d^2/du^2 + 4/r^2 on L^2(R), Mourre estimate there with the dilation generator, transfer back by direct sum. Both computations are recorded in `verification/mourre_estimate_cusp.sage`.
 
-with `A = ½(y∂_y + ∂_y y)` and `-Δ_g = r⁻²[-y²(∂_y² + ∂_x²) + 3y∂_y]`, is **false as an operator identity on H^5_r**:
-
-- Direct calculation: `[H, iA] = 2i r⁻² y² ∂_x²` (a transverse-Laplacian-valued operator).
-- On the radial sector: `[H_rad, iA] = 0`, which equals `2(H_rad − 4/r²) y^s = −2(s−2)²/r² · y^s` only at `s = 2`.
-
-The identity **does** hold (it's the standard Froese-Hislop identity) on the **conjugated radial Schrödinger operator** `H_conj = -∂_u² + 4/r²` on `L²(R, du)`, obtained from the radial part of `-Δ_g` after conjugation by `y^{(n-1)/2} = y²` and the substitution `u = log y`. There, with the dilation `A_u = ½(uD_u + D_u u)`, one has `[H_conj, iA_u] = 2(H_conj − 4/r²)`.
-
-The fix is standard but the manuscript needs to be explicit:
-1. Spherical-harmonic decomposition of `-Δ_g` on `H^5_r`
-2. Reduction of each spherical-harmonic sector to a radial Schrödinger operator
-3. Mourre estimate on the conjugated radial model
-4. Transfer back via direct sum
-
-This is the Froese-Hislop 1989 program; manuscript needs to follow it explicitly rather than asserting the unconjugated identity.
-
-## Convergent ask across the three reviews
-
-| Item | R1 | R2 | R3 | Tier |
-|---|---|---|---|---|
-| Coordinate form `Δ_g = r⁻²(y²∂_y² − 3y∂_y)` in §3 | ✓ | ✓ | ✓ | cosmetic |
-| Lemma 4.1 remainder with explicit `log(max(s_i)/R)` | ✓ |, | ✓ | cosmetic |
-| SU(N) Remark with explicit framing-overlap formula | ✓ |, | ✓ | cosmetic |
-| 16π² vs 8π² normalization explanation |, |, | ✓ | cosmetic |
-| Bartnik vs Lockhart-McOwen weight convention |, |, | ✓ | cosmetic |
-| Scale-uniformity computation (3 lines) |, |, | ✓ | cosmetic |
-| R / r notation clash in Lemma 4.1 proof |, |, | ✓ | cosmetic |
-| Theorem 4.3 uniformity citation back to Lemma 4.2 |, | ✓ | ✓ | cosmetic |
-| **Mourre commutator identity reformulated** |, | **✓** |, | **substantive** |
-| **Explicit C² metric-comparison** |, | **✓** |, | **substantive** |
-| **Explicit horizontal-projection Green's-kernel estimate** |, | **✓** |, | **substantive** |
-
-## Path: Option B
-
-1. Apply all cosmetic items (~1 hour).
-2. Dispatch focused agent on the three substantive items.
-3. Re-eval.
-
-Expected outcome: minor-revision acceptance at AHP / JGP in one round.
+6. **Revision 6 (final consolidations).**
+   - The Mourre residual-factor argument is stated at the identity level: A_j acts trivially on the residual factor M_{k-j}, so [-Delta_{M_{k-j}} otimes 1, iA_j] = 0, and the full commutator lives on the cusp factors.
+   - Two uncited bibliography entries removed.
+   - The Lemma 4.2(v) / Proposition A.10 constant is restated as the scale-invariant Sobolev embedding H^2(B_R) -> L^infty(B_R) in dimension 4, with constant C R^{-2}.
+   - The horosphere transverse spectrum is treated by Fourier-mode decomposition on R^4 (continuous transverse spectrum on [0, infinity)), replacing an incorrect "discrete after fibering" phrasing; the zero mode sets the 4/r^2 threshold and positive modes shift the bottom up.
+   - Theorem 4.3 states lim rather than liminf, since the upper and lower bounds match.
 
 
 ---
@@ -2265,7 +2206,7 @@ demand from native double-precision arithmetic.
   highly-asymmetric case (s1, s2) = (0.05, 2.0).
 
 The Schwinger closed form of Lemma CT is therefore verified to at
-least 15 digits, comfortably exceeding the 10–12 digit goal.
+least 15 digits, exceeding the 10-12 digit goal.
 
 ```
 
@@ -7089,4 +7030,4 @@ print("""
 
 ---
 
-*End of reviewer bundle (revision 6, FINAL).*
+*End of reviewer bundle (revision 6).*
