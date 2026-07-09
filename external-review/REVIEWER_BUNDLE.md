@@ -4,10 +4,12 @@
 **Author:** Vico Bonfioli (vicobonfioli@gmail.com)
 **Status:** FINAL pre-submission revision, ready for AHP / J. Geom. Phys.
 
-What changed since revision 5. Five consolidations from the final internal-review round (three blind reviewers, convergent on minor revisions):
+**Note on review provenance.** All review rounds referenced anywhere in this bundle were adversarial LLM reviews: independent model instances, blind to one another, run against the manuscript and the verification suite. No human domain expert has reviewed this work yet. The strongest independent evidence of correctness is computational (the Rust cubature in Part 6, agreeing with the Lemma 4.1 closed form to ~2.5 ulp on a 106-point grid).
+
+What changed since revision 5. Five consolidations from the final internal-review round (three independent LLM reviewer instances, convergent on minor revisions):
 
 1. Mourre residual-factor paragraph rewritten (unanimous concern across all three reviewers): the muddled "drops by orthogonality" sentence is replaced with the correct identity-level statement, A_j acts trivially on the residual factor $\mathcal{M}_{k-j}$, so $[-\Delta_{\mathcal{M}_{k-j}} \otimes 1, iA_j] = 0$ identically, and the full commutator $[-\Delta_{\mathrm{prod}}, iA_j]$ lives entirely on the cusp factors.
-2. Orphan bibitems removed: Davies1989 and AnkerPierfelice2014 (no longer cited after the previous-round  A.5 Hardy-bypass refactor) deleted from bibliography.
+2. Orphan bibitems removed: Davies1989 and AnkerPierfelice2014 (no longer cited after the previous-round A.5 Hardy-bypass refactor) deleted from bibliography.
 3. Lemma 4.2(v) / Prop A.10 dimensional typo fixed: the intermediate expression `C R^{-1}|a|/R = C R^{-2}|a|` was awkwardly stated; rewritten as the scale-invariant Sobolev embedding `H^2(B_R) -> L^infty(B_R)` in 4D with constant `C R^{-2}` (two derivatives, each contributing one factor of inverse length).
 4. Horosphere transverse spectrum clarified: the previous "discrete after fibering over the compact horocyclic slice" phrasing conflated quotient-horocycle and flat-R^4 situations. Replaced with the correct Fourier-mode decomposition on R^4 (continuous transverse Laplacian on [0,infty)), with the zero-mode sector setting the 4/r^2 threshold and positive Fourier modes contributing nonnegative additive shifts that strictly raise the bottom.
 5. Theorem 4.3 statement strengthened: `liminf_{eps->0}` to `lim_{eps->0}` since the upper and lower bounds match exactly.
@@ -408,7 +410,7 @@ o(U) \;:=\; \tfrac{2}{3}\sum_{a=1}^{3} \mathrm{Tr}_{\mathrm{fund}}\bigl(T_a\,U\,
 where $\{T_1, T_2, T_3\}$ is the fixed basis of the reference $\mathfrak{su}(2) \subset \mathfrak{su}(N)$ subalgebra in which the first bubble is framed (with the canonical normalization $\mathrm{Tr}_{\mathrm{fund}}(T_a T_b) = \tfrac12\delta_{ab}$), and $U$ is the relative framing rotation to the second bubble's $\mathfrak{su}(2)$ subalgebra. The factor $2/3$ normalizes $o$ so that the same-subgroup case $U = 1$ gives $o(1) = (2/3)\cdot 3 \cdot \tfrac12 = 1$, recovering the SU(2) value; the value $-1/3$ is attained on the symmetric self-conjugate fundamental representation. In all cases the factor $o(U)$ preserves the $O(s_1 s_2/R^2)$ decay rate. The additional compact framing factors $\mathrm{SU}(N)/S(U(N{-}2)\times U(2))$ on each bubble are positively curved and contribute only discrete spectrum starting at $0$ to each cusp; they do not lower the essential bottom. Symbolic verification of the SU(N) cross-term and numerical confirmation at $N=2,3,4$ are recorded in \cite{lemma-ct-SUN}.
 \end{remark}
 
-%, moved to companion supplementary note: SO(5)-isotypic reduction (Proposition, conditional on V_true matching the McKean cusp asymptote) , 
+%-- moved to companion supplementary note: SO(5)-isotypic reduction (Proposition, conditional on V_true matching the McKean cusp asymptote) --
 \iffalse
 \subsection{$\mathrm{SO}(5)$-isotypic reduction of the global bottom on $\cM_2(S^4_r)$}\label{sec:isotypic}
 
@@ -464,7 +466,7 @@ Statement (a) follows from Theorem~\ref{thm:M_k-collar-conditional} (upper bound
 Statement (a) is fully proved by Theorem~\ref{thm:M_k-collar-conditional} + Persson. Statements (c) above threshold and the absence-of-embedded-eigenvalues part of (c) follow from Theorem~\ref{thm:M_k-collar-spectral-type}. Statements (b) and (d), together with $\sigma_{\mathrm{sc}}\cap(0, 4/r^2) = \emptyset$, are extracted via the 0-calculus citation chain just sketched: the load-bearing technical input is the iterated-edge $0$-calculus parametrix construction for stratified asymptotically hyperbolic manifolds, which is by now standard but is not a one-line citation. A self-contained derivation specialized to $\cM_k(S^4_r)$ remains a worthwhile project. The finiteness statement (b) does \emph{not} on its own settle whether $\sigma_{\mathrm{pp}}\cap (0, 4/r^2) = \emptyset$ (i.e., whether $\lambda_0(\cM_k(S^4_r)) = 4/r^2$): see the discussion in the companion supplementary note for the case $k=2$ and the open question for $k\ge 3$.
 \end{remark}
 \fi
-%, end moved content , 
+%-- end moved content --
 
 \section{Remarks and open questions}
 
@@ -1370,7 +1372,7 @@ In the conditional reduction of \S\ref{sec:M2-global} below we cite Theorem~M1 a
 
 
 
-%, begin: content extracted into companion paper \cite{bonfioli-core} , 
+%-- begin: content extracted into companion paper \cite{bonfioli-core} --
 \iffalse
 Let $S^4_r$ denote the round $4$-sphere of radius $r$. The moduli space of charge-one $\mathrm{SU}(2)$ instantons on $S^4_r$ with the natural $L^2$ metric (Groisser--Parker \cite{GP1987,GP1989}, Habermann \cite{Habermann1993}, Doi--Matsumoto--Matsumoto \cite{DMM1987}) is isometric to a hyperbolic $5$-space of constant sectional curvature $-1/r^2$:
 \[
@@ -1476,7 +1478,7 @@ To transport this into $U_\epsilon^{(j)} \subset \cM_k(S^4_r)$: choose the cutof
 \end{proof}
 
 \fi
-%, end: content extracted into companion paper \cite{bonfioli-core} , 
+%-- end: content extracted into companion paper \cite{bonfioli-core} --
 
 \subsection{Toward the global \texorpdfstring{$\lambda_0(\cM_2(S^4_r))$}{lambda\_0(M\_2)}: cohomogeneity-one reduction (open)}\label{sec:M2-global}
 
@@ -1977,7 +1979,7 @@ The author thanks the work of Singer \cite{Singer1981}, Babelon--Viallet \cite{B
 The paper is split into a tightly-scoped journal submission (`CORE/`) and an
 arXiv-only supplementary companion (`EXTRA/`). The split is the result of a
 deliberate "include in CORE only what is 100% proven; demote everything else to
-the companion" decision after multiple rounds of blind review.
+the companion" decision after multiple rounds of blind LLM review.
 
 ## `CORE/`, the journal submission
 
@@ -2015,12 +2017,12 @@ The companion is *not* part of the journal submission. It is intended for arXiv 
 
 ## Why the split
 
-Multiple rounds of blind expert review converged on the recommendation that:
+Multiple rounds of blind LLM review converged on the recommendation that:
 
 1. CORE should contain only content that is journal-defensible at the AHP/JGP tier (where the natural home lies).
 2. Material that is structurally interesting but rests on additional inputs (numerical Bargmann robustness; stratified iterated-edge 0-calculus citation chains) should be honestly relegated.
 
-The surgery was explicitly validated by a fresh post-surgery blind eval: three reviewers all moved the package from "AHP a stretch" to "AHP/JGP minor revision, ~75–85% acceptance after one round." The honest scoping in CORE was specifically called out as a strength.
+The surgery was explicitly validated by a fresh post-surgery blind eval: three LLM reviewers all moved the package from "AHP a stretch" to "AHP/JGP minor revision, ~75–85% acceptance after one round." The honest scoping in CORE was specifically called out as a strength.
 
 ## Versioned history
 

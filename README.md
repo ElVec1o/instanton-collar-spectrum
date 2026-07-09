@@ -26,9 +26,47 @@ Author: Vico Bonfioli (vicobonfioli@gmail.com)
 - **Theorem 4.4.** Mourre spectral type with C^{1,1} regularity (Froese-Hislop conjugated radial Schrodinger framework): no singular continuous spectrum above threshold, locally finite point spectrum, absolutely continuous spectrum above 4j/r^2 + C eps |log eps|.
 - **Remark 4.5.** SU(N) extension with explicit framing-overlap scalar.
 
-## Status
+## Status and provenance
 
-Final pre-submission revision (revision 6). Six rounds of external blind review have converged on minor-revision acceptance at the AHP / JGP tier.
+Final pre-submission revision (revision 6).
+
+Full disclosure: this work was produced by an independent researcher, with extensive LLM assistance for drafting, adversarial review, and verification tooling. The manuscript went through six rounds of adversarial LLM review (three independent model instances per round, blind to one another), which converged on minor-revision-level feedback. **It has not yet been reviewed by a human domain expert.**
+
+The strongest independent evidence of correctness is computational: the Lemma 4.1 closed form agrees with the original 4-dimensional integral to ~2.5 ulp on a 106-point grid spanning four orders of magnitude in scale ratio, computed by an independent Rust adaptive Gauss-Kronrod implementation (see `verification/lemma_ct_rust/RESULTS.md`).
+
+Expert feedback, corrections, and refutations are actively welcome: vicobonfioli@gmail.com.
+
+## Reproducing the verification
+
+Rust cubature (Lemma 4.1), requires a Rust toolchain:
+
+```
+cd verification/lemma_ct_rust
+cargo run --release
+```
+
+Sage scripts (symbolic identities), require SageMath:
+
+```
+sage verification/mourre_estimate_cusp.sage
+sage verification/lemma_ct_higher_order.sage
+```
+
+Plain-Python scripts run with any Python 3:
+
+```
+python3 verification/lemma_5_2_schwinger.py
+python3 verification/m2_closure_fast.py
+```
+
+## Compiling the paper
+
+```
+cd paper/CORE && pdflatex core.tex && pdflatex core.tex
+cd paper/EXTRA && pdflatex extra.tex && pdflatex extra.tex
+```
+
+Expected output: CORE 24 pages, EXTRA 30 pages, zero undefined references.
 
 ## Licenses
 
