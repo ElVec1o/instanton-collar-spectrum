@@ -14,7 +14,7 @@ Changes since revision 5:
 4. Horosphere transverse spectrum clarified: the previous "discrete after fibering over the compact horocyclic slice" phrasing conflated quotient-horocycle and flat-R^4 situations. Replaced with the correct Fourier-mode decomposition on R^4 (continuous transverse Laplacian on [0,infty)), with the zero-mode sector setting the 4/r^2 threshold and positive Fourier modes contributing nonnegative additive shifts that strictly raise the bottom.
 5. Theorem 4.3 statement strengthened: `liminf_{eps->0}` to `lim_{eps->0}` since the upper and lower bounds match exactly.
 
-No new mathematical content, these are tightenings of the existing arguments. CORE compiles to 24 pages clean, EXTRA to 30 pages.
+Addition after revision 6 (v1.2): elementary and hyperbolic-distance closed form in Lemma 4.1 (cross-term = 24 pi^2 (cosh d sinh d - d)/sinh^3 d, d the H^5 distance) and a quantitative two-sided rate corollary after Theorem 4.3; see Part 5, item 7. Items 1-5 above are tightenings of existing arguments. CORE compiles to 25 pages clean, EXTRA to 30 pages.
 
 ## Table of contents
 
@@ -41,10 +41,11 @@ and its supplementary companion.
 
 | Path | Description |
 |---|---|
-| `paper/CORE/core.pdf` (`core.tex`) | Submission paper, 24 pages |
+| `paper/CORE/core.pdf` (`core.tex`) | Submission paper, 25 pages |
 | `paper/EXTRA/extra.pdf` (`extra.tex`) | Supplementary companion, 30 pages, not part of the submission |
 | `paper/SPLIT.md` | Rationale for the CORE/EXTRA split |
 | `verification/lemma_ct_rust/` | Rust adaptive Gauss-Kronrod cubature (Lemma 4.1); `RESULTS.md` holds the 106-point grid table |
+| `verification/lemma_ct_elementary.py` | Elementary and hyperbolic-distance closed forms of Lemma 4.1 (symbolic + 50-digit checks) |
 | `verification/lemma_5_2_schwinger.py` | Python Monte Carlo check of Lemma 4.1 |
 | `verification/lemma_ct_higher_order.sage` | Next-order Schwinger expansion |
 | `verification/lemma_od_position_terms.sage` | Scale-position terms and IR-divergence diagnosis (Lemma 4.2) |
@@ -56,7 +57,7 @@ and its supplementary companion.
 
 ## Reading order
 
-1. `paper/CORE/core.pdf` (24 pages): three theorems, two lemmas, one self-contained appendix. This is the only document intended for journal submission.
+1. `paper/CORE/core.pdf` (25 pages): three theorems, two lemmas, one self-contained appendix. This is the only document intended for journal submission.
 2. Optional: `paper/EXTRA/extra.pdf` for the supplementary material. Its two structural propositions are labeled "proof outline" and are conditional, not claimed as theorems.
 3. Optional: the verification. The main artifact is `verification/lemma_ct_rust/RESULTS.md`: an independent Rust adaptive Gauss-Kronrod cubature of the original 4-dimensional integral against the 1-dimensional closed form of Lemma 4.1, on a 106-point grid spanning four orders of magnitude in s/R; maximum relative error is about 2.5 ulp (about 5.5e-16). To rebuild: `cd verification/lemma_ct_rust && cargo run --release`.
 
@@ -65,7 +66,7 @@ and its supplementary companion.
 | Result | Status | Artifact |
 |---|---|---|
 | Theorem 3.2: lambda_0(M_1(S^4_r)) = 4/r^2 | Follows from Habermann/DMM + McKean; stated with explicit radius bookkeeping | none needed |
-| Lemma 4.1: Schwinger closed form for the BPST scale-derivative cross-term | New | `lemma_ct_rust/`; `lemma_5_2_schwinger.py`; `lemma_ct_higher_order.sage` |
+| Lemma 4.1: Schwinger closed form for the BPST scale-derivative cross-term; elementary evaluation, equal to $24\pi^2(\cosh d\sinh d - d)/\sinh^3 d$ with $d$ the $H^5$ distance | New | `lemma_ct_rust/`; `lemma_ct_elementary.py`; `lemma_5_2_schwinger.py`; `lemma_ct_higher_order.sage` |
 | Lemma 4.2: off-diagonal cross-block bounds | New; proved in Appendix A | `lemma_od_position_terms.sage` |
 | Theorem 4.3: codimension-j Uhlenbeck collar essential bottom = 4j/r^2 | New; quantitative version of the qualitative product picture in Groisser-Parker and Donaldson-Kronheimer §7.3 | via Lemmas 4.1, 4.2 |
 | Theorem 4.4: Mourre spectral type (no sigma_sc above threshold, locally finite sigma_pp, AC spectrum) | New | `mourre_estimate_cusp.sage`; `mourre_iterated_commutator.sage` |
@@ -196,6 +197,18 @@ where
 \begin{equation}\label{eq:lemma-X-def}
 X(t) \;:=\; t(1-t)R^2 + (1-t)s_1^2 + t s_2^2.
 \end{equation}
+The integral evaluates in elementary closed form: with $\Sigma := R^2 + s_1^2 + s_2^2$ and
+$D := \Sigma^2 - 4 s_1^2 s_2^2 = \bigl(R^2 + (s_1+s_2)^2\bigr)\bigl(R^2 + (s_1-s_2)^2\bigr)$,
+\begin{equation}\label{eq:lemma-ct-elementary}
+\langle \partial A_1/\partial s_1,\;\partial A_2/\partial s_2\rangle_{L^2(\bbR^4)}
+\;=\; 48\pi^2 s_1 s_2\left[\frac{\Sigma}{D} \;-\; \frac{4 s_1^2 s_2^2}{D^{3/2}}\,\operatorname{arccosh}\!\Bigl(\frac{\Sigma}{2 s_1 s_2}\Bigr)\right].
+\end{equation}
+Moreover \eqref{eq:lemma-ct-elementary} is intrinsic to the hyperbolic geometry of Proposition~\ref{prop:M1-iso}: $\Sigma/(2 s_1 s_2) = \cosh d$, where $d$ is the hyperbolic distance between $(x_1, s_1)$ and $(x_2, s_2)$ in the upper-half-space model of $\bbH^5$ (unit curvature), so
+\begin{equation}\label{eq:lemma-ct-hyperbolic}
+\langle \partial A_1/\partial s_1,\;\partial A_2/\partial s_2\rangle_{L^2(\bbR^4)}
+\;=\; 24\pi^2\;\frac{\cosh d\,\sinh d \;-\; d}{\sinh^3 d}\;=:\;24\pi^2\,G(d),
+\end{equation}
+a function of the hyperbolic distance alone. $G$ is smooth and positive on $(0, \infty)$, with $G(d) \to 2/3$ as $d \to 0^{+}$: the cross-term extends continuously to the coincidence limit with value $16\pi^2$, matching the diagonal norm $\|\partial A_1/\partial s_1\|^2_{L^2} = 16\pi^2$ below. As $d \to \infty$, $G(d) = 2e^{-d} + O(d\,e^{-3d})$, which recovers the leading term of \eqref{eq:lemma-asymptotic} via $e^{-d} = (1+o(1))\,s_1 s_2/R^2$ in the regime $s_1, s_2 \ll R$.
 In the asymptotic regime $s_1, s_2 \ll R$, the leading behaviour with explicit next-order correction is
 \begin{equation}\label{eq:lemma-asymptotic}
 \langle \partial A_1/\partial s_1,\;\partial A_2/\partial s_2\rangle_{L^2(\bbR^4)}
@@ -211,6 +224,22 @@ After the $\eta$-tensor contraction identity $\sum_{a,\mu} \eta^a_{\mu\nu}\eta^a
 \;=\; 48 s_1 s_2 \int_{\bbR^4} \frac{x \cdot (x - R e_1)}{(|x|^2 + s_1^2)^2\,\bigl((x - R e_1)^2 + s_2^2\bigr)^2}\,d^4 x.
 \]
 Use the Schwinger parametrization $A^{-2} = \int_0^\infty \alpha\,e^{-\alpha A}\,d\alpha$ for each squared denominator. Set $\xi := x - \xi_*$ with the shift $\xi_* := (\alpha_2 R/(\alpha_1+\alpha_2))\,e_1$ (we rename the integration variable to $\xi$ to avoid clash with the upper-half-space coordinate $y$ used later in the spectral analysis). Completing the square in $x$ gives the integrand as $\exp(-(\alpha_1+\alpha_2)|\xi|^2 - \alpha_1\alpha_2 R^2/(\alpha_1+\alpha_2) - \alpha_1 s_1^2 - \alpha_2 s_2^2)$. Evaluate the Gaussian $\xi$-integrals using $\int_{\bbR^4} e^{-\sigma|\xi|^2}\,d^4\xi = \pi^2/\sigma^2$, $\int |\xi|^2 e^{-\sigma|\xi|^2}\,d^4\xi = 2\pi^2/\sigma^3$, $\int \xi_1 e^{-\sigma|\xi|^2}\,d^4\xi = 0$. Repartition $(\alpha_1, \alpha_2) \to (\sigma, t)$ with $\sigma = \alpha_1+\alpha_2$, $t = \alpha_2/\sigma$ (Jacobian $\sigma$), then integrate $\sigma$ from $0$ to $\infty$ using $\int_0^\infty e^{-\sigma X}\,d\sigma = 1/X$ and $\int_0^\infty \sigma e^{-\sigma X}\,d\sigma = 1/X^2$. The result is exactly \eqref{eq:lemma-cross-term-exact}.
+
+For the elementary form \eqref{eq:lemma-ct-elementary}, write $a = s_1^2$, $b = s_2^2$, $c = R^2$ and $L(t) := a(1-t) + b\,t$, so that $X = c\,t(1-t) + L$ and the integrand of \eqref{eq:lemma-cross-term-exact} collapses pointwise:
+\[
+t(1-t)\,\frac{2X - t(1-t)c}{X^2} \;=\; \frac{(X - L)(X + L)}{c\,X^2} \;=\; \frac1c\Bigl(1 - \frac{L^2}{X^2}\Bigr).
+\]
+The quadratic $X(t) = -c\,t^2 + (c + b - a)\,t + a$ is positive on $[0,1]$ (both roots lie outside the interval, since $X(0) = a > 0$, $X(1) = b > 0$ and the leading coefficient is negative) with $(c+b-a)^2 + 4ac = \Sigma^2 - 4ab = D$. The standard antiderivatives give
+\[
+\int_0^1 \frac{dt}{X} = \frac{2}{\sqrt D}\,\operatorname{arccosh}\Bigl(\frac{\Sigma}{2\sqrt{ab}}\Bigr),\qquad
+\int_0^1 \frac{X'\,dt}{X^2} = \frac1a - \frac1b,\qquad
+\int_0^1 \frac{dt}{X^2} = \frac{(a-b)^2 + c(a+b)}{ab\,D} + \frac{2c}{D}\int_0^1 \frac{dt}{X}.
+\]
+Decomposing $L^2 = A\,X + B\,X' + C$ with rational coefficients ($A = -(b-a)^2/c$, and $B$, $C$ determined by matching the linear and constant terms), assembling the three integrals, and using the polynomial identity
+\[
+a^3 - a^2 b + 3a^2 c - a b^2 + 2abc + 3ac^2 + b^3 + 3b^2c + 3bc^2 + c^3 \;=\; \Sigma\,D,
+\]
+one obtains \eqref{eq:lemma-ct-elementary}. The substitution $\Sigma = 2 s_1 s_2 \cosh d$, $\sqrt D = 2 s_1 s_2 \sinh d$ then gives \eqref{eq:lemma-ct-hyperbolic}; that $d$ is the $\bbH^5$ distance is the upper-half-space formula $\cosh d = 1 + \bigl(|x_1 - x_2|^2 + (s_1 - s_2)^2\bigr)/(2 s_1 s_2) = \Sigma/(2 s_1 s_2)$. The limits of $G$ follow from $\cosh d \sinh d - d = \tfrac23 d^3 + O(d^5)$ and $\sinh^3 d = d^3 + O(d^5)$ at $d \to 0$, and from $\cosh d\sinh d - d = \tfrac14 e^{2d}(1 - 4d\,e^{-2d} + O(e^{-4d}))$, $\sinh^3 d = \tfrac18 e^{3d}(1 + O(e^{-2d}))$ at $d \to \infty$. The identities and \eqref{eq:lemma-ct-elementary}--\eqref{eq:lemma-ct-hyperbolic} are verified symbolically and to 50 significant digits against direct quadrature of \eqref{eq:lemma-cross-term-exact}, and to machine precision against the 4-D grid of \cite{lemma-ct-rust}, in \cite{lemma-ct-elementary}.
 
 The asymptotic \eqref{eq:lemma-asymptotic} follows by expanding $1/X(t)$ in powers of $(s_i/R)^2$ in the integrand and integrating term by term against $t(1-t)$. The leading $1$ and the explicit $-(s_1^2+s_2^2)/R^2$ correction follow from elementary $\int_0^1 t(1-t)\,dt = 1/6$ identities; the $\log(s/R)$ at the next order arises from the endpoint behaviour of the $u^2 v^2$ contribution where $X(t) \sim t s_2^2$ as $t \to 0$ and $X(t) \sim (1-t) s_1^2$ as $t \to 1$, producing logarithmic divergence after the polynomial $t(1-t)$ damping is exhausted. Numerical verification of \eqref{eq:lemma-cross-term-exact} against the original 4-dimensional integral has been performed by adaptive Gauss--Kronrod cubature (after a reduction to two dimensions exploiting the $O(3)$ symmetry around the axis through $x_1, x_2$): the closed form agrees with the 4D integral to $\approx 2.5\,\mathrm{ulp}$ ($\approx 5.5\times 10^{-16}$ relative error) across a $5\times 5\times 4 + 6$ grid of $(s_1, s_2, R)$ values spanning four orders of magnitude in scale ratio \cite{lemma-ct-rust}. The on-axis closed form $F(u,0) = 1/(1+u^2)$ and the symmetric next-order coefficients $c_4 = d_4 = 8$ in $F(\epsilon, \epsilon) = 1 - 2\epsilon^2 + 8(1+\log\epsilon)\epsilon^4 + O(\epsilon^6\log\epsilon)$ are confirmed symbolically in \cite{lemma-ct-higher-order}.
 \end{proof}
@@ -307,6 +336,17 @@ For the matching lower bound, the operator inequality \eqref{eq:metric-product-b
 \bigl(1 - C\epsilon|\log\epsilon|\bigr)\langle -\Lap_{\mathrm{prod}}\,\phi, \phi\rangle \le \langle -\Lap_{U_\epsilon^{(j)}}\,\phi, \phi\rangle \le \bigl(1 + C\epsilon|\log\epsilon|\bigr)\langle -\Lap_{\mathrm{prod}}\,\phi, \phi\rangle.
 \]
 By the min-max principle, $\lambda_0^{\mathrm{ess}}(-\Lap_{U_\epsilon^{(j)}}) \ge (1 - C\epsilon|\log\epsilon|)\lambda_0^{\mathrm{ess}}(-\Lap_{\mathrm{prod}})$. The product Laplacian decomposes as $-\Lap_{\mathrm{prod}} = -\Lap_{\cM_{k-j}} \otimes 1 + 1\otimes(-\Lap_{\mathrm{bubbles}})$, and the spectrum of a tensor sum is the Minkowski sum of the constituent spectra; thus $\lambda_0^{\mathrm{ess}}(-\Lap_{\mathrm{prod}}) \ge \lambda_0(\cM_{k-j}) + \sum_{i=1}^j \lambda_0(\bbH^5_r\text{-cusp}) \ge 0 + 4j/r^2$, using $\lambda_0 \ge 0$ on the (possibly compact) residual factor and the McKean saturation $\lambda_0(\bbH^5_r) = 4/r^2$ from Theorem~\ref{thm:M1-spectrum}. Taking $\epsilon \to 0$ gives $\liminf_\epsilon \lambda_0^{\mathrm{ess}}(U_\epsilon^{(j)}) \ge 4j/r^2$. The two bounds match.
+\end{proof}
+
+\begin{corollary}[Quantitative two-sided rate]\label{cor:rate}
+There exist $C = C(j, r) > 0$ and $\epsilon_0 > 0$ such that for all $0 < \epsilon < \epsilon_0$,
+\[
+\Bigl|\lambda_0^{\mathrm{ess}}\bigl(U_\epsilon^{(j)}\bigr) \;-\; \frac{4j}{r^2}\Bigr| \;\le\; C\,\frac{\epsilon\,|\log\epsilon|}{r^2}.
+\]
+\end{corollary}
+
+\begin{proof}
+The min-max step of the preceding proof gives $\lambda_0^{\mathrm{ess}}(U_\epsilon^{(j)}) \ge (1 - C\epsilon|\log\epsilon|)\,4j/r^2$. Conversely, the transported quasi-modes $\Phi^{(j)}_n$ form, for $n \to \infty$ at fixed $\epsilon$, a Weyl-type sequence whose normalized residual $\|(-\Lap_{U_\epsilon^{(j)}} - 4j/r^2)\Phi^{(j)}_n\|_{L^2}/\|\Phi^{(j)}_n\|_{L^2}$ is bounded, in the limit, by $C'\epsilon|\log\epsilon|/r^2$; hence $\operatorname{dist}\bigl(4j/r^2,\,\sigma_{\mathrm{ess}}(-\Lap_{U_\epsilon^{(j)}})\bigr) \le C'\epsilon|\log\epsilon|/r^2$, and since the min-max bound excludes essential spectrum below $(1 - C\epsilon|\log\epsilon|)\,4j/r^2$, the essential-spectrum point so produced bounds $\lambda_0^{\mathrm{ess}}$ from above by $4j/r^2 + C'\epsilon|\log\epsilon|/r^2$. The two bounds combine into the display.
 \end{proof}
 
 \begin{remark}[On the strength of the metric-comparison rate]\label{rmk:rate}
@@ -848,6 +888,8 @@ The iterated bound \eqref{eq:iterated-h-bound} is uniform: at each order $n$ the
 \bibitem{lemma-ct-rust} V.\ Bonfioli, machine-precision Rust verification of Lemma~\ref{lem:cross-term}: \texttt{verification/lemma\_ct\_rust/}. Self-contained adaptive Gauss--Kronrod 15/7 in Rust; reduces the $4$-d integral to $2$-d via axial $O(3)$ symmetry, then compares against the $1$-d Schwinger ground truth. Relative error $\le 2.5$ ulp ($\approx 5.5\times 10^{-16}$) across a 106-point grid spanning $(s_1, s_2, R) \in [0.05, 2.0]^2 \times [1, 50]$ plus extreme asymptotic regimes; runtime $< 5\,\mathrm{s}$ on a Mac mini.
 
 \bibitem{lemma-ct-higher-order} V.\ Bonfioli, Sage symbolic computation of the next-order Schwinger expansion for Lemma~\ref{lem:cross-term}: \texttt{verification/lemma\_ct\_higher\_order.sage}. Verifies $F(u, 0) = 1/(1+u^2)$ exactly, the symmetric series $F(\epsilon, \epsilon) = 1 - 2\epsilon^2 + 8(1+\log\epsilon)\epsilon^4 + O(\epsilon^6\log\epsilon)$, and the identification of the $\log(s/R)$ remainder at the $u^2 v^2$ cross-term.
+
+\bibitem{lemma-ct-elementary} V.\ Bonfioli, symbolic and high-precision verification of the elementary and hyperbolic-distance closed forms \eqref{eq:lemma-ct-elementary}--\eqref{eq:lemma-ct-hyperbolic}: \texttt{verification/lemma\_ct\_elementary.py}. Verifies the pointwise integrand identity and the numerator identity $N = \Sigma D$ symbolically (exact); the closed form against 50-digit adaptive quadrature of the integral in \eqref{eq:lemma-cross-term-exact} on a 60-point grid (max.\ rel.\ error $< 10^{-45}$); the full inner product against the Rust 4-D grid values of \cite{lemma-ct-rust} (machine precision); the limits $G(0^+) = 2/3$ and $G(d) \sim 2e^{-d}$; and the symmetric expansion coefficient $8(1 + \log\epsilon)$ of \cite{lemma-ct-higher-order} directly from the closed form.
 
 \bibitem{Sahbani1997} J.\ Sahbani, \emph{The conjugate operator method for locally regular Hamiltonians}, J.\ Operator Theory \textbf{38} (1997) 297--322.
 
@@ -1962,14 +2004,14 @@ the companion" decision made during drafting.
 
 ## `CORE/`, the journal submission
 
-**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 24 pages.
+**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 25 pages.
 
 Three theorems, two lemmas, one self-contained weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
 
 Contents:
 
 - §3 Theorem (M_1 McKean saturation): λ_0(M_1(S^4_r)) = 4/r²
-- §4.1 Lemma (Schwinger cross-term closed form): exact 1-d closed form for the BPST scale-derivative L²-pairing; machine-precision verified ~2.5 ulp via independent Rust adaptive Gauss–Kronrod cubature
+- §4.1 Lemma (Schwinger cross-term closed form): exact elementary closed form for the BPST scale-derivative L²-pairing, equal to 24π²(cosh d sinh d − d)/sinh³d with d the hyperbolic distance in the M₁ ≅ H⁵ identification; machine-precision verified ~2.5 ulp via independent Rust adaptive Gauss–Kronrod cubature
 - §4.2 Lemma (off-diagonal cross-block bounds): scale-position closed form, position-position IR-divergence diagnosis, gauge-fixed cross-block C s₁ s₂/R²(1+|log|), bubble-background s_i²/R
 - §4.3 Theorem (codim-j Uhlenbeck collar essential bottom = 4j/r²): rigorous via operator-norm metric comparison (1 ± Cε|log ε|) g_prod, Weyl quasi-modes upper bound, min-max lower bound
 - §4.4 Theorem (Mourre spectral type with C¹·¹ regularity): no σ_sc above threshold, locally finite σ_pp, AC spectrum on (4j/r² + Cε|log ε|, ∞)
@@ -2030,6 +2072,8 @@ Substantive changes to the manuscript across the internal review rounds, in chro
    - The Lemma 4.2(v) / Proposition A.10 constant is restated as the scale-invariant Sobolev embedding H^2(B_R) -> L^infty(B_R) in dimension 4, with constant C R^{-2}.
    - The horosphere transverse spectrum is treated by Fourier-mode decomposition on R^4 (continuous transverse spectrum on [0, infinity)), replacing an incorrect "discrete after fibering" phrasing; the zero mode sets the 4/r^2 threshold and positive modes shift the bottom up.
    - Theorem 4.3 states lim rather than liminf, since the upper and lower bounds match.
+
+7. **Elementary and hyperbolic closed form for Lemma 4.1; rate corollary (v1.2).** The 1-dimensional Schwinger integral of Lemma 4.1 is evaluated in elementary terms: the cross-term equals 24 pi^2 (cosh d sinh d - d)/sinh^3 d, where d is the hyperbolic distance between the two bubble points in the upper-half-space model of H^5 (the M_1 identification of Proposition 3.1). The d -> 0 limit reproduces the diagonal norm 16 pi^2 continuously; the d -> infinity limit recovers the 48 pi^2 s_1 s_2 / R^2 asymptotic; the logarithm in the (s/R)^4 remainder is identified as the distance d itself. Verified symbolically and to 50 significant digits (`verification/lemma_ct_elementary.py`). A quantitative two-sided rate corollary, |lambda_0^ess(U_eps^(j)) - 4j/r^2| <= C eps |log eps| / r^2, is added after Theorem 4.3. CORE is now 25 pages.
 
 
 ---
@@ -2611,8 +2655,153 @@ fn main() {
 
 ```
 
-## 6.2 Sage / Python: Schwinger cross-term and next-order expansion
+## 6.2 Sage / Python: Schwinger cross-term, elementary closed form, next-order expansion
 
+
+**File:** `verification/lemma_ct_elementary.py`
+
+```python
+#!/usr/bin/env python3
+"""Elementary / hyperbolic-distance closed form of the Lemma 4.1 cross-term.
+
+Claim (Lemma 4.1, elementary form). With a = s1^2, b = s2^2, c = R^2,
+Sigma = a + b + c, D = Sigma^2 - 4ab = (R^2+(s1+s2)^2)(R^2+(s1-s2)^2):
+
+  I := int_0^1 t(1-t) (2X - t(1-t)c) / X^2 dt,   X = c t(1-t) + a(1-t) + b t
+     = Sigma/D - (4ab / D^{3/2}) * arccosh( Sigma / (2 s1 s2) ).
+
+Equivalently, with cosh d = Sigma/(2 s1 s2)  (d = hyperbolic distance between
+(x1, s1) and (x2, s2) in the upper-half-space model of H^5):
+
+  <dA1/ds1, dA2/ds2>_{L^2} = 48 pi^2 s1 s2 I = 24 pi^2 (cosh d sinh d - d)/sinh^3 d.
+
+This script verifies:
+  (0) the pointwise integrand identity  t(1-t)(2X - t(1-t)c)/X^2 = (1/c)(1 - L^2/X^2),
+      L = a(1-t) + bt   (symbolic, exact);
+  (1) the polynomial identity N = Sigma*D used in the derivation (symbolic, exact);
+  (2) closed form vs 50-digit adaptive quadrature of the 1-D integral, 60-point grid;
+  (3) closed form (x 48 pi^2 s1 s2) vs the Rust 4-D ground-truth values
+      recorded in lemma_ct_rust/RESULTS.md (machine precision, ~2.5 ulp);
+  (4) the limits: G(d) -> 2/3 as d -> 0   [24 pi^2 * 2/3 = 16 pi^2 = diagonal norm],
+      G(d) ~ 2 e^{-d} as d -> infinity    [recovers 48 pi^2 s1 s2 / R^2],
+      on-axis limit s2 -> 0: c*I -> 1/(1+u^2), u = s1/R;
+  (5) the symmetric next-order expansion F(eps,eps) = 1 - 2 eps^2 + 8(1+log eps) eps^4 + ...
+      (the paper's log term: log = -d + log-free part).
+
+Exit code 0 and final PASS line iff all checks pass.
+"""
+import sympy as sp
+import mpmath as mp
+import sys
+
+ok = True
+
+def check(name, cond):
+    global ok
+    print(f"  [{'PASS' if cond else 'FAIL'}] {name}")
+    ok = ok and bool(cond)
+
+# ---------- (0) pointwise identity, symbolic ----------
+t, a, b, c = sp.symbols('t a b c', positive=True)
+X = c*t*(1-t) + a*(1-t) + b*t
+L = a*(1-t) + b*t
+P = t*(1-t)
+res = sp.simplify(P*(2*X - P*c)/X**2 - (1 - L**2/X**2)/c)
+print("(0) pointwise integrand identity")
+check("t(1-t)(2X-t(1-t)c)/X^2 == (1/c)(1 - L^2/X^2)", res == 0)
+
+# ---------- (1) polynomial identity N = Sigma*D ----------
+Sig = a + b + c
+D = sp.expand(Sig**2 - 4*a*b)
+N = (a**3 - a**2*b + 3*a**2*c - a*b**2 + 2*a*b*c + 3*a*c**2
+     + b**3 + 3*b**2*c + 3*b*c**2 + c**3)
+print("(1) numerator identity")
+check("N == Sigma * D", sp.expand(N - Sig*D) == 0)
+
+# ---------- closed form ----------
+mp.mp.dps = 50
+
+def I_closed(s1, s2, R):
+    av, bv, cv = mp.mpf(s1)**2, mp.mpf(s2)**2, mp.mpf(R)**2
+    S = av + bv + cv
+    Dv = S**2 - 4*av*bv
+    return S/Dv - 4*av*bv/Dv**mp.mpf(1.5) * mp.acosh(S/(2*mp.mpf(s1)*mp.mpf(s2)))
+
+def I_quad(s1, s2, R):
+    av, bv, cv = mp.mpf(s1)**2, mp.mpf(s2)**2, mp.mpf(R)**2
+    def g(tv):
+        Xv = cv*tv*(1-tv) + av*(1-tv) + bv*tv
+        Pv = tv*(1-tv)
+        return Pv*(2*Xv - Pv*cv)/Xv**2
+    return mp.quad(g, [0, 1])
+
+def G(d):
+    d = mp.mpf(d)
+    return (mp.cosh(d)*mp.sinh(d) - d)/mp.sinh(d)**3
+
+# ---------- (2) grid vs quadrature ----------
+print("(2) closed form vs 50-digit quadrature, 60-point grid")
+worst = mp.mpf(0)
+for s1 in [0.01, 0.05, 0.3, 1.0, 2.0]:
+    for s2 in [0.02, 0.5, 1.0, 3.0]:
+        for R in [0.5, 1.0, 10.0]:
+            e = abs(I_closed(s1, s2, R)/I_quad(s1, s2, R) - 1)
+            worst = max(worst, e)
+check(f"max rel err = {mp.nstr(worst, 3)} < 1e-45", worst < mp.mpf('1e-45'))
+
+# ---------- (3) vs Rust 4-D ground truth (RESULTS.md rows) ----------
+print("(3) 48 pi^2 s1 s2 I vs Rust 4-D integral values (RESULTS.md)")
+rows = [
+    (0.05, 0.05, 1,  '1.17831447946537e0'),
+    (0.05, 0.1,  5,  '9.47007380292315e-2'),
+    (0.05, 0.5,  10, '1.18136742582047e-1'),
+    (0.05, 2,    10, '4.55499235638643e-1'),
+    (0.1,  0.5,  1,  '1.85328596930434e1'),
+    (0.5,  0.5,  50, '4.73646126502408e-2'),
+    (0.5,  1,    1,  '8.92273557362241e1'),
+]
+worst3 = mp.mpf(0)
+for s1, s2, R, val in rows:
+    full = 48*mp.pi**2*mp.mpf(s1)*mp.mpf(s2)*I_closed(s1, s2, R)
+    worst3 = max(worst3, abs(full/mp.mpf(val) - 1))
+check(f"max rel err = {mp.nstr(worst3, 3)} < 5e-15 (table stored at ~16 digits)",
+      worst3 < mp.mpf('5e-15'))
+
+# ---------- (4) limits ----------
+print("(4) limits and hyperbolic form")
+# G(d) -> 2/3 (=> 24 pi^2 G -> 16 pi^2, the diagonal norm)
+check("G(1e-8) = 2/3 to 15 digits", abs(G('1e-8') - mp.mpf(2)/3) < mp.mpf('1e-15'))
+# hyperbolic form == closed form
+s1, s2, R = mp.mpf('0.3'), mp.mpf('0.7'), mp.mpf('2.0')
+S = s1**2 + s2**2 + R**2
+d = mp.acosh(S/(2*s1*s2))
+lhs = 48*mp.pi**2*s1*s2*I_closed(s1, s2, R)
+rhs = 24*mp.pi**2*G(d)
+check("48 pi^2 s1 s2 I == 24 pi^2 G(d)", abs(lhs/rhs - 1) < mp.mpf('1e-45'))
+# large-d: G ~ 2 e^{-d}
+check("G(30)/ (2 e^{-30}) = 1 + O(e^{-2d})", abs(G(30)/(2*mp.e**-30) - 1) < mp.mpf('1e-20'))
+# on-axis: c*I -> 1/(1+u^2) as s2 -> 0
+u = mp.mpf('0.3')
+val = I_closed(u, mp.mpf('1e-12'), 1)
+check("s2->0: I -> 1/(1+u^2) (R=1)", abs(val - 1/(1+u**2)) < mp.mpf('1e-20'))
+
+# ---------- (5) symmetric next-order expansion ----------
+print("(5) symmetric expansion F(eps,eps) = 1 - 2 eps^2 + 8(1+log eps) eps^4 + O(eps^6 log eps)")
+worst5 = mp.mpf(0)
+for ev in ['1e-3', '1e-4', '1e-5']:
+    e_ = mp.mpf(ev)
+    F = I_closed(e_, e_, 1)
+    coeff = (F - (1 - 2*e_**2))/e_**4
+    target = 8*(1 + mp.log(e_))
+    worst5 = max(worst5, abs(coeff/target - 1))
+check(f"coefficient matches 8(1+log eps), max rel dev = {mp.nstr(worst5, 3)} < 1e-4",
+      worst5 < mp.mpf('1e-4'))
+
+print()
+print("ALL CHECKS PASS" if ok else "CHECK FAILURE")
+sys.exit(0 if ok else 1)
+
+```
 
 **File:** `verification/lemma_5_2_schwinger.py`
 

@@ -7,14 +7,14 @@ the companion" decision made during drafting.
 
 ## `CORE/`, the journal submission
 
-**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 24 pages.
+**`CORE/core.tex`**, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli.* 25 pages.
 
 Three theorems, two lemmas, one self-contained weighted-Sobolev appendix. All content is fully proved (or, for Theorem 3.2, a clean folklore-saturation packaging with explicit radius bookkeeping). No "proof sketch" labels; no citation-chain-dependent statements.
 
 Contents:
 
 - §3 Theorem (M_1 McKean saturation): λ_0(M_1(S^4_r)) = 4/r²
-- §4.1 Lemma (Schwinger cross-term closed form): exact 1-d closed form for the BPST scale-derivative L²-pairing; machine-precision verified ~2.5 ulp via independent Rust adaptive Gauss–Kronrod cubature
+- §4.1 Lemma (Schwinger cross-term closed form): exact elementary closed form for the BPST scale-derivative L²-pairing, equal to 24π²(cosh d sinh d − d)/sinh³d with d the hyperbolic distance in the M₁ ≅ H⁵ identification; machine-precision verified ~2.5 ulp via independent Rust adaptive Gauss–Kronrod cubature
 - §4.2 Lemma (off-diagonal cross-block bounds): scale-position closed form, position-position IR-divergence diagnosis, gauge-fixed cross-block C s₁ s₂/R²(1+|log|), bubble-background s_i²/R
 - §4.3 Theorem (codim-j Uhlenbeck collar essential bottom = 4j/r²): rigorous via operator-norm metric comparison (1 ± Cε|log ε|) g_prod, Weyl quasi-modes upper bound, min-max lower bound
 - §4.4 Theorem (Mourre spectral type with C¹·¹ regularity): no σ_sc above threshold, locally finite σ_pp, AC spectrum on (4j/r² + Cε|log ε|, ∞)

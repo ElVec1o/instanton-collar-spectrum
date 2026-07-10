@@ -4,7 +4,7 @@
 
 LaTeX sources, PDFs, and verification code for
 
-> V. Bonfioli, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli*, 2026. 24 pages.
+> V. Bonfioli, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli*, 2026. 25 pages.
 
 and the supplementary companion
 
@@ -15,7 +15,7 @@ and the supplementary companion
 Let M_k(S^4_r) denote the charge-k SU(2) instanton moduli space over the round 4-sphere of radius r, with the L^2 metric.
 
 - **Theorem 3.2.** lambda_0(M_1(S^4_r)) = 4/r^2. (Habermann / Doran-Murchadha-Marolf identification of M_1 with hyperbolic 5-space of curvature -1/r^2; McKean's bound is saturated.)
-- **Lemma 4.1.** An exact Schwinger-parametrized closed form for the BPST scale-derivative L^2 cross-term, with next-order coefficient and remainder bound.
+- **Lemma 4.1.** The BPST scale-derivative L^2 cross-term in elementary closed form: equal to 24 pi^2 (cosh d sinh d - d)/sinh^3 d, where d is the hyperbolic distance between the two bubble points in the upper-half-space model of H^5 (the M_1 identification). The d -> 0 limit recovers the diagonal norm 16 pi^2; the d -> infinity limit gives the 48 pi^2 s_1 s_2 / R^2 asymptotic with next-order coefficient and remainder bound.
 - **Lemma 4.2.** Off-diagonal cross-block bounds for the L^2 metric on the multi-instanton collar: scale-position asymptotics, position-position IR behavior, gauge-fixed bound, bubble-background bound.
 - **Theorem 4.3.** On the codimension-j Uhlenbeck collar, the bottom of the essential spectrum equals 4j/r^2. (Operator-norm metric comparison (1 +/- C eps |log eps|) g_prod; Weyl quasi-modes; min-max.)
 - **Theorem 4.4.** Mourre estimate in the Froese-Hislop conjugated radial framework with C^{1,1} regularity: no singular continuous spectrum above the threshold, locally finite point spectrum, absolutely continuous spectrum above 4j/r^2 + C eps |log eps|.
@@ -38,6 +38,7 @@ The global bottom lambda_0(M_k(S^4_r)) for k >= 2 is open; the paper proves the 
 | Artifact | Checks | Run |
 |---|---|---|
 | `verification/lemma_ct_rust/` | Lemma 4.1 closed form against the original 4-D integral; 106-point grid over four orders of magnitude in s/R; max relative error ~2.5 ulp (`RESULTS.md`) | `cargo run --release` |
+| `lemma_ct_elementary.py` | Lemma 4.1 elementary/hyperbolic closed form: symbolic identities plus 50-digit quadrature grid | `python3 lemma_ct_elementary.py` |
 | `lemma_5_2_schwinger.py` | Lemma 4.1, Monte Carlo | `python3 lemma_5_2_schwinger.py` |
 | `lemma_ct_higher_order.sage` | Lemma 4.1 next-order coefficient | `sage lemma_ct_higher_order.sage` |
 | `lemma_od_position_terms.sage` | Lemma 4.2 scale-position terms | `sage lemma_od_position_terms.sage` |
@@ -53,7 +54,7 @@ cd paper/CORE  && pdflatex core.tex  && pdflatex core.tex
 cd paper/EXTRA && pdflatex extra.tex && pdflatex extra.tex
 ```
 
-Expected: CORE 24 pages, EXTRA 30 pages, no undefined references.
+Expected: CORE 25 pages, EXTRA 30 pages, no undefined references.
 
 ## Provenance
 

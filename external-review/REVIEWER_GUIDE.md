@@ -10,10 +10,11 @@ and its supplementary companion.
 
 | Path | Description |
 |---|---|
-| `paper/CORE/core.pdf` (`core.tex`) | Submission paper, 24 pages |
+| `paper/CORE/core.pdf` (`core.tex`) | Submission paper, 25 pages |
 | `paper/EXTRA/extra.pdf` (`extra.tex`) | Supplementary companion, 30 pages, not part of the submission |
 | `paper/SPLIT.md` | Rationale for the CORE/EXTRA split |
 | `verification/lemma_ct_rust/` | Rust adaptive Gauss-Kronrod cubature (Lemma 4.1); `RESULTS.md` holds the 106-point grid table |
+| `verification/lemma_ct_elementary.py` | Elementary and hyperbolic-distance closed forms of Lemma 4.1 (symbolic + 50-digit checks) |
 | `verification/lemma_5_2_schwinger.py` | Python Monte Carlo check of Lemma 4.1 |
 | `verification/lemma_ct_higher_order.sage` | Next-order Schwinger expansion |
 | `verification/lemma_od_position_terms.sage` | Scale-position terms and IR-divergence diagnosis (Lemma 4.2) |
@@ -25,7 +26,7 @@ and its supplementary companion.
 
 ## Reading order
 
-1. `paper/CORE/core.pdf` (24 pages): three theorems, two lemmas, one self-contained appendix. This is the only document intended for journal submission.
+1. `paper/CORE/core.pdf` (25 pages): three theorems, two lemmas, one self-contained appendix. This is the only document intended for journal submission.
 2. Optional: `paper/EXTRA/extra.pdf` for the supplementary material. Its two structural propositions are labeled "proof outline" and are conditional, not claimed as theorems.
 3. Optional: the verification. The main artifact is `verification/lemma_ct_rust/RESULTS.md`: an independent Rust adaptive Gauss-Kronrod cubature of the original 4-dimensional integral against the 1-dimensional closed form of Lemma 4.1, on a 106-point grid spanning four orders of magnitude in s/R; maximum relative error is about 2.5 ulp (about 5.5e-16). To rebuild: `cd verification/lemma_ct_rust && cargo run --release`.
 
@@ -34,7 +35,7 @@ and its supplementary companion.
 | Result | Status | Artifact |
 |---|---|---|
 | Theorem 3.2: lambda_0(M_1(S^4_r)) = 4/r^2 | Follows from Habermann/DMM + McKean; stated with explicit radius bookkeeping | none needed |
-| Lemma 4.1: Schwinger closed form for the BPST scale-derivative cross-term | New | `lemma_ct_rust/`; `lemma_5_2_schwinger.py`; `lemma_ct_higher_order.sage` |
+| Lemma 4.1: Schwinger closed form for the BPST scale-derivative cross-term; elementary evaluation, equal to $24\pi^2(\cosh d\sinh d - d)/\sinh^3 d$ with $d$ the $H^5$ distance | New | `lemma_ct_rust/`; `lemma_ct_elementary.py`; `lemma_5_2_schwinger.py`; `lemma_ct_higher_order.sage` |
 | Lemma 4.2: off-diagonal cross-block bounds | New; proved in Appendix A | `lemma_od_position_terms.sage` |
 | Theorem 4.3: codimension-j Uhlenbeck collar essential bottom = 4j/r^2 | New; quantitative version of the qualitative product picture in Groisser-Parker and Donaldson-Kronheimer §7.3 | via Lemmas 4.1, 4.2 |
 | Theorem 4.4: Mourre spectral type (no sigma_sc above threshold, locally finite sigma_pp, AC spectrum) | New | `mourre_estimate_cusp.sage`; `mourre_iterated_commutator.sage` |
