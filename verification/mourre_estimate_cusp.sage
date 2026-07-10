@@ -4,7 +4,7 @@ r"""
 mourre_estimate_cusp.sage
 =========================
 
-Symbolic + numerical verification supporting Theorem 4.4 (Mourre estimate on the
+Symbolic + numerical verification supporting Theorem 4.8 (Mourre estimate on the
 Uhlenbeck collar U_eps^{(j)} of M_k(S^4_r)), in the CORRECTED Froese-Hislop
 framework.
 

@@ -17,8 +17,8 @@ M_k(S^4_r) is the charge-k SU(2) instanton moduli space over the round 4-sphere 
 - **Theorem 3.2.** lambda_0(M_1(S^4_r)) = 4/r^2. Habermann / Doran-Murchadha-Marolf identification of M_1 with hyperbolic 5-space of curvature -1/r^2; McKean's bound is saturated.
 - **Lemma 4.1.** The BPST scale-derivative L^2 cross-term in elementary closed form: 24 pi^2 (cosh d sinh d - d)/sinh^3 d, where d is the hyperbolic distance between the bubble points in the M_1 identification. Limits: 16 pi^2 at d -> 0 (the diagonal norm), 48 pi^2 s_1 s_2 / R^2 asymptotic at d -> infinity.
 - **Lemma 4.2.** Off-diagonal cross-block bounds for the L^2 metric on the multi-instanton collar.
-- **Theorem 4.3.** On the codimension-j Uhlenbeck collar, the bottom of the essential spectrum equals 4j/r^2, with two-sided rate C eps |log eps| / r^2 (Corollary 4.5). Operator-norm metric comparison (1 +/- C eps |log eps|) g_prod; Weyl quasi-modes; min-max.
-- **Theorem 4.8.** Mourre estimate in the Froese-Hislop conjugated radial framework with C^{1,1} regularity: no singular continuous spectrum above threshold, locally finite point spectrum, absolutely continuous spectrum above 4j/r^2 + C eps |log eps|.
+- **Theorem 4.3.** On the codimension-j Uhlenbeck collar (with a fixed separation floor), the bottom of the essential spectrum equals 4j/r^2, with two-sided rate C eps |log eps| / r^2 (Corollary 4.5). Operator-norm metric comparison (1 +/- C eps |log eps|) g_prod; geodesic-polar Weyl quasi-modes; min-max.
+- **Theorem 4.8.** Mourre analysis in the geodesic-dilation frame (Froese-Hislop, on the conformally compact H^5 end) with C^{1,1} regularity: on the first-channel window (4j/r^2, 4(j+1)/r^2) for j < k, and on all of (4k/r^2, infinity) for j = k, the spectrum is purely absolutely continuous off a discrete eigenvalue set (no singular continuous spectrum). Above 4(j+1)/r^2 the residual factor opens its own channels, which the bubble-only conjugate operator does not control.
 
 The global bottom lambda_0(M_k(S^4_r)) for k >= 2 is open; the paper proves the collar-localized statement and says so. The companion contains conditional and exploratory material.
 
@@ -28,7 +28,7 @@ Suggested order for a first pass:
 
 1. Lemma 4.1 (self-contained; one Schwinger computation). Its closed form is verified independently twice: `verification/lemma_ct_rust/` (4-D integral vs 1-D form, 106 points, max rel. error ~2.5 ulp; table in `RESULTS.md`) and `verification/lemma_ct_elementary.py` (elementary/hyperbolic form, symbolic identities plus 50-digit quadrature).
 2. Theorem 4.3 (uses Lemmas 4.1, 4.2; the metric comparison is eq. 3.3, the appendix carries Lemma 4.2).
-3. Theorem 4.8 (Mourre; the conjugated-frame commutator identities are in `verification/mourre_estimate_cusp.sage`, which also shows why the Froese-Hislop conjugated frame is required, and `verification/mourre_iterated_commutator.sage` carries the C^{1,1} input).
+3. Theorem 4.8 (Mourre; the geodesic-polar Froese-Hislop reduction and the corrected Mourre identity are verified in `verification/mourre_geodesic_polar.py` -- including a regression check that the naive translation generator gives a vanishing commutator).
 
 ## Verification
 
@@ -39,8 +39,8 @@ Suggested order for a first pass:
 | `verification/lemma_ct_montecarlo.py` | Lemma 4.1: Monte Carlo | `python3 lemma_ct_montecarlo.py` |
 | `verification/lemma_ct_higher_order.sage` | Lemma 4.1: next-order coefficient | `sage lemma_ct_higher_order.sage` |
 | `verification/lemma_od_position_terms.sage` | Lemma 4.2: scale-position terms | `sage lemma_od_position_terms.sage` |
-| `verification/mourre_estimate_cusp.sage` | Theorem 4.8: commutator identities | `sage mourre_estimate_cusp.sage` |
-| `verification/mourre_iterated_commutator.sage` | Lemmas A.7, A.8 | `sage mourre_iterated_commutator.sage` |
+| `verification/mourre_geodesic_polar.py` | Theorem 4.8: geodesic-polar Liouville reduction + Mourre identity (symbolic + numeric) | `python3 mourre_geodesic_polar.py` |
+| `verification/mourre_estimate_cusp.sage` | Theorem 4.8: failure of the naive/unconjugated commutator | `sage mourre_estimate_cusp.sage` |
 | `verification/lemma_ct_SUN.sage` | Remark 4.10: SU(N) | `sage lemma_ct_SUN.sage` |
 | `verification/alpha_*.sage`, `m2_*` | companion only | as above |
 
