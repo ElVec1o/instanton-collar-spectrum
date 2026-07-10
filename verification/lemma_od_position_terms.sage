@@ -564,7 +564,7 @@ INTERPRETATION FOR THEOREM MK:
 The O((s_1+...+s_j)/R^2) remainder in the metric-product statement is
 correct AS LONG AS we work with the moduli-space L^2 metric on the horizontal
 (Coulomb-projected) tangent bundle, not with bare R^4 derivatives.  The
-honest statement is:
+precise statement is:
 
    In the L^2 moduli metric on M_k(S^4_r), the collar U_eps^(j) splits as
    the asymptotic Riemannian product up to a remainder of size

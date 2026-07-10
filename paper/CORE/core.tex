@@ -797,7 +797,7 @@ The iterated bound \eqref{eq:iterated-h-bound} is uniform: at each order $n$ the
 
 \bibitem{DK1990} S.K.\ Donaldson, P.B.\ Kronheimer, \emph{The Geometry of Four-Manifolds}, Oxford Univ.\ Press (1990).
 
-\bibitem{lemma-schwinger-script} V.\ Bonfioli, Schwinger-parametrized closed form for the BPST scale-derivative cross-term, with uniform-box Monte Carlo cross-check: \texttt{verification/lemma\_5\_2\_schwinger.py}.
+\bibitem{lemma-schwinger-script} V.\ Bonfioli, Schwinger-parametrized closed form for the BPST scale-derivative cross-term, with uniform-box Monte Carlo cross-check: \texttt{verification/lemma\_ct\_montecarlo.py}.
 
 \bibitem{lemma-ct-rust} V.\ Bonfioli, machine-precision Rust verification of Lemma~\ref{lem:cross-term}: \texttt{verification/lemma\_ct\_rust/}. Self-contained adaptive Gauss--Kronrod 15/7 in Rust; reduces the $4$-d integral to $2$-d via axial $O(3)$ symmetry, then compares against the $1$-d Schwinger ground truth. Relative error $\le 2.5$ ulp ($\approx 5.5\times 10^{-16}$) across a 106-point grid spanning $(s_1, s_2, R) \in [0.05, 2.0]^2 \times [1, 50]$ plus extreme asymptotic regimes; runtime $< 5\,\mathrm{s}$ on a Mac mini.
 

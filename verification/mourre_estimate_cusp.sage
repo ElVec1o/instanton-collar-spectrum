@@ -166,7 +166,7 @@ print("Numerical: the multiplicative metric perturbation O(eps|log eps|) leaves"
 print("           the Mourre constant strictly positive in all sampled regimes")
 print("           with eps small enough.")
 print()
-print("Caveats (honest, retained from previous version):")
+print("Caveats:")
 print("  * The conjugate operator A_j is only defined naturally on the cusp")
 print("    end (where the warped-product/upper-half-space coords exist).")
 print("    One uses a cutoff chi(y_i > Y_0) to localize to the cusp;")

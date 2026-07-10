@@ -28,9 +28,7 @@ Suggested order for a first pass:
 
 1. Lemma 4.1 (self-contained; one Schwinger computation). Its closed form is verified independently twice: `verification/lemma_ct_rust/` (4-D integral vs 1-D form, 106 points, max rel. error ~2.5 ulp; table in `RESULTS.md`) and `verification/lemma_ct_elementary.py` (elementary/hyperbolic form, symbolic identities plus 50-digit quadrature).
 2. Theorem 4.3 (uses Lemmas 4.1, 4.2; the metric comparison is eq. 3.3, the appendix carries Lemma 4.2).
-3. Theorem 4.8 (Mourre; commutator identities in `verification/mourre_estimate_cusp.sage`, including the failure of the unconjugated identity, and `verification/mourre_iterated_commutator.sage` for the C^{1,1} input).
-
-Corrected errors and per-revision changes: [REVISION_HISTORY.md](REVISION_HISTORY.md).
+3. Theorem 4.8 (Mourre; the conjugated-frame commutator identities are in `verification/mourre_estimate_cusp.sage`, which also shows why the Froese-Hislop conjugated frame is required, and `verification/mourre_iterated_commutator.sage` carries the C^{1,1} input).
 
 ## Verification
 
@@ -38,7 +36,7 @@ Corrected errors and per-revision changes: [REVISION_HISTORY.md](REVISION_HISTOR
 |---|---|---|
 | `verification/lemma_ct_rust/` | Lemma 4.1: 4-D integral vs closed form, 106-point grid | `cargo run --release` |
 | `verification/lemma_ct_elementary.py` | Lemma 4.1: elementary/hyperbolic form, symbolic + 50-digit grid | `python3 lemma_ct_elementary.py` |
-| `verification/lemma_5_2_schwinger.py` | Lemma 4.1: Monte Carlo | `python3 lemma_5_2_schwinger.py` |
+| `verification/lemma_ct_montecarlo.py` | Lemma 4.1: Monte Carlo | `python3 lemma_ct_montecarlo.py` |
 | `verification/lemma_ct_higher_order.sage` | Lemma 4.1: next-order coefficient | `sage lemma_ct_higher_order.sage` |
 | `verification/lemma_od_position_terms.sage` | Lemma 4.2: scale-position terms | `sage lemma_od_position_terms.sage` |
 | `verification/mourre_estimate_cusp.sage` | Theorem 4.8: commutator identities | `sage mourre_estimate_cusp.sage` |

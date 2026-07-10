@@ -588,7 +588,7 @@ The collar bound of Theorem~MK of \cite{bonfioli-core} settles the essential-spe
 Determine $\lambda_0(\cM_2(S^4_r))$, where $\cM_2(S^4_r)$ is the moduli space of charge-$2$ $\mathrm{SU}(2)$ anti-self-dual connections on round $S^4_r$ equipped with the $L^2$ Hitchin-like metric. Is it equal to the single-bubble cusp rate $4/r^2$?
 \end{question}
 
-\noindent We outline a cohomogeneity-one reduction strategy below. The strategy does \emph{not} close to a theorem: subsection at the end of this section (Remark~\ref{rmk:M2-honest-status}) records why the numerical Bargmann evidence supporting a previous version of this argument is not robust under choice of admissible interpolant.
+\noindent We outline a cohomogeneity-one reduction strategy below. The strategy does \emph{not} close to a theorem: the remark at the end of this section (Remark~\ref{rmk:M2-honest-status}) records why numerical Bargmann evidence of this type is not robust under the choice of admissible interpolant.
 
 \begin{proof}[Outline of a reduction strategy (not a complete proof)]
 \emph{Step 1: SO(5)-invariant cohomogeneity-one slice.} Stereographic projection $S^4_r \setminus\{N\} \to \bbR^4$ pulls back the round metric to $g_{S^4_r} = \Omega^2 g_{\bbR^4}$ with $\Omega(x) = 2r^2/(r^2 + |x|^2)$. The 't~Hooft 2-instanton in regular gauge is $A^a_\mu = -\eta^a_{\mu\nu}\partial_\nu \log \phi_2$ with $\phi_2(x) = 1 + \rho^2/|x - x_+|^2 + \rho^2/|x - x_-|^2$. Placing the bubbles at the antipodes of the $e_1$-axis on $S^4_r$ and scaling both radii together by $\rho > 0$ defines the $\mathrm{SO}(5)$-invariant slice $\Sigma$, with residual gauge group $\mathrm{SO}(4) \subset \mathrm{SO}(5)$ stabilizing the axis and stabilizer $U(1) \times U(1)$ on the orbit fiber; orbifold tip at $\rho = 0$ of transverse dimension $\dim\cM_2(S^4_r) - 1 = 12$.
@@ -606,7 +606,7 @@ derived as a special case of the Schwinger integrand of Lemma~CT under $u=v=w$. 
 \Phi(\mu) \;=\; \tfrac{\mu^2}{4} \;-\; \tfrac{\mu^4}{8} + O(\mu^6)\qquad (\mu \to 0),\qquad
 \Phi(\mu) \;\to\; \tfrac{1}{3}\;-\;\tfrac{0.4 + o(1)}{\mu^2}\qquad (\mu \to \infty).
 \]
-\emph{Correction to a previous draft of this section:} the small-$\mu$ leading coefficient is $1/4$, not $1$ as written in earlier versions; the large-$\mu$ limit is the bounded constant $1/3$, not the divergent rate suggested by the previous expansion $\mu^2/(1+\mu^2)(1+\mu^2/2 + \ldots)$. The corrected $\Phi$ is bounded on $\mu \in [0,\infty)$.
+Note that the naive expansion $\mu^2/(1+\mu^2)(1+\mu^2/2 + \ldots)$ suggests a divergent large-$\mu$ rate and is incorrect: the small-$\mu$ leading coefficient is $1/4$, the large-$\mu$ limit is the bounded constant $1/3$, and $\Phi$ is bounded on $\mu \in [0,\infty)$.
 
 \emph{Step 3: arclength and endpoint asymptotics of $J(s)$.} Let $s(\rho) = \int_0^\rho \sqrt{g_{\rho'\rho'}}\,d\rho'$. Near $\rho = 0$, $s \sim 4\sqrt{6}\pi\log(\rho/\rho_0)$; the transverse orbit at fixed $\rho$ is an $\mathrm{SO}(5)/(\mathrm{SO}(4)\cdot U(1)^2)$-bundle of dimension 12 with metric stretching linearly in arclength, giving the cohomogeneity-1 tip formula \cite{GP1989}, \S 5:
 \[
@@ -630,7 +630,7 @@ where $V$ is the Liouville potential derived from the true $J(s)$ on the slice. 
 \end{proof}
 
 \begin{remark}[Status of Question~\ref{q:M2-global-bottom}: a deeper diagnostic]\label{rmk:M2-honest-status}
-A previous version of this material labelled $\lambda_0(\cM_2(S^4_r)) = 4/r^2$ as a conjecture supported by strong numerical Bargmann evidence (six interpolants in the $\sinh^a\tanh^b$ family giving Bargmann integrals $\le 7\times 10^{-5}$). Two layers of analytical difficulty obstruct the reduction:
+Numerical Bargmann evidence may appear to support the conjecture $\lambda_0(\cM_2(S^4_r)) = 4/r^2$: six interpolants in the $\sinh^a\tanh^b$ family give Bargmann integrals $\le 7\times 10^{-5}$. We do not state this as a conjecture, because two layers of analytical difficulty obstruct the reduction:
 
 \smallskip
 \noindent\emph{(Surface layer) Family-dependence of the Bargmann bound.} High-precision Sage symbolic analysis \cite{m2-bargmann-true-V} shows the Bargmann integral over admissible interpolants $J(s)$ matching the prescribed endpoint asymptotics $J \sim s^{12}$ at $0$ and $J \sim e^{4s/r}$ at $\infty$ is not robust: it spans more than four orders of magnitude across admissible families, including values well above $1$. The favorable behavior of $\sinh^a\tanh^b$ is a structural property of that family, not of the geometry.

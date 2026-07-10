@@ -1,7 +1,7 @@
 #!/usr/bin/env sage
 """
 Compute the Polyakov-Wiegmann curvature-mass coefficient alpha appearing in
-the KKN Hessian on a curved Riemann surface (Theorem KKN-curved of v6):
+the KKN Hessian on a curved Riemann surface (Theorem KKN-curved of the companion note):
 
     Hess(-log Psi_0)|_{H=1}(d_phi, d_phi) =
         (c_A / 4 pi g_YM^2) <d_phi, -Delta_g d_phi>_{L^2}
@@ -28,7 +28,7 @@ where:
     - phi   = -i log H, so for H = exp(i d_phi), phi = d_phi to leading order
     - Tr is the Killing-form trace on the Lie algebra g
 
-In the conventions of v6, the Hessian coefficient is
+In the conventions of the companion note, the Hessian coefficient is
 
     alpha = (k_eff in the appropriate normalization) = c_WZW / (24 . pi^2)
           * (geometric Killing-form normalization factor for d_phi).
@@ -91,10 +91,10 @@ print(f"\n    For SU(2):  c_WZW = {c_WZW_SU2}")
 #   L_imp = (1/4pi) . (k_imp) . R_g . Tr(phi^2)
 # with k_imp = c_WZW / 6 (Friedan-Shenker convention).
 #
-# In our v6 convention Hess = ... + (alpha/4pi) <phi, R_g phi>, so
+# In the companion-note convention Hess = ... + (alpha/4pi) <phi, R_g phi>, so
 #   alpha = c_WZW / 6.
 # (Different conventions exist; we use the one consistent with
-#  v6's quadratic-form normalization (c_A/4pi g^2) <phi, -Delta phi>.)
+#  the companion note's quadratic-form normalization (c_A/4pi g^2) <phi, -Delta phi>.)
 k_imp = c_WZW / 6
 alpha = k_imp
 alpha_KKN = alpha.subs({k: c_A_val}).simplify_full()
@@ -132,7 +132,7 @@ print(f"        REINFORCES the gap on positively-curved surfaces like S^2)")
 print(f"    (b) Limit g -> 0 (strong coupling): mu_0 -> infinity (KKN bottom")
 print(f"        dominated by 1/g^2 term, as expected)")
 print(f"    (c) Limit R -> infinity (large sphere): mu_0 -> 0 (recover planar")
-print(f"        IR scale, consistent with Remark KKN-Sigma-g-correction of v6)")
+print(f"        IR scale, consistent with Remark KKN-Sigma-g-correction of the companion note)")
 g_to_zero = mu_0.limit(g=0, dir='+')
 R_to_inf = mu_0.limit(R=oo)
 print(f"        Limit g->0: {g_to_zero}")
