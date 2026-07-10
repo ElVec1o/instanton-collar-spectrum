@@ -16,9 +16,9 @@ Contents:
 - §3 Theorem (M_1 McKean saturation): λ_0(M_1(S^4_r)) = 4/r²
 - §4.1 Lemma (Schwinger cross-term closed form): exact elementary closed form for the BPST scale-derivative L²-pairing, equal to 24π²(cosh d sinh d − d)/sinh³d with d the hyperbolic distance in the M₁ ≅ H⁵ identification; machine-precision verified ~2.5 ulp via independent Rust adaptive Gauss–Kronrod cubature
 - §4.2 Lemma (off-diagonal cross-block bounds): scale-position closed form, position-position IR-divergence diagnosis, gauge-fixed cross-block C s₁ s₂/R²(1+|log|), bubble-background s_i²/R
-- §4.3 Theorem (codim-j Uhlenbeck collar essential bottom = 4j/r²): rigorous via operator-norm metric comparison (1 ± Cε|log ε|) g_prod, Weyl quasi-modes upper bound, min-max lower bound
-- §4.4 Theorem (Mourre spectral type with C¹·¹ regularity): no σ_sc above threshold, locally finite σ_pp, AC spectrum on (4j/r² + Cε|log ε|, ∞)
-- §4.5 Remark (SU(N) extension)
+- §4.3 Theorem 4.3 (codim-j collar essential bottom = 4j/r²) + Corollary 4.5 (two-sided rate Cε|log ε|/r²): rigorous via operator-norm metric comparison (1 ± Cε|log ε|) g_prod, Weyl quasi-modes upper bound, min-max lower bound
+- §4.4 Theorem 4.8 (Mourre spectral type with C¹·¹ regularity): no σ_sc above threshold, locally finite σ_pp, AC spectrum on (4j/r² + Cε|log ε|, ∞)
+- Remark 4.10 (SU(N) extension), end of §4.4
 - §5 Remarks and open questions
 - Appendix A (~6 pages): self-contained Bartnik β = −3/2 weighted-Sobolev proof of Lemma 4.2(iv)-(v); scale-uniform Coulomb estimate via conformal rescaling; gauge-equivalence + Bianchi for the tail cancellation; three-region cross-block split with explicit constant tracking; bubble-background s²/R via parity + Sobolev; Δ_g vs Δ_prod bookkeeping with Hardy on hyperbolic cusp; iterated-commutator bounds (Lemmas A.7, A.8) closing the Mourre C¹·¹ regularity gap.
 

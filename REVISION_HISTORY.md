@@ -1,6 +1,6 @@
 # Revision history
 
-Substantive changes to the manuscript across the internal review rounds, in chronological order. All internal review was LLM-based (see the preface note on provenance); the changes below are to the mathematics and its presentation, and stand on their own.
+Substantive changes to the manuscript, in chronological order. All internal review was LLM-based; no human expert has reviewed this work. The changes below are to the mathematics and its presentation, and stand on their own.
 
 1. **Split.** The original omnibus draft was split into CORE (only fully proved content; the journal submission) and EXTRA (conditional and exploratory material; arXiv-only companion).
 
