@@ -2,56 +2,47 @@
 
 [![DOI](https://zenodo.org/badge/1248611476.svg)](https://doi.org/10.5281/zenodo.20370060)
 
-LaTeX sources, PDFs, and verification code for
+LaTeX source, PDF, and verification code for
 
-> V. Bonfioli, *Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli*, 2026. 25 pages. [`paper/CORE/core.pdf`](paper/CORE/core.pdf)
-
-and the supplementary companion (arXiv-only, not part of the submission)
-
-> *AHS cohomology and the Yang-Mills mass gap: supplementary observations*, 2026. 30 pages. [`paper/EXTRA/extra.pdf`](paper/EXTRA/extra.pdf)
+> V. Bonfioli, *The L^2 spectral geometry of the charge-one SU(2) instanton moduli space on S^4*, 2026. 5 pages. [`paper/CORRECTED/corrected_core.pdf`](paper/CORRECTED/corrected_core.pdf)
 
 ## Results
 
-M_k(S^4_r) is the charge-k SU(2) instanton moduli space over the round 4-sphere of radius r, with the L^2 metric.
+M_1(S^4_r) is the charge-one SU(2) instanton moduli space over the round 4-sphere of radius r, carrying the L^2 (Weil-Petersson) metric.
 
-- **Theorem 3.2.** lambda_0(M_1(S^4_r)) = 4/r^2. Habermann / Doran-Murchadha-Marolf identification of M_1 with hyperbolic 5-space of curvature -1/r^2; McKean's bound is saturated.
-- **Lemma 4.1.** The BPST scale-derivative L^2 cross-term in elementary closed form: 24 pi^2 (cosh d sinh d - d)/sinh^3 d, where d is the hyperbolic distance between the bubble points in the M_1 identification. Limits: 16 pi^2 at d -> 0 (the diagonal norm), 48 pi^2 s_1 s_2 / R^2 asymptotic at d -> infinity.
-- **Lemma 4.2.** Off-diagonal cross-block bounds for the L^2 metric on the multi-instanton collar.
-- **Theorem 4.3.** On the codimension-j Uhlenbeck collar (with a fixed separation floor), the bottom of the essential spectrum equals 4j/r^2, with two-sided rate C eps |log eps| / r^2 (Corollary 4.5). Operator-norm metric comparison (1 +/- C eps |log eps|) g_prod; geodesic-polar Weyl quasi-modes; min-max.
-- **Theorem 4.8.** Mourre analysis in the geodesic-dilation frame (Froese-Hislop, on the conformally compact H^5 end) with C^{1,1} regularity: on the first-channel window (4j/r^2, 4(j+1)/r^2) for j < k, and on all of (4k/r^2, infinity) for j = k, the spectrum is purely absolutely continuous off a discrete eigenvalue set (no singular continuous spectrum). Above 4(j+1)/r^2 the residual factor opens its own channels, which the bubble-only conjugate operator does not control.
+By Groisser-Parker and Doi-Matsumoto-Matumoto, (M_1(S^4_r), g_L2) is the interior of a compact smooth Riemannian 5-manifold with boundary: an SO(5)-invariant cohomogeneity-one metric on the closed 5-ball, of finite volume, strictly positive non-constant sectional curvature, whose boundary is a totally geodesic round S^4 (the Uhlenbeck bubbling locus) at finite distance. The hyperbolic metric on the same 5-ball is the information (Fisher-Rao) metric of Groisser-Murray, which is a different metric.
 
-The global bottom lambda_0(M_k(S^4_r)) for k >= 2 is open; the paper proves the collar-localized statement and says so. The companion contains conditional and exploratory material.
+- **Theorem 2.1.** The L^2-Laplacian on the open moduli space is symmetric and bounded below but not essentially self-adjoint. Its self-adjoint realizations are the elliptic boundary conditions on the bounding S^4, and every one has compact resolvent, hence purely discrete spectrum, with leading Weyl asymptotics and explicit constant. No continuous spectrum. (Contrast: on the Riemann moduli space the Weil-Petersson Laplacian *is* essentially self-adjoint, Ji-Mazzeo-Muller-Vasy.)
+- **Theorem 3.1.** Separation by SO(5) angular momentum reduces the eigenvalue problem to an explicit family of regular-singular Sturm-Liouville problems, one per harmonic degree k, with multiplicities 1, 5, 14, 30, 55, ... The Friedrichs (Dirichlet) ground state is simple, SO(5)-invariant, equal to 0.8203176 r^-2. The Neumann spectral gap is the five-fold degenerate k = 1 mode, 0.9988386 r^-2, in the vector representation of SO(5), lying below the first radial overtone 2.0355386 r^-2.
+- **Exact geometry.** The boundary 4-volume is exactly (2/3) pi^6 r^4.
+- **Lemma 3.5.** The BPST scale-derivative L^2 cross-term in elementary closed form, with leading asymptotic 48 pi^2 s_1 s_2 / R^2.
 
-## Checking the paper
-
-Suggested order for a first pass:
-
-1. Lemma 4.1 (self-contained; one Schwinger computation). Its closed form is verified independently twice: `verification/lemma_ct_rust/` (4-D integral vs 1-D form, 106 points, max rel. error ~2.5 ulp; table in `RESULTS.md`) and `verification/lemma_ct_elementary.py` (elementary/hyperbolic form, symbolic identities plus 50-digit quadrature).
-2. Theorem 4.3 (uses Lemmas 4.1, 4.2; the metric comparison is eq. 3.3, the appendix carries Lemma 4.2).
-3. Theorem 4.8 (Mourre; the geodesic-polar Froese-Hislop reduction and the corrected Mourre identity are verified in `verification/mourre_geodesic_polar.py` -- including a regression check that the naive translation generator gives a vanishing commutator).
+Eigenvalues are reported as enclosures. The conforming, consistent-mass discretization is Rayleigh-Ritz and bounds them from above rigorously; the lumped-mass discretization converges from below. The lower bound rests on the standard underestimation property of mass lumping and is not certified, so the eigenvalues are numerical evidence with a rigorous upper bound, not proved values.
 
 ## Verification
 
 | Artifact | Checks | Run |
 |---|---|---|
-| `verification/lemma_ct_rust/` | Lemma 4.1: 4-D integral vs closed form, 106-point grid | `cargo run --release` |
-| `verification/lemma_ct_elementary.py` | Lemma 4.1: elementary/hyperbolic form, symbolic + 50-digit grid | `python3 lemma_ct_elementary.py` |
-| `verification/lemma_ct_montecarlo.py` | Lemma 4.1: Monte Carlo | `python3 lemma_ct_montecarlo.py` |
-| `verification/lemma_ct_higher_order.sage` | Lemma 4.1: next-order coefficient | `sage lemma_ct_higher_order.sage` |
-| `verification/lemma_od_position_terms.sage` | Lemma 4.2: scale-position terms | `sage lemma_od_position_terms.sage` |
-| `verification/mourre_geodesic_polar.py` | Theorem 4.8: geodesic-polar Liouville reduction + Mourre identity (symbolic + numeric) | `python3 mourre_geodesic_polar.py` |
-| `verification/mourre_estimate_cusp.sage` | Theorem 4.8: failure of the naive/unconjugated commutator | `sage mourre_estimate_cusp.sage` |
-| `verification/lemma_ct_SUN.sage` | Remark 4.10: SU(N) | `sage lemma_ct_SUN.sage` |
-| `verification/alpha_*.sage`, `m2_*` | companion only | as above |
+| `verification/M1_L2_spectrum_allk.py` | Theorem 3.1: SO(5)-separated spectrum, consistent-mass FEM | `python3 M1_L2_spectrum_allk.py` |
+| `verification/M1_L2_enclosures.py` | Theorem 3.1: two-sided eigenvalue enclosures | `python3 M1_L2_enclosures.py` |
+| `verification/M1_L2_geometry_weyl.py` | Volume, boundary 4-volume, Weyl constants | `python3 M1_L2_geometry_weyl.py` |
+| `verification/lemma_ct_rust/` | Lemma 3.5: 4-D integral vs closed form, 106-point grid | `cargo run --release` |
+| `verification/lemma_ct_elementary.py` | Lemma 3.5: elementary form, symbolic + 50-digit quadrature | `python3 lemma_ct_elementary.py` |
+| `verification/lemma_ct_montecarlo.py` | Lemma 3.5: Monte Carlo | `python3 lemma_ct_montecarlo.py` |
+| `verification/lemma_ct_higher_order.sage` | Lemma 3.5: next-order coefficient | `sage lemma_ct_higher_order.sage` |
+| `verification/lemma_ct_SUN.sage` | SU(N) variant | `sage lemma_ct_SUN.sage` |
 
 ## Building
 
 ```
-cd paper/CORE  && pdflatex core.tex  && pdflatex core.tex
-cd paper/EXTRA && pdflatex extra.tex && pdflatex extra.tex
+cd paper/CORRECTED && pdflatex corrected_core.tex && pdflatex corrected_core.tex
 ```
 
-Expected: CORE 25 pages, EXTRA 30 pages, no undefined references.
+Expected: 5 pages, no undefined references.
+
+## Superseded material
+
+`paper/old/` and `verification/old/` hold versions through v1.3. Their spectral results identified the L^2 metric on M_1(S^4_r) with hyperbolic 5-space. That identification is incorrect: the hyperbolic metric on the 5-ball is the information metric, not the L^2 metric, and the L^2 metric is of finite volume and positive curvature. The results resting on it do not hold and are retained only for the record.
 
 ## Provenance
 
@@ -59,10 +50,10 @@ The author is an independent researcher. The manuscript was produced with extens
 
 ## License and citation
 
-Paper and companion: CC-BY 4.0 (`LICENSE-paper`). Code: MIT (`LICENSE-code`).
+Paper: CC-BY 4.0 (`LICENSE-paper`). Code: MIT (`LICENSE-code`).
 
 ```
-Bonfioli, Vico. Asymptotic product structure and collar essential spectrum
-on SU(2) instanton moduli. 2026. DOI: 10.5281/zenodo.20370060
+Bonfioli, Vico. The L^2 spectral geometry of the charge-one SU(2) instanton
+moduli space on S^4. 2026. DOI: 10.5281/zenodo.20370060
 https://github.com/ElVec1o/instanton-collar-spectrum
 ```

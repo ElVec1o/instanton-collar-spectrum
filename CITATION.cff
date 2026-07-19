@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 type: article
-title: "Asymptotic product structure and collar essential spectrum on SU(2) instanton moduli"
+title: "The L^2 spectral geometry of the charge-one SU(2) instanton moduli space on S^4"
 authors:
   - family-names: Bonfioli
     given-names: Vico
@@ -15,4 +15,4 @@ identifiers:
     description: "Concept DOI (resolves to latest version)"
   - type: doi
     value: 10.5281/zenodo.20370061
-    description: "v1.0 (revision 6, FINAL pre-submission)"
+    description: "v1.0 (superseded)"

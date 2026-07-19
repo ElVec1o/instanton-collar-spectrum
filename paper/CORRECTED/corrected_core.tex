@@ -1,0 +1,165 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbS}{\mathbb{S}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\Lap}{\Delta}
+\newcommand{\dvol}{\,d\mathrm{vol}}
+\newcommand{\SO}{\mathrm{SO}}
+\DeclareMathOperator{\Vol}{Vol}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The $L^2$ spectral geometry of the charge-one $\mathrm{SU}(2)$ instanton moduli space on $S^4$}
+\author{Vico Bonfioli\\\small\texttt{vicobonfioli@gmail.com}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\cM_1(S^4_r)$ be the moduli space of charge-one anti-self-dual $\mathrm{SU}(2)$ connections on the round $4$-sphere of radius $r$, with its natural $L^2$ (Weil--Petersson) metric $g_{L^2}$. By Groisser--Parker and Doi--Matsumoto--Matumoto, $(\cM_1(S^4_r),g_{L^2})$ is the interior of a compact smooth Riemannian $5$-manifold with boundary: an $\SO(5)$-invariant, cohomogeneity-one metric on the closed $5$-ball whose boundary is a totally geodesic round $S^4$ (the Uhlenbeck bubbling locus) at finite distance, of finite volume and strictly positive, non-constant sectional curvature. The same underlying $5$-ball also carries the information (Fisher--Rao) metric, which is hyperbolic $\bbH^5$; the two metrics have different spectral type. We determine the $L^2$ spectral geometry. The Laplace--Beltrami operator is symmetric but not essentially self-adjoint on the open moduli space; its self-adjoint realizations are the elliptic boundary conditions on the bounding $S^4$, and every such realization has purely discrete spectrum and obeys Weyl's law, with leading constant computed explicitly. Separating by $\SO(5)$ angular momentum reduces the problem to an explicit family of regular--singular Sturm--Liouville problems, which we solve numerically, bracketing each eigenvalue between conforming and lumped-mass discretizations to width below $10^{-7}$. In the Groisser--Parker normalization the Friedrichs (Dirichlet) ground state is simple, $\SO(5)$-invariant, and equal to $0.8203176\,r^{-2}$; the Neumann spectral gap is the five-fold degenerate $k=1$ mode $0.9988386\,r^{-2}$, in the vector representation of $\SO(5)$ (the instanton translation mode). (The absolute values carry the metric normalization; the $\SO(5)$ multiplet structure, the level ordering, and discreteness do not.) The boundary $4$-volume is exactly $\tfrac23\pi^6 r^4$. No eigenvalue appears to be a closed form. We also record the exact $L^2$ interaction of two separated bubbles, an ingredient for the higher-charge boundary geometry.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+The moduli space $\cM_k(S^4_r)$ of charge-$k$ ASD $\mathrm{SU}(2)$ connections on $S^4_r$ carries a natural $L^2$ metric $g_{L^2}$, induced by the $L^2$ inner product on connection $1$-forms. For $k=1$ the underlying manifold is the open $5$-ball, and the geometry of $g_{L^2}$ was determined explicitly by Groisser--Parker \cite{GP1987} and, equivalently, by Doi--Matsumoto--Matumoto \cite{DMM1987}; see also Franchetti--Schroers \cite{FS2016}, who used it for the classical adiabatic dynamics of instantons on $S^4$. We take that metric as given and determine the associated spectral theory of the $L^2$-Laplacian, together with its organization under the isometry group $\SO(5)$ and its interpretation as the collective-coordinate quantum mechanics of a single instanton.
+
+The manifold underlying $\cM_1(S^4_r)$ is the open $5$-ball, as is hyperbolic space $\bbH^5$; the information (Fisher--Rao) metric on $\cM_1$ is the hyperbolic metric \cite{Info}. The $L^2$ metric is a different $\SO(5)$-invariant metric on the same ball: incomplete, of finite volume, and of strictly positive curvature, where $\bbH^5$ is complete and of constant negative curvature. The two Laplacians accordingly have different spectral type: that of $\bbH^5$ is purely continuous, $[4/r^2,\infty)$, while that of $g_{L^2}$ is purely discrete. The $L^2$ spectrum is also the set of energy levels of the moduli-space (geodesic) approximation to a quantized single instanton, organized into $\SO(5)$ multiplets of dimensions $1,5,14,30,55,\dots$
+
+Spectral theory for a Weil--Petersson metric on a moduli space is not new. Ji, Mazzeo, M\"uller and Vasy \cite{JMMV} treat the Weil--Petersson Laplacian on the Riemann moduli space of genus $\gamma>1$, proving essential self-adjointness, discreteness of the spectrum, and a Weyl law. The present setting is the instanton analogue, and differs in one structural respect. There the metric is singular, with crossing cusp-edge singularities along a normal crossing divisor, and the Laplacian is essentially self-adjoint, so the self-adjoint realization is unique. Here $(\cM_1(S^4_r),g_{L^2})$ completes to a \emph{smooth} compact manifold with boundary; the Laplacian is correspondingly \emph{not} essentially self-adjoint, and its realizations form the family of elliptic boundary conditions on the bubbling $S^4$ described in Theorem~\ref{thm:discrete}. The analysis is easier here for the same reason.
+
+\paragraph{The metric.} In $\SO(5)$-invariant cohomogeneity-one coordinates, with $x\in(0,1]$ a scale coordinate and the round $S^4$ the orbit of centers,
+\begin{equation}\label{eq:gp-metric}
+  g_{L^2} \;=\; r^2\big(\, f(x)\,dx^2 \;+\; g(x)\, g_{S^4}\,\big),
+\end{equation}
+where $g_{S^4}$ is the unit round metric and, in the normalization of \cite{GP1987,DMM1987},
+\begin{align}
+  f(x) &= \frac{4\pi^2}{(x^2-1)^4}\Big(x^4+10x^2+1 - \tfrac{12x^2(x^2+1)}{x^2-1}\ln x\Big),\label{eq:f}\\
+  g(x) &= \frac{\pi^2}{2(x^2-1)^2}\Big(x^4-8x^2+1 + \tfrac{24x^4}{x^4-1}\ln x\Big).\label{eq:g}
+\end{align}
+The point $x=1$ is a smooth interior point, the unique $\SO(5)$-invariant instanton (the center of the ball), where the $S^4$ orbit collapses with $\sqrt{g}\sim(1-x)$ and unit cap derivative (no cone angle). The limit $x\to0$ is the bubbling boundary: a round $S^4$ of radius $\sqrt{g(0)}\,r = \sqrt{\pi^2/2}\;r$ at finite $L^2$-distance, totally geodesic (the radius has vanishing normal derivative there). The metric is geodesically incomplete, with
+\begin{equation}\label{eq:geom-constants}
+  \Vol(\cM_1,g_{L^2}) = 943.393\,r^5 = 9.68486\,\pi^4 r^5,\quad
+  \Vol(\partial) = \tfrac{2}{3}\pi^6 r^4,\quad
+  \operatorname{diam_{rad}} = 3.7437\,r,
+\end{equation}
+and strictly positive, non-constant sectional curvature (isotropic value $\approx 0.2533\,r^{-2}$ at the center, decreasing toward the boundary), in agreement with \cite[Cor.~C]{GP1987}. The volume is not a recognizable closed form; the boundary $4$-volume is exactly $\tfrac23\pi^6r^4$ because $g(0)=\pi^2/2$ exactly.
+
+\begin{remark}[On a hyperbolic misidentification]\label{rmk:not-hyperbolic}
+The hyperbolic metric on the same $5$-ball is the information (Fisher--Rao) metric \cite{Info}, \emph{not} $g_{L^2}$. Being incomplete and positively curved, $g_{L^2}$ has none of the continuous $[4/r^2,\infty)$ spectrum of $\bbH^5$; its spectrum is discrete (Theorem~\ref{thm:discrete}).
+\end{remark}
+
+\section{The spectral type of the $L^2$-Laplacian}\label{sec:spectral}
+
+Let $-\Lap$ be the Laplace--Beltrami operator of $g_{L^2}$, initially on $C_c^\infty$ of the open moduli space (functions supported away from the bubbling boundary).
+
+\begin{theorem}[Discrete spectral type and Weyl law]\label{thm:discrete}
+The operator $-\Lap$ on $C_c^\infty(\cM_1(S^4_r))$ is symmetric and bounded below but not essentially self-adjoint; its self-adjoint extensions correspond to elliptic boundary conditions on the totally geodesic bounding $S^4$. Every such extension has compact resolvent, hence purely discrete spectrum $0\le\lambda_0\le\lambda_1\le\cdots\to\infty$, with leading Weyl asymptotics
+\[
+  N(\lambda)=\#\{n:\lambda_n\le\lambda\}
+  = \frac{\omega_5}{(2\pi)^5}\Vol(\overline{\cM}_1)\,\lambda^{5/2}\,(1+o(1)),
+\]
+and, under the standard non-periodicity (Ivrii) condition on the billiard flow, the two-term refinement $\;\mp\,\tfrac14\tfrac{\omega_4}{(2\pi)^4}\Vol(\partial)\,\lambda^{2}$ ($-$ Dirichlet, $+$ Neumann), where $\omega_d$ is the unit $d$-ball volume. In the normalization \eqref{eq:gp-metric} at $r=1$ the constants are $\tfrac{\omega_5}{(2\pi)^5}\Vol=0.50710$ and $\tfrac14\tfrac{\omega_4}{(2\pi)^4}\Vol(\partial)=0.50734$. There is no continuous spectrum.
+\end{theorem}
+
+\begin{proof}[Proof (sketch)]
+The metric completion $\overline{\cM}_1$ is a compact smooth manifold with boundary \cite[Cor.~C]{GP1987}; $f,g$ in \eqref{eq:f}--\eqref{eq:g} extend smoothly with finite nonzero limits at $x=0$ ($f(0)=4\pi^2$, $g(0)=\pi^2/2$), and $x=1$ is a smooth removable cap. Thus $-\Lap$ is uniformly elliptic with smooth coefficients on a compact manifold with boundary. Failure of essential self-adjointness on the interior $C_c^\infty$ and the classification of extensions by boundary conditions on $\partial\overline{\cM}_1=S^4$ are the standard boundary theory. Compactness of the resolvent follows from the compact Sobolev embedding $H^1(\overline{\cM}_1)\hookrightarrow L^2(\overline{\cM}_1)$, giving discrete spectrum. The leading Weyl term is standard; the two-term refinement is Ivrii's, valid when the set of periodic billiard trajectories has measure zero.
+\end{proof}
+
+\section{$\SO(5)$ reduction and the low spectrum}\label{sec:reduction}
+
+Because $g_{L^2}$ is $\SO(5)$-invariant of cohomogeneity one, $L^2(\cM_1)$ decomposes over the $\SO(5)$-harmonics on the orbit $S^4$. Writing an eigenfunction as $u(x)\,Y_k(\omega)$ with $Y_k$ a degree-$k$ spherical harmonic ($\Lap_{S^4}Y_k=-k(k+3)Y_k$, multiplicity $m_k=\tfrac{(2k+3)(k+1)(k+2)}{6}=1,5,14,30,55,\dots$), the eigenvalue equation $-\Lap(uY_k)=\lambda u Y_k$ becomes the regular--singular Sturm--Liouville problem
+\begin{equation}\label{eq:SL}
+  -\big(p\,u'\big)' + k(k+3)\,\sqrt{f}\,g\,u \;=\; \lambda\,w\,u,
+  \qquad p=\frac{g^2}{\sqrt f},\quad w=\sqrt{f}\,g^2,\quad x\in(0,1),
+\end{equation}
+with regularity at the center $x=1$ (where $u\sim(1-x)^k$) and the chosen elliptic condition at the boundary $x=0$. We solve \eqref{eq:SL} by linear finite elements in two discretizations that bracket the spectrum. The conforming, consistent-mass scheme is Rayleigh--Ritz, so it bounds every eigenvalue from above; the lumped-mass scheme converges from below. Both are second order. At $2.4\times10^4$ elements the two bracket each eigenvalue quoted here monotonically from either side, with enclosure width below $10^{-7}$, for instance
+\[
+  \lambda_0(-\Lap_D)\in[0.8203176,\,0.8203177],\qquad
+  \lambda_1(-\Lap_N)=0.9988386\ \ (\text{width}<10^{-9}).
+\]
+The upper bound is rigorous. The lower bound rests on the standard underestimation property of mass lumping, which we verify numerically to be operative here (the lumped values increase monotonically under refinement), so it is not certified; eigenvalues are accordingly reported as enclosures rather than as proved values. The coefficients \eqref{eq:f}--\eqref{eq:g} are only $C^1$ at $x=0$, carrying an $x^2\ln x$ term that the Neumann modes feel and the Dirichlet modes, vanishing there, do not.
+
+\begin{theorem}[Ground state, gap, and multiplet structure]\label{thm:groundstate}
+For the Friedrichs (Dirichlet) extension $-\Lap_D$ the ground state is simple, $\SO(5)$-invariant, realized by a positive eigenfunction, with (all absolute values in the normalization \eqref{eq:gp-metric})
+\[
+  \lambda_0(-\Lap_D)\;=\;0.8203176\,r^{-2}\quad(k=0).
+\]
+For the Neumann extension $-\Lap_N$ the ground state is $0$ (the constant, $k=0$), and the spectral gap is \emph{not} an $\SO(5)$-invariant mode: it is the five-fold degenerate $k=1$ mode
+\[
+  \lambda_1(-\Lap_N)\;=\;0.9988386\,r^{-2}\quad(k=1,\ \text{multiplicity }5,\ \text{vector representation of }\SO(5)),
+\]
+which sits below the first radial ($k=0$) overtone $2.0355386\,r^{-2}$. The low eigenvalues $\lambda\,r^2$ are:
+\begin{center}\small
+\begin{tabular}{@{}c c l l@{}}
+\toprule
+$k$ & $m_k$ & Dirichlet (Friedrichs), lowest $\lambda r^2$ & Neumann, lowest $\lambda r^2$\\
+\midrule
+$0$ & $1$  & $0.820318,\ 3.611916,\ 7.830235$ & $0,\ 2.035539,\ 5.544165$\\
+$1$ & $5$  & $2.180655,\ 5.667069,\ 10.584265$ & $0.998839,\ 3.742777,\ 7.948320$\\
+$2$ & $14$ & $3.938201,\ 8.125416,\ 13.743074$ & $2.397606,\ 5.851182$\\
+$3$ & $30$ & $6.096526,\ 10.986855$ & $4.199088,\ 8.361619$\\
+$4$ & $55$ & $8.657372$ & $6.404425$\\
+\bottomrule
+\end{tabular}
+\end{center}
+No eigenvalue, and no ratio of eigenvalues, matches a recognizable closed form (inverse-symbolic search against $\pi$, $\ln 2$, $\zeta(3)$ at the available precision is negative); the logarithmic terms in \eqref{eq:f}--\eqref{eq:g} make \eqref{eq:SL} non-hypergeometric, so no closed form is expected.
+\end{theorem}
+
+\begin{proof}[Proof (sketch)]
+Simplicity and positivity of the Dirichlet ground state, and its $\SO(5)$-invariance, are the Perron--Frobenius property of the Friedrichs Laplacian on a connected domain together with uniqueness of the positive ground state and invariance of the operator; a positive ground state is $\SO(5)$-fixed, hence $k=0$. The Neumann ground state is the constant. The remaining statements are the numerical solution of \eqref{eq:SL} for $k=0,\dots,4$; ordering the union of the per-$k$ spectra puts the five-dimensional $k=1$ vector multiplet at $0.9988386\,r^{-2}$, strictly below the first $k=0$ overtone. Convergence data and the closed-form search are in the ancillary computational files.
+\end{proof}
+
+\begin{remark}[Collective-coordinate quantum mechanics]\label{rmk:qm}
+In the moduli-space approximation \cite{FS2016}, slow motion on $(\cM_1,g_{L^2})$ is geodesic, and the associated quantum Hamiltonian is $-\tfrac12\Lap_{L^2}$; the eigenvalues of Theorem~\ref{thm:groundstate} are its energy levels. One qualification is essential. Here $\cM_1$ is the \emph{unframed} moduli space, of dimension five (center and scale). The collective-coordinate quantization standard in the soliton literature retains the $\mathrm{SU}(2)$ framing, and it is the framing directions that carry the spin and isospin quantum numbers; those are absent here. The spectrum below is therefore that of the unframed reduction, not the full collective-coordinate spectrum. Within that reduction, the gap being the $k=1$ vector multiplet says that the lowest excitation is a rigid translation of the center rather than a change of scale, the scale (breathing) excitation being the first $k=0$ overtone, and the $\SO(5)$ multiplet dimensions $1,5,14,30,\dots$ are the degeneracies of the levels.
+\end{remark}
+
+\section{The two-bubble $L^2$ interaction (higher-charge boundary geometry)}\label{sec:cross-term}
+
+For $k\ge2$ the $L^2$ metric is that of a compact manifold with corners, the Uhlenbeck--Donaldson compactification adding finite-distance strata $\cM_{k'}(S^4_r)$, $k'<k$; Theorem~\ref{thm:discrete} generalizes verbatim (compact metric completion $\Rightarrow$ compact resolvent) to purely discrete spectrum with the $(8k-3)/2$-dimensional Weyl law. The content for $k\ge2$ is the near-boundary geometry, governed by the $L^2$ interaction of separated bubbles, the instanton analog of the Gibbons--Manton asymptotic metric for monopoles. We record the leading interaction in closed form (as $L^2$ geometry, not spectrum).
+
+\begin{proposition}[Leading scale interaction at the maximally-bubbled corner]\label{prop:corner}
+Near the corner of $\overline{\cM}_k(S^4_r)$ where $k$ bubbles have small scales $s_1,\dots,s_k$ at distinct centers with pairwise chordal separations $R_{ij}$, the scale--scale block of $g_{L^2}$ is, to leading order,
+\[
+  \big(g_{L^2}\big)_{s_i s_j} = 16\pi^2\,\delta_{ij} + (1-\delta_{ij})\,\frac{48\pi^2 s_i s_j}{R_{ij}^2} + O\!\big((s/R)^4\big),
+\]
+the diagonal the scale-independent BPST self-norm and the off-diagonal the two-bubble interaction of Lemma~\ref{lem:cross-term}.
+\end{proposition}
+
+\begin{lemma}[Exact two-bubble scale interaction]\label{lem:cross-term}
+Let $A_1,A_2$ be BPST instantons on $\bbR^4$ with scales $s_1,s_2$, centers at separation $R$. Then
+\[
+  \Big\langle \frac{\partial A_1}{\partial s_1},\frac{\partial A_2}{\partial s_2}\Big\rangle_{L^2(\bbR^4)}
+  = 48\pi^2 s_1 s_2 \int_0^1 t(1-t)\,\frac{2X(t)-t(1-t)R^2}{X(t)^2}\,dt,
+  \quad X(t)=t(1-t)R^2+(1-t)s_1^2+t s_2^2,
+\]
+which evaluates in elementary closed form with leading asymptotic $48\pi^2 s_1s_2/R^2$ and exact next-order coefficient $-1$. (Machine-verified to $\sim2.5$ ulp against the $4$-dimensional integral.)
+\end{lemma}
+
+\begin{remark}
+The closed form is correct as an $L^2$ integral; its earlier interpretation as a function of a hyperbolic distance referred to the information metric and is not used here.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{GP1987} D.\ Groisser and T.~H.\ Parker, \emph{The Riemannian geometry of the Yang--Mills moduli space}, Comm.\ Math.\ Phys.\ \textbf{112} (1987) 663--689.
+\bibitem{DMM1987} H.\ Doi, Y.\ Matsumoto, T.\ Matumoto, \emph{An explicit formula of the metric on the moduli space of BPST-instantons over $S^4$}, in \emph{A F\^ete of Topology}, Academic Press, 1987.
+\bibitem{FS2016} G.\ Franchetti and B.~J.\ Schroers, \emph{Adiabatic dynamics of instantons on $S^4$}, Comm.\ Math.\ Phys.\ \textbf{353} (2017) 185--228; arXiv:1508.06566.
+\bibitem{JMMV} L.\ Ji, R.\ Mazzeo, W.\ M\"uller, A.\ Vasy, \emph{Spectral theory for the Weil--Petersson Laplacian on the Riemann moduli space}, arXiv:1206.4010.
+\bibitem{Info} D.\ Groisser and M.~K.\ Murray, \emph{Instantons and the information metric}, Ann.\ Global Anal.\ Geom.\ \textbf{15} (1997) 519--537; arXiv:dg-ga/9611008. For charge one the information metric is the hyperbolic metric on the $5$-ball.
+\end{thebibliography}
+
+\end{document}
