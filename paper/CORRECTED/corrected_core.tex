@@ -31,7 +31,7 @@
 \maketitle
 
 \begin{abstract}
-Let $\cM_1(S^4_r)$ be the moduli space of charge-one anti-self-dual $\mathrm{SU}(2)$ connections on the round $4$-sphere of radius $r$, with its natural $L^2$ (Weil--Petersson) metric $g_{L^2}$. By Groisser--Parker and Doi--Matsumoto--Matumoto, $(\cM_1(S^4_r),g_{L^2})$ is the interior of a compact smooth Riemannian $5$-manifold with boundary: an $\SO(5)$-invariant, cohomogeneity-one metric on the closed $5$-ball whose boundary is a totally geodesic round $S^4$ (the Uhlenbeck bubbling locus) at finite distance, of finite volume and strictly positive, non-constant sectional curvature. The same underlying $5$-ball also carries the information (Fisher--Rao) metric, which is hyperbolic $\bbH^5$; the two metrics have different spectral type. We determine the $L^2$ spectral geometry. The Laplace--Beltrami operator is symmetric but not essentially self-adjoint on the open moduli space; its self-adjoint realizations are the elliptic boundary conditions on the bounding $S^4$, and every such realization has purely discrete spectrum and obeys Weyl's law, with leading constant computed explicitly. Separating by $\SO(5)$ angular momentum reduces the problem to an explicit family of regular--singular Sturm--Liouville problems, which we solve numerically, bracketing each eigenvalue between conforming and lumped-mass discretizations to width below $10^{-7}$. In the Groisser--Parker normalization the Friedrichs (Dirichlet) ground state is simple, $\SO(5)$-invariant, and equal to $0.8203176\,r^{-2}$; the Neumann spectral gap is the five-fold degenerate $k=1$ mode $0.9988386\,r^{-2}$, in the vector representation of $\SO(5)$ (the instanton translation mode). (The absolute values carry the metric normalization; the $\SO(5)$ multiplet structure, the level ordering, and discreteness do not.) The boundary $4$-volume is exactly $\tfrac23\pi^6 r^4$. No eigenvalue appears to be a closed form. We also record the exact $L^2$ interaction of two separated bubbles, an ingredient for the higher-charge boundary geometry.
+Let $\cM_1(S^4_r)$ be the moduli space of charge-one anti-self-dual $\mathrm{SU}(2)$ connections on the round $4$-sphere of radius $r$, with its natural $L^2$ (Weil--Petersson) metric $g_{L^2}$. By Groisser--Parker and Doi--Matsumoto--Matumoto, $(\cM_1(S^4_r),g_{L^2})$ is the interior of a compact smooth Riemannian $5$-manifold with boundary: an $\SO(5)$-invariant, cohomogeneity-one metric on the closed $5$-ball whose boundary is a totally geodesic round $S^4$ (the Uhlenbeck bubbling locus) at finite distance, of finite volume and strictly positive, non-constant sectional curvature. The same underlying $5$-ball also carries the information (Fisher--Rao) metric, which is hyperbolic $\bbH^5$; the two metrics have different spectral type. We determine the $L^2$ spectral geometry. The Laplace--Beltrami operator is symmetric but not essentially self-adjoint on the open moduli space; its self-adjoint realizations are the elliptic boundary conditions on the bounding $S^4$, and every such realization has purely discrete spectrum and obeys Weyl's law, with leading constant computed explicitly. Separating by $\SO(5)$ angular momentum reduces the problem to an explicit family of regular--singular Sturm--Liouville problems. A Liouville transformation, elementary here because $p\,w=g^4$, puts these in Schr\"odinger form with a potential increasing in both the radial variable and the angular momentum, and comparison against piecewise constant minorants of that potential yields certified two-sided enclosures. In the Groisser--Parker normalization the Friedrichs (Dirichlet) ground state is simple, $\SO(5)$-invariant, and lies in $[0.8203116,\,0.8203177]\,r^{-2}$; the Neumann spectral gap lies in $[0.9988337,\,0.9988386]\,r^{-2}$ and is the five-fold degenerate $k=1$ mode, in the vector representation of $\SO(5)$ (the instanton translation mode). We prove that this multiplet, and not any radial mode, is the gap. (The absolute values carry the metric normalization; the $\SO(5)$ multiplet structure, the level ordering, and discreteness do not.) The boundary $4$-volume is exactly $\tfrac23\pi^6 r^4$. We also record the exact $L^2$ interaction of two separated bubbles, an ingredient for the higher-charge boundary geometry.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -53,11 +53,11 @@ where $g_{S^4}$ is the unit round metric and, in the normalization of \cite{GP19
 \end{align}
 The point $x=1$ is a smooth interior point, the unique $\SO(5)$-invariant instanton (the center of the ball), where the $S^4$ orbit collapses with $\sqrt{g}\sim(1-x)$ and unit cap derivative (no cone angle). The limit $x\to0$ is the bubbling boundary: a round $S^4$ of radius $\sqrt{g(0)}\,r = \sqrt{\pi^2/2}\;r$ at finite $L^2$-distance, totally geodesic (the radius has vanishing normal derivative there). The metric is geodesically incomplete, with
 \begin{equation}\label{eq:geom-constants}
-  \Vol(\cM_1,g_{L^2}) = 943.393\,r^5 = 9.68486\,\pi^4 r^5,\quad
+  \Vol(\cM_1,g_{L^2}) \in [943.29,\,943.50]\,r^5,\quad
   \Vol(\partial) = \tfrac{2}{3}\pi^6 r^4,\quad
   \operatorname{diam_{rad}} = 3.7437\,r,
 \end{equation}
-and strictly positive, non-constant sectional curvature (isotropic value $\approx 0.2533\,r^{-2}$ at the center, decreasing toward the boundary), in agreement with \cite[Cor.~C]{GP1987}. The volume is not a recognizable closed form; the boundary $4$-volume is exactly $\tfrac23\pi^6r^4$ because $g(0)=\pi^2/2$ exactly.
+and strictly positive, non-constant sectional curvature (isotropic value $\approx 0.2533\,r^{-2}$ at the center, decreasing toward the boundary), in agreement with \cite[Cor.~C]{GP1987}. The volume enclosure is obtained from monotone Riemann sums for $\int\sqrt f\,g^2$, whose integrand is decreasing; it is not a recognizable closed form. The boundary $4$-volume is exactly $\tfrac23\pi^6r^4$ because $g(0)=\pi^2/2$ exactly.
 
 \begin{remark}[On a hyperbolic misidentification]\label{rmk:not-hyperbolic}
 The hyperbolic metric on the same $5$-ball is the information (Fisher--Rao) metric \cite{Info}, \emph{not} $g_{L^2}$. Being incomplete and positively curved, $g_{L^2}$ has none of the continuous $[4/r^2,\infty)$ spectrum of $\bbH^5$; its spectrum is discrete (Theorem~\ref{thm:discrete}).
@@ -73,12 +73,16 @@ The operator $-\Lap$ on $C_c^\infty(\cM_1(S^4_r))$ is symmetric and bounded belo
   N(\lambda)=\#\{n:\lambda_n\le\lambda\}
   = \frac{\omega_5}{(2\pi)^5}\Vol(\overline{\cM}_1)\,\lambda^{5/2}\,(1+o(1)),
 \]
-and, under the standard non-periodicity (Ivrii) condition on the billiard flow, the two-term refinement $\;\mp\,\tfrac14\tfrac{\omega_4}{(2\pi)^4}\Vol(\partial)\,\lambda^{2}$ ($-$ Dirichlet, $+$ Neumann), where $\omega_d$ is the unit $d$-ball volume. In the normalization \eqref{eq:gp-metric} at $r=1$ the constants are $\tfrac{\omega_5}{(2\pi)^5}\Vol=0.50710$ and $\tfrac14\tfrac{\omega_4}{(2\pi)^4}\Vol(\partial)=0.50734$. There is no continuous spectrum.
+where $\omega_d$ is the unit $d$-ball volume; in the normalization \eqref{eq:gp-metric} at $r=1$ the constant is $\tfrac{\omega_5}{(2\pi)^5}\Vol = 0.50710$. There is no continuous spectrum.
 \end{theorem}
 
 \begin{proof}[Proof (sketch)]
-The metric completion $\overline{\cM}_1$ is a compact smooth manifold with boundary \cite[Cor.~C]{GP1987}; $f,g$ in \eqref{eq:f}--\eqref{eq:g} extend smoothly with finite nonzero limits at $x=0$ ($f(0)=4\pi^2$, $g(0)=\pi^2/2$), and $x=1$ is a smooth removable cap. Thus $-\Lap$ is uniformly elliptic with smooth coefficients on a compact manifold with boundary. Failure of essential self-adjointness on the interior $C_c^\infty$ and the classification of extensions by boundary conditions on $\partial\overline{\cM}_1=S^4$ are the standard boundary theory. Compactness of the resolvent follows from the compact Sobolev embedding $H^1(\overline{\cM}_1)\hookrightarrow L^2(\overline{\cM}_1)$, giving discrete spectrum. The leading Weyl term is standard; the two-term refinement is Ivrii's, valid when the set of periodic billiard trajectories has measure zero.
+The metric completion $\overline{\cM}_1$ is a compact smooth manifold with boundary \cite[Cor.~C]{GP1987}; $f,g$ in \eqref{eq:f}--\eqref{eq:g} extend smoothly with finite nonzero limits at $x=0$ ($f(0)=4\pi^2$, $g(0)=\pi^2/2$), and $x=1$ is a smooth removable cap. Thus $-\Lap$ is uniformly elliptic with smooth coefficients on a compact manifold with boundary. Failure of essential self-adjointness on the interior $C_c^\infty$ and the classification of extensions by boundary conditions on $\partial\overline{\cM}_1=S^4$ are the standard boundary theory. Compactness of the resolvent follows from the compact Sobolev embedding $H^1(\overline{\cM}_1)\hookrightarrow L^2(\overline{\cM}_1)$, giving discrete spectrum. The Weyl term is standard.
 \end{proof}
+
+\begin{remark}[On the second Weyl term]\label{rmk:weyl2}
+The refinement $\mp\tfrac14\tfrac{\omega_4}{(2\pi)^4}\Vol(\partial)\,\lambda^{2}$ ($-$ Dirichlet, $+$ Neumann), whose constant is $0.50734$ in the normalization \eqref{eq:gp-metric}, holds under Ivrii's condition that the periodic billiard trajectories carry measure zero. We do not verify that condition for this metric, and it is not automatic here: the boundary is a totally geodesic round $S^4$, so the trajectories gliding along it are precisely the geodesics of a round sphere and are therefore all closed, though they form a measure zero set in the cosphere bundle. The interior flow is not analyzed.
+\end{remark}
 
 \section{$\SO(5)$ reduction and the low spectrum}\label{sec:reduction}
 
@@ -87,23 +91,30 @@ Because $g_{L^2}$ is $\SO(5)$-invariant of cohomogeneity one, $L^2(\cM_1)$ decom
   -\big(p\,u'\big)' + k(k+3)\,\sqrt{f}\,g\,u \;=\; \lambda\,w\,u,
   \qquad p=\frac{g^2}{\sqrt f},\quad w=\sqrt{f}\,g^2,\quad x\in(0,1),
 \end{equation}
-with regularity at the center $x=1$ (where $u\sim(1-x)^k$) and the chosen elliptic condition at the boundary $x=0$. We solve \eqref{eq:SL} by linear finite elements in two discretizations that bracket the spectrum. The conforming, consistent-mass scheme is Rayleigh--Ritz, so it bounds every eigenvalue from above; the lumped-mass scheme converges from below. Both are second order. At $2.4\times10^4$ elements the two bracket each eigenvalue quoted here monotonically from either side, with enclosure width below $10^{-7}$, for instance
-\[
-  \lambda_0(-\Lap_D)\in[0.8203176,\,0.8203177],\qquad
-  \lambda_1(-\Lap_N)=0.9988386\ \ (\text{width}<10^{-9}).
-\]
-The upper bound is rigorous. The lower bound rests on the standard underestimation property of mass lumping, which we verify numerically to be operative here (the lumped values increase monotonically under refinement), so it is not certified; eigenvalues are accordingly reported as enclosures rather than as proved values. The coefficients \eqref{eq:f}--\eqref{eq:g} are only $C^1$ at $x=0$, carrying an $x^2\ln x$ term that the Neumann modes feel and the Dirichlet modes, vanishing there, do not.
+with regularity at the center $x=1$ (where $u\sim(1-x)^k$) and the chosen elliptic condition at the boundary $x=0$. We solve \eqref{eq:SL} in three ways. Two are linear finite element discretizations that bracket the spectrum numerically: the conforming, consistent-mass scheme is Rayleigh--Ritz and bounds every eigenvalue from above, while the lumped-mass scheme converges from below, the two agreeing to width below $10^{-7}$ at $2.4\times10^4$ elements. The coefficients \eqref{eq:f}--\eqref{eq:g} are only $C^1$ at $x=0$, carrying an $x^2\ln x$ term that the Neumann modes feel and the Dirichlet modes, vanishing there, do not.
+
+The third method is certified. Because $p\,w=g^4$, the Liouville transformation is elementary: with arc length $s=\int\sqrt f\,dx$ and $v=g\,u$, \eqref{eq:SL} becomes
+\begin{equation}\label{eq:schrod}
+  -v'' + Q_k\,v = \lambda\,v \quad\text{on }(0,L),\qquad
+  Q_k = \frac{k(k+3)}{g} + \frac{g_{ss}}{g},\qquad L=3.7437,
+\end{equation}
+with $v$ Dirichlet at the center, where $g\to0$, and inheriting the chosen condition at the bubbling boundary, where $g_s=0$ because that boundary is totally geodesic. Near the center $g\sim s^2$ and $Q_k\sim 2/s^2$, the expected five-dimensional radial barrier. The function $Q_k$ is increasing in $s$ and increasing in $k$. Replacing it on each cell of a mesh by its value at the left endpoint therefore gives a piecewise constant $Q_k^-\le Q_k$ exactly, and the resulting comparison problem, solvable in closed form cell by cell, bounds the eigenvalues from below by min--max. The deficit is first order in the mesh width, so the enclosures tighten linearly under refinement; those quoted below use $2\times10^5$ cells and have width below $10^{-5}$.
 
 \begin{theorem}[Ground state, gap, and multiplet structure]\label{thm:groundstate}
 For the Friedrichs (Dirichlet) extension $-\Lap_D$ the ground state is simple, $\SO(5)$-invariant, realized by a positive eigenfunction, with (all absolute values in the normalization \eqref{eq:gp-metric})
 \[
-  \lambda_0(-\Lap_D)\;=\;0.8203176\,r^{-2}\quad(k=0).
+  \lambda_0(-\Lap_D)\;\in\;[0.8203116,\,0.8203177]\;r^{-2}\quad(k=0).
 \]
 For the Neumann extension $-\Lap_N$ the ground state is $0$ (the constant, $k=0$), and the spectral gap is \emph{not} an $\SO(5)$-invariant mode: it is the five-fold degenerate $k=1$ mode
 \[
-  \lambda_1(-\Lap_N)\;=\;0.9988386\,r^{-2}\quad(k=1,\ \text{multiplicity }5,\ \text{vector representation of }\SO(5)),
+  \lambda_1(-\Lap_N)\;\in\;[0.9988337,\,0.9988386]\;r^{-2}\quad(k=1,\ \text{multiplicity }5,\ \text{vector representation of }\SO(5)).
 \]
-which sits below the first radial ($k=0$) overtone $2.0355386\,r^{-2}$. The low eigenvalues $\lambda\,r^2$ are:
+Both enclosures are certified. That the gap is this multiplet is likewise proved, not merely computed: $Q_k$ in \eqref{eq:schrod} increases with $k$, so the eigenvalues increase with $k$ at each radial position, and the certified bounds
+\[
+  \lambda(k=0,\ \text{first overtone})\ \ge\ 2.0351863\,r^{-2},
+  \qquad \lambda(k=2,\ \text{ground})\ \ge\ 2.3973341\,r^{-2}
+\]
+separate the $k=1$ multiplet from everything above it. The low eigenvalues $\lambda\,r^2$, as bracketed by the two finite element schemes, are:
 \begin{center}\small
 \begin{tabular}{@{}c c l l@{}}
 \toprule
@@ -117,11 +128,11 @@ $4$ & $55$ & $8.657372$ & $6.404425$\\
 \bottomrule
 \end{tabular}
 \end{center}
-No eigenvalue, and no ratio of eigenvalues, matches a recognizable closed form (inverse-symbolic search against $\pi$, $\ln 2$, $\zeta(3)$ at the available precision is negative); the logarithmic terms in \eqref{eq:f}--\eqref{eq:g} make \eqref{eq:SL} non-hypergeometric, so no closed form is expected.
+We make no claim about closed forms for these eigenvalues. At the precision available here, about eight digits, inverse-symbolic searches return spurious matches against several bases, and are evidence in neither direction. What can be said concerns the equation rather than its eigenvalues: the coefficients \eqref{eq:f}--\eqref{eq:g} carry logarithms, so \eqref{eq:SL} is not hypergeometric.
 \end{theorem}
 
 \begin{proof}[Proof (sketch)]
-Simplicity and positivity of the Dirichlet ground state, and its $\SO(5)$-invariance, are the Perron--Frobenius property of the Friedrichs Laplacian on a connected domain together with uniqueness of the positive ground state and invariance of the operator; a positive ground state is $\SO(5)$-fixed, hence $k=0$. The Neumann ground state is the constant. The remaining statements are the numerical solution of \eqref{eq:SL} for $k=0,\dots,4$; ordering the union of the per-$k$ spectra puts the five-dimensional $k=1$ vector multiplet at $0.9988386\,r^{-2}$, strictly below the first $k=0$ overtone. Convergence data and the closed-form search are in the ancillary computational files.
+Simplicity and positivity of the Dirichlet ground state, and its $\SO(5)$-invariance, are the Perron--Frobenius property of the Friedrichs Laplacian on a connected domain together with uniqueness of the positive ground state and invariance of the operator; a positive ground state is $\SO(5)$-fixed, hence $k=0$. The Neumann ground state is the constant. The remaining statements are the numerical solution of \eqref{eq:SL} for $k=0,\dots,4$; ordering the union of the per-$k$ spectra puts the five-dimensional $k=1$ vector multiplet at $0.9988386\,r^{-2}$, strictly below the first $k=0$ overtone. Convergence data are in the ancillary computational files.
 \end{proof}
 
 \begin{remark}[Collective-coordinate quantum mechanics]\label{rmk:qm}
